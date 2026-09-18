@@ -3,1327 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click&EarnPK — Click • Earn • Withdraw</title>
+    <title>Click & Earn PK</title>
+    
+    <!-- EmailJS SDK (Free Frontend Email Sender) -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- Cloudflare Turnstile Captcha Script -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
     <style>
-        :root {
-            --primary: #7c3aed;
-            --primary-dark: #5b21b6;
-            --primary-light: #8b5cf6;
-            --accent: #a78bfa;
-            --bg-main: #0f0a1e;
-            --bg-card: #1a1033;
-            --bg-card2: #221644;
-            --text: #f3f0ff;
-            --text-muted: #a78bfa;
-            --border: #3b1fa8;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --gradient: linear-gradient(135deg, #7c3aed, #4f46e5);
-            --gradient2: linear-gradient(135deg, #5b21b6, #7c3aed, #a78bfa);
-            --shadow: 0 8px 32px rgba(124, 58, 237, 0.3);
-            --shadow2: 0 4px 15px rgba(124, 58, 237, 0.2);
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-main);
-            color: var(--text);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-main); }
-        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
-
-        .page { display: none; min-height: 100vh; }
-        .page.active { display: block; }
-
-        /* NAVBAR */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(15, 10, 30, 0.97);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            padding: 0 20px;
-        }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 70px;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-        .logo-text {
-            font-size: 22px;
-            font-weight: 800;
-            background: var(--gradient2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            list-style: none;
-        }
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: color 0.3s;
-            position: relative;
-        }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-        .nav-links a:hover { color: var(--text); }
-        .nav-links a:hover::after { width: 100%; }
-        .nav-links a.active { color: var(--accent); }
-        .nav-links a.active::after { width: 100%; }
-        .nav-buttons { display: flex; gap: 10px; align-items: center; }
-
-        .btn {
-            padding: 10px 22px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .btn-primary {
-            background: var(--gradient);
-            color: white;
-            box-shadow: var(--shadow2);
-        }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-        .btn-outline {
-            background: transparent;
-            color: var(--accent);
-            border: 2px solid var(--primary);
-        }
-        .btn-outline:hover { background: var(--primary); color: white; }
-        .btn-lg { padding: 14px 32px; font-size: 16px; border-radius: 12px; }
-        .btn-success {
-            background: linear-gradient(135deg, #059669, #10b981);
-            color: white;
-        }
-        .btn-success:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(16,185,129,0.3); }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 5px;
-        }
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 3px;
-            transition: all 0.3s;
-        }
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 8px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -8px); }
-
-        .mobile-nav {
-            display: none;
-            position: fixed;
-            top: 70px;
-            left: 0;
-            width: 100%;
-            background: rgba(15, 10, 30, 0.98);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 999;
-            padding: 20px;
-            flex-direction: column;
-            gap: 5px;
-        }
-        .mobile-nav.open { display: flex; }
-        .mobile-nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 16px;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(59,31,168,0.3);
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        .mobile-nav a:hover { color: var(--accent); }
-
-        /* HERO */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 100px 20px 60px;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at center, rgba(124,58,237,0.15) 0%, transparent 70%);
-        }
-        .hero-orb1 {
-            position: absolute;
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(124,58,237,0.2), transparent);
-            border-radius: 50%;
-            top: -100px; right: -100px;
-            animation: float 6s ease-in-out infinite;
-        }
-        .hero-orb2 {
-            position: absolute;
-            width: 300px; height: 300px;
-            background: radial-gradient(circle, rgba(79,70,229,0.15), transparent);
-            border-radius: 50%;
-            bottom: -50px; left: -50px;
-            animation: float 8s ease-in-out infinite reverse;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        .hero-content { position: relative; z-index: 1; max-width: 800px; }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(124,58,237,0.2);
-            border: 1px solid var(--border);
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 14px;
-            color: var(--accent);
-            margin-bottom: 25px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(124,58,237,0.4); }
-            50% { box-shadow: 0 0 0 10px rgba(124,58,237,0); }
-        }
-        .hero h1 {
-            font-size: clamp(36px, 6vw, 72px);
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 20px;
-        }
-        .gradient-text {
-            background: var(--gradient2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero p {
-            font-size: clamp(16px, 2vw, 20px);
-            color: var(--text-muted);
-            margin-bottom: 35px;
-            line-height: 1.7;
-        }
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 60px;
-            flex-wrap: wrap;
-        }
-        .stat-item { text-align: center; }
-        .stat-number {
-            font-size: 32px;
-            font-weight: 800;
-            background: var(--gradient2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 5px; }
-
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 25px;
-            transition: all 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: var(--shadow);
-        }
-        .card-icon {
-            width: 55px; height: 55px;
-            background: var(--gradient);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-
-        .section { padding: 80px 20px; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-tag {
-            display: inline-block;
-            background: rgba(124,58,237,0.2);
-            color: var(--accent);
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            border: 1px solid var(--border);
-        }
-        .section-title {
-            font-size: clamp(28px, 4vw, 48px);
-            font-weight: 800;
-            margin-bottom: 15px;
-        }
-        .section-desc {
-            color: var(--text-muted);
-            font-size: 17px;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        .steps { display: flex; justify-content: center; flex-wrap: wrap; }
-        .step {
-            text-align: center;
-            padding: 30px 20px;
-            flex: 1;
-            min-width: 180px;
-            max-width: 230px;
-            position: relative;
-        }
-        .step-number {
-            width: 60px; height: 60px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            font-weight: 800;
-            margin: 0 auto 15px;
-        }
-        .step:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            top: 60px; right: -15px;
-            width: 30px; height: 2px;
-            background: var(--gradient);
-            opacity: 0.5;
-        }
-
-        /* EARN CARDS */
-        .earn-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px 25px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            transition: all 0.3s;
-        }
-        .earn-card:hover {
-            border-color: var(--primary);
-            box-shadow: var(--shadow);
-        }
-        .earn-amount { font-size: 26px; font-weight: 800; color: var(--success); }
-
-        /* FORMS */
-        .form-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 480px;
-            margin: 0 auto;
-        }
-        .form-group { margin-bottom: 20px; }
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            background: var(--bg-main);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 14px 16px;
-            color: var(--text);
-            font-size: 15px;
-            outline: none;
-            transition: border-color 0.3s;
-            font-family: inherit;
-        }
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(124,58,237,0.15);
-        }
-        .form-group input::placeholder { color: rgba(167,139,250,0.4); }
-        .form-group select option { background: var(--bg-card); }
-
-        /* TABLE */
-        .table-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        .table-box table { width: 100%; border-collapse: collapse; }
-        .table-box th {
-            background: var(--bg-card2);
-            padding: 14px 20px;
-            text-align: left;
-            font-size: 12px;
-            color: var(--text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .table-box td {
-            padding: 14px 20px;
-            border-top: 1px solid rgba(59,31,168,0.3);
-            font-size: 14px;
-        }
-        .table-box tr:hover td { background: rgba(124,58,237,0.05); }
-
-        .badge {
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .badge-success { background: rgba(16,185,129,0.2); color: var(--success); }
-        .badge-warning { background: rgba(245,158,11,0.2); color: var(--warning); }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 20px;
-        }
-        .stat-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 22px 18px;
-            text-align: center;
-        }
-        .stat-box .number {
-            font-size: 30px;
-            font-weight: 800;
-            background: var(--gradient2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* FOOTER */
-        .footer {
-            background: var(--bg-card);
-            border-top: 1px solid var(--border);
-            padding: 60px 20px 20px;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .footer-brand p { color: var(--text-muted); font-size: 14px; line-height: 1.8; margin-top: 15px; }
-        .footer-links h4 { font-size: 15px; font-weight: 700; margin-bottom: 20px; color: var(--accent); }
-        .footer-links ul { list-style: none; }
-        .footer-links ul li { margin-bottom: 10px; }
-        .footer-links ul li a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 14px;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        .footer-links ul li a:hover { color: var(--text); }
-        .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            margin-top: 40px;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
-        /* TOAST */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--bg-card2);
-            border: 1px solid var(--primary);
-            color: var(--text);
-            padding: 15px 25px;
-            border-radius: 12px;
-            font-size: 14px;
-            z-index: 9999;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.4s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            max-width: 300px;
-        }
-        .toast.show { transform: translateY(0); opacity: 1; }
-
-        .page-header {
-            padding: 120px 20px 60px;
-            text-align: center;
-            background: radial-gradient(ellipse at center, rgba(124,58,237,0.15) 0%, transparent 70%);
-        }
-
-        .balance-bar {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 22px 28px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-        .balance-label { color: var(--text-muted); font-size: 13px; margin-bottom: 4px; }
-        .balance-value { font-size: 26px; font-weight: 800; }
-
-        .ad-done { opacity: 0.65; }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .nav-buttons { display: none; }
-            .hamburger { display: flex; }
-            .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
-            .step::after { display: none; }
-            .form-box { padding: 25px 20px; }
-            .table-box { overflow-x: auto; }
-            .earn-card { flex-wrap: wrap; }
-            .balance-bar { flex-direction: column; align-items: flex-start; }
-        }
-        @media (max-width: 480px) {
-            .footer-grid { grid-template-columns: 1fr; }
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .hero-stats { gap: 20px; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 480px; background: #1e293b; border-radius: 12px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); text-align: center; }
+        h1 { color: #38bdf8; font-size: 24px; margin-bottom: 5px; }
+        .card { background: #334155; padding: 15px; border-radius: 8px; margin: 15px 0; border: 1px solid #475569; }
+        .balance-amount { font-size: 28px; font-weight: bold; color: #22c55e; }
+        input, select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; }
+        button { background: #22c55e; color: #fff; border: none; padding: 12px; font-weight: bold; width: 100%; border-radius: 6px; cursor: pointer; font-size: 15px; margin-top: 5px; }
+        button:hover { opacity: 0.9; }
+        button:disabled { background: #64748b; cursor: not-allowed; }
+        .ad-box { background: #0f172a; border: 2px dashed #38bdf8; padding: 15px; margin: 12px 0; border-radius: 8px; }
+        #timer-box { background: #ef4444; color: #fff; font-weight: bold; padding: 10px; border-radius: 6px; margin: 15px 0; }
+        .hidden { display: none !important; }
+        .whatsapp-btn { background: #25d366; color: white; text-decoration: none; display: block; padding: 12px; border-radius: 6px; font-weight: bold; margin-top: 10px; }
+        .notice { font-size: 12px; color: #94a3b8; margin-top: 5px; }
+        .link-btn { background: none; color: #38bdf8; border: none; text-decoration: underline; cursor: pointer; width: auto; padding: 0; font-size: 13px; }
     </style>
 </head>
 <body>
 
-<!-- ===== NAVBAR ===== -->
-<nav class="navbar">
-    <div class="nav-container">
-        <div class="logo" onclick="showPage('home')">
-            <div class="logo-icon">💜</div>
-            <span class="logo-text">Click&EarnPK</span>
-        </div>
-        <ul class="nav-links">
-            <li><a onclick="showPage('home')"     id="nav-home"     class="active">Home</a></li>
-            <li><a onclick="showPage('earn')"     id="nav-earn">Earn</a></li>
-            <li><a onclick="showPage('withdraw')" id="nav-withdraw">Withdraw</a></li>
-            <li><a onclick="showPage('owner')"    id="nav-owner">Owner Console</a></li>
-        </ul>
-        <div class="nav-buttons" id="navAuthBtns">
-            <button class="btn btn-outline" onclick="showPage('login')">Login</button>
-            <button class="btn btn-primary" onclick="handleStartEarning()">Start Earning</button>
-        </div>
-        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-            <span></span><span></span><span></span>
-        </div>
-    </div>
-</nav>
+<div class="container">
+    <h1>Click & Earn PK</h1>
+    <p class="notice">Watch ads for 10 seconds & earn cash</p>
 
-<!-- MOBILE NAV -->
-<div class="mobile-nav" id="mobileNav">
-    <a onclick="showPage('home');closeMobile()">🏠 Home</a>
-    <a onclick="showPage('earn');closeMobile()">💰 Earn</a>
-    <a onclick="showPage('withdraw');closeMobile()">💳 Withdraw</a>
-    <a onclick="showPage('owner');closeMobile()">🔐 Owner Console</a>
-    <a onclick="showPage('login');closeMobile()" id="mobileNavLogin">🔐 Login</a>
-    <a onclick="handleStartEarning();closeMobile()" id="mobileNavReg">🚀 Start Earning</a>
-</div>
-
-<!-- ==================== HOME PAGE ==================== -->
-<div class="page active" id="page-home">
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-orb1"></div>
-        <div class="hero-orb2"></div>
-        <div class="hero-content">
-            <div class="hero-badge">🚀 Pakistan • Rewards Platform</div>
-            <h1>Earn <span class="gradient-text">Real Money</span><br>From Your Clicks</h1>
-            <p>Create an account, view available earning tasks and track your balance.<br>Get ₨10 per click & withdraw via JazzCash, Easypaisa!</p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary btn-lg" onclick="handleStartEarning()">🚀 Start Earning Free</button>
-            </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <div class="stat-number">50,000+</div>
-                    <div class="stat-label">Active Users</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">₨2.5M+</div>
-                    <div class="stat-label">Total Paid</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">₨10</div>
-                    <div class="stat-label">Per Click</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">Support</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section class="section" style="background:var(--bg-card);">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">⚡ Simple Process</span>
-                <h2 class="section-title">How It <span class="gradient-text">Works</span></h2>
-                <p class="section-desc">Start earning in just 3 easy steps</p>
-            </div>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Register</h3>
-                    <p style="color:var(--text-muted);font-size:14px;margin-top:10px;">Create free account in 30 seconds</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Click Ads</h3>
-                    <p style="color:var(--text-muted);font-size:14px;margin-top:10px;">Visit ad links & earn ₨10 per click (10s view requirement)</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Withdraw</h3>
-                    <p style="color:var(--text-muted);font-size:14px;margin-top:10px;">Transfer to JazzCash or Easypaisa</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">✨ Features</span>
-                <h2 class="section-title">Why Choose <span class="gradient-text">Click&EarnPK?</span></h2>
-            </div>
-            <div class="grid-3">
-                <div class="card">
-                    <div class="card-icon">💰</div>
-                    <h3>Instant Earning</h3>
-                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Earn ₨10 on every valid click. Balance updates after timer completes.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">📱</div>
-                    <h3>Easy Withdrawal</h3>
-                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Withdraw via JazzCash, Easypaisa, Bank Transfer anytime.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🔒</div>
-                    <h3>Account Controls</h3>
-                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Production accounts require secure server-side authentication and storage.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="logo" onclick="showPage('home')" style="margin-bottom:8px;">
-                    <div class="logo-icon">💜</div>
-                    <span class="logo-text">Click&EarnPK</span>
-                </div>
-                <p>A simple rewards dashboard for Pakistani users.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Platform</h4>
-                <ul>
-                    <li><a onclick="showPage('earn')">Earn Money</a></li>
-                    <li><a onclick="showPage('withdraw')">Withdraw</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Account</h4>
-                <ul>
-                    <li><a onclick="showPage('login')">Login</a></li>
-                    <li><a onclick="showPage('register')">Register</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 Click&EarnPK | Independent project</p>
-        </div>
-    </footer>
-</div>
-
-<!-- ==================== OWNER PANEL ==================== -->
-<div class="page" id="page-owner">
-    <div class="page-header">
-        <span class="section-tag">🔐 Owner Console</span>
-        <h1 class="section-title">Owner <span class="gradient-text">Dashboard</span></h1>
-    </div>
-    <section style="padding:0 20px 80px;">
-        <div class="container grid-3">
-            <div class="stat-box"><div class="number" id="ownerUsers">1</div><div style="color:var(--text-muted);font-size:13px;">Registered users</div></div>
-            <div class="stat-box"><div class="number" id="ownerPending">0</div><div style="color:var(--text-muted);font-size:13px;">Pending withdrawals</div></div>
-            <div class="stat-box"><div class="number" id="ownerPaid">0</div><div style="color:var(--text-muted);font-size:13px;">Marked paid</div></div>
-        </div>
-        <div class="container" style="margin-top:25px;">
-            <div class="table-box">
-                <div style="padding:18px 22px;border-bottom:1px solid var(--border);">
-                    <h3>Withdrawal Requests Queue</h3>
-                </div>
-                <table style="width:100%;">
-                    <thead>
-                        <tr>
-                            <th>User</th>
-                            <th>Method</th>
-                            <th>Account</th>
-                            <th>Amount</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ownerWdTable">
-                        <tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:20px;">No pending requests</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- ==================== VERIFY PAGE ==================== -->
-<div class="page" id="page-verify">
-    <div class="page-header">
-        <span class="section-tag">📧 Email Verification</span>
-        <h1 class="section-title">Verify your <span class="gradient-text">Gmail</span></h1>
-        <p style="color:var(--text-muted);font-size:16px;">A verification code was sent to <strong id="verifyEmail">your email</strong>.</p>
-    </div>
-    <section style="padding:0 20px 80px;">
-        <div class="form-box">
-            <div style="background:rgba(124,58,237,0.15);border:1px solid var(--primary);border-radius:10px;padding:12px;margin-bottom:20px;text-align:center;font-size:14px;">
-                📩 Verification Code: <strong id="demoOtpCode" style="color:var(--accent);font-size:18px;letter-spacing:2px;">---</strong>
-            </div>
-            <div class="form-group">
-                <label>Enter 6-digit verification code</label>
-                <input id="verifyCode" inputmode="numeric" maxlength="6" placeholder="Enter code above">
-            </div>
-            <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;" onclick="verifySignup()">Verify & Create Account</button>
-        </div>
-    </section>
-</div>
-
-<!-- ==================== EARN PAGE ==================== -->
-<div class="page" id="page-earn">
-    <div class="page-header">
-        <span class="section-tag">💰 Earning Center</span>
-        <h1 class="section-title" style="margin-top:15px;">Click Ads & <span class="gradient-text">Earn Money</span></h1>
-        <p style="color:var(--text-muted);font-size:16px;">Complete eligible earning tasks and track your balance</p>
+    <!-- 1. REGISTRATION FORM -->
+    <div id="register-section" class="card">
+        <h3>Create an Account</h3>
+        <input type="text" id="reg-name" placeholder="Full Name">
+        <input type="email" id="reg-email" placeholder="Email Address">
+        <input type="password" id="reg-password" placeholder="Password">
+        <button onclick="handleRegister()">Sign Up & Send Code</button>
+        <p class="notice">Already have an account? <button class="link-btn" onclick="showView('login-section')">Login here</button></p>
     </div>
 
-    <section style="padding:0 20px 80px;">
-        <div class="container">
-            <div class="balance-bar">
-                <div style="display:flex;gap:35px;flex-wrap:wrap;">
-                    <div>
-                        <div class="balance-label">Today's Earning</div>
-                        <div class="balance-value" id="todayEarn" style="color:var(--success);">₨0.00</div>
-                    </div>
-                    <div>
-                        <div class="balance-label">Total Clicks</div>
-                        <div class="balance-value" id="totalClicks" style="color:var(--accent);">0</div>
-                    </div>
-                    <div>
-                        <div class="balance-label">Available Balance</div>
-                        <div class="balance-value" id="balance" style="background:var(--gradient2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">₨0.00</div>
-                    </div>
-                </div>
-                <button class="btn btn-success" onclick="showPage('withdraw')">💳 Withdraw Now</button>
+    <!-- 2. EMAIL VERIFICATION (OTP) FORM -->
+    <div id="verify-section" class="card hidden">
+        <h3>Verify Email Address</h3>
+        <p class="notice">Enter the 6-digit code sent to your email inbox:</p>
+        <input type="text" id="otp-input" maxlength="6" placeholder="Enter 6-Digit OTP">
+        <button onclick="handleVerifyOtp()">Verify & Complete Signup</button>
+    </div>
+
+    <!-- 3. LOGIN FORM -->
+    <div id="login-section" class="card hidden">
+        <h3>Account Login</h3>
+        <input type="email" id="login-email" placeholder="Email Address">
+        <input type="password" id="login-password" placeholder="Password">
+        <button onclick="handleLogin()" style="background:#3b82f6;">Login to Dashboard</button>
+        <p class="notice">Need an account? <button class="link-btn" onclick="showView('register-section')">Register here</button></p>
+    </div>
+
+    <!-- 4. MAIN USER DASHBOARD -->
+    <div id="dashboard-section" class="hidden">
+        <div class="card">
+            <div>Welcome, <b id="user-display-name">User</b></div>
+            <div>Current Balance</div>
+            <div class="balance-amount">PKR <span id="user-balance">0.00</span></div>
+            <div style="margin-top:5px; font-size:13px;">Ads Watched: <span id="ads-count">0</span></div>
+            <button onclick="handleLogout()" style="background:#ef4444; padding:6px; margin-top:10px; font-size:12px;">Logout</button>
+        </div>
+
+        <!-- STRICT TIMER BANNER -->
+        <div id="timer-box" class="hidden">
+            Stay on this tab! Viewing Ad: <span id="timer-seconds">10</span>s
+        </div>
+
+        <!-- ADS AREA -->
+        <div id="ads-section">
+            <h3>Available Sponsorship Ads</h3>
+            
+            <div class="ad-box" id="ad-unit-1">
+                <h4>Sponsor Ad #1</h4>
+                <button id="btn-ad-1" onclick="startAdTimer(1)">Watch Ad (10 Sec)</button>
             </div>
 
-            <div style="background:rgba(124,58,237,0.1);border:1px solid var(--border);border-radius:12px;padding:14px 20px;text-align:center;margin-bottom:28px;">
-                <p style="color:var(--text-muted);font-size:14px;">
-                    🔄 Ads refresh in: <strong style="color:var(--accent);font-size:16px;" id="refreshTimer">--:--:--</strong>
+            <div class="ad-box" id="ad-unit-2">
+                <h4>Sponsor Ad #2</h4>
+                <button id="btn-ad-2" onclick="startAdTimer(2)">Watch Ad (10 Sec)</button>
+            </div>
+        </div>
+
+        <!-- MONETIZED CAPTCHA SECTION -->
+        <div id="captcha-section" class="card hidden">
+            <h3>Solve Captcha to Claim Reward</h3>
+            <p class="notice">Click below to open the sponsor link before solving:</p>
+
+            <button onclick="openMonetagAd()" style="background: #0ea5e9; margin-bottom: 12px;">
+                1. Open Sponsor Verification Link
+            </button>
+
+            <!-- Turnstile Widget -->
+            <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-callback="onCaptchaSolved"></div>
+        </div>
+
+        <hr style="border-color: #334155; margin: 25px 0;">
+
+        <!-- GATED WITHDRAWAL SECTION -->
+        <div id="withdrawal-section">
+            <h3>Withdraw Earnings</h3>
+            <p class="notice">Minimum Cashout Threshold: PKR 500.00</p>
+
+            <!-- LOCKED STATE -->
+            <div id="withdraw-locked">
+                <button disabled>Withdrawal Locked (Reach PKR 500)</button>
+            </div>
+
+            <!-- UNLOCKED STATE (Shows WhatsApp details) -->
+            <div id="withdraw-unlocked" class="hidden" style="background:#064e3b; padding:15px; border-radius:8px;">
+                <p style="color:#4ade80; font-weight:bold; margin:0 0 8px 0;">Threshold Reached!</p>
+                <p style="font-size:14px; margin:0;">Contact the owner on WhatsApp to process your cashout request:</p>
+                
+                <p style="font-size:18px; font-weight:bold; color:#fff; margin:10px 0 0 0;">
+                    WhatsApp: +92 340 4876414
                 </p>
-            </div>
 
-            <h2 style="margin-bottom:20px;font-size:20px;">🔥 Available Ads (15 slots)</h2>
-
-            <div style="display:flex;flex-direction:column;gap:14px;">
-                <script>
-                    for(let i=1; i<=15; i++){
-                        document.write(`
-                        <div class="earn-card" id="ad-${i}">
-                            <div style="font-size:36px;flex-shrink:0;">🎯</div>
-                            <div style="flex:1;min-width:0;">
-                                <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Monetized Ad Link #${i}</div>
-                                <div style="color:var(--text-muted);font-size:13px;">View offer for 10s to earn reward</div>
-                            </div>
-                            <div style="text-align:right;flex-shrink:0;">
-                                <div class="earn-amount">+₨10</div>
-                                <button class="btn btn-primary visit-btn" id="btn-ad-${i}" style="margin-top:10px;padding:8px 16px;font-size:13px;" onclick="openEarningTask(${i})">Open ➡️</button>
-                            </div>
-                        </div>`);
-                    }
-                </script>
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- ==================== WITHDRAW PAGE ==================== -->
-<div class="page" id="page-withdraw">
-    <div class="page-header">
-        <span class="section-tag">💳 Withdraw</span>
-        <h1 class="section-title" style="margin-top:15px;">Get Your <span class="gradient-text">Money Out!</span></h1>
-    </div>
-
-    <section style="padding:0 20px 80px;">
-        <div class="container">
-            <div class="grid-2">
-                <div class="form-box" style="max-width:100%;">
-                    <h3 style="margin-bottom:8px;">💸 Request Withdrawal</h3>
-                    <p style="color:var(--text-muted);font-size:13px;margin-bottom:25px;">Minimum: ₨50</p>
-                    <div class="form-group">
-                        <label>Available Balance</label>
-                        <input type="text" id="wdBalance" value="₨0.00" readonly style="color:var(--success);font-weight:700;">
-                    </div>
-                    <div class="form-group">
-                        <label>Payment Method</label>
-                        <select id="payMethod" onchange="updateAccountLabel()">
-                            <option value="">-- Select Method --</option>
-                            <option value="jazzcash">📱 JazzCash</option>
-                            <option value="easypaisa">📱 Easypaisa</option>
-                            <option value="usdt">💎 USDT (TRC20)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label id="accountLabel">Account Number</label>
-                        <input type="text" id="accountInput" placeholder="Select method first">
-                    </div>
-                    <div class="form-group">
-                        <label>Amount (PKR)</label>
-                        <input type="number" id="withdrawAmt" placeholder="Minimum ₨50" min="50">
-                    </div>
-                    <button class="btn btn-success" style="width:100%;justify-content:center;" onclick="submitWithdraw()">Request Withdrawal</button>
-                </div>
-
-                <div class="table-box">
-                    <div style="padding:18px 22px;border-bottom:1px solid var(--border);">
-                        <h3>📜 Withdrawal History</h3>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Amount</th>
-                                <th>Method</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="wdHistory">
-                            <tr><td colspan="3" style="text-align:center;color:var(--text-muted);padding:30px;">No withdrawals yet</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- ==================== LOGIN PAGE ==================== -->
-<div class="page" id="page-login">
-    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 20px 60px;">
-        <div class="form-box" style="width:100%;">
-            <div style="text-align:center;margin-bottom:30px;">
-                <div style="font-size:52px;margin-bottom:12px;">🔐</div>
-                <h2>Welcome Back!</h2>
-            </div>
-            <div class="form-group">
-                <label>📧 Email Address</label>
-                <input type="email" id="loginEmail" placeholder="your@email.com">
-            </div>
-            <div class="form-group">
-                <label>🔑 Password</label>
-                <input type="password" id="loginPass" placeholder="Enter your password">
-            </div>
-            <button class="btn btn-primary" style="width:100%;justify-content:center;padding:15px;" onclick="doLogin()">🚀 Login</button>
-            <div style="text-align:center;margin-top:20px;">
-                <a style="color:var(--accent);cursor:pointer;" onclick="showPage('register')">Don't have an account? Register Free</a>
+                <a id="whatsapp-link" href="#" target="_blank" class="whatsapp-btn">
+                    Click Here to Chat on WhatsApp
+                </a>
             </div>
         </div>
     </div>
 </div>
 
-<!-- ==================== REGISTER PAGE ==================== -->
-<div class="page" id="page-register">
-    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 20px 60px;">
-        <div class="form-box" style="width:100%;">
-            <div style="text-align:center;margin-bottom:30px;">
-                <div style="font-size:52px;margin-bottom:12px;">🚀</div>
-                <h2>Create Account</h2>
-                <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:8px;padding:8px 15px;margin-top:12px;font-size:13px;color:var(--success);">
-                    🎁 Welcome Bonus: ₨5 on registration!
-                </div>
-            </div>
-            <div class="form-group">
-                <label>👤 Full Name</label>
-                <input type="text" id="regName" placeholder="Muhammad Ali">
-            </div>
-            <div class="form-group">
-                <label>📧 Email Address</label>
-                <input type="email" id="regEmail" placeholder="your@email.com">
-            </div>
-            <div class="form-group">
-                <label>📱 Phone Number</label>
-                <input type="tel" id="regPhone" placeholder="03XX-XXXXXXX">
-            </div>
-            <div class="form-group">
-                <label>🔑 Password</label>
-                <input type="password" id="regPass" placeholder="Minimum 6 characters">
-            </div>
-            <button class="btn btn-primary" style="width:100%;justify-content:center;padding:15px;" onclick="doRegister()">🚀 Register</button>
-            <div style="text-align:center;margin-top:20px;">
-                <a style="color:var(--accent);cursor:pointer;" onclick="showPage('login')">Already have account? Login</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- TOAST -->
-<div class="toast" id="toast"><span id="toastMsg">✅ Done!</span></div>
-
-<!-- ==================== JAVASCRIPT LOGIC ==================== -->
 <script>
-    let currentUser = JSON.parse(localStorage.getItem('epk_user')) || null;
-    let balance    = parseFloat(localStorage.getItem('epk_balance'))  || 0;
-    let totalClick = parseInt(localStorage.getItem('epk_clicks'))     || 0;
-    let todayEarns = parseFloat(localStorage.getItem('epk_today'))    || 0;
-    let clickedAds = JSON.parse(localStorage.getItem('epk_clicked'))  || {};
-    let withdrawals = JSON.parse(localStorage.getItem('epk_wd'))      || [];
-    let pendingVerify = null;
-    let generatedOtp = null;
-    let activeTimerAdId = null;
+    // --- CONFIGURATION ---
+    const EMAILJS_PUBLIC_KEY = "YOUR_EMAILJS_PUBLIC_KEY";
+    const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+    const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+    const OWNER_PHONE = "923404876414";
+    const MIN_WITHDRAWAL = 500.00;
 
-    const adLinks = {
-        1:  'https://omg10.com/4/7343595',
-        2:  'https://omg10.com/4/7349687',
-        3:  'https://omg10.com/4/7349692',
-        4:  'https://omg10.com/4/7349688',
-        5:  'https://omg10.com/4/7393659',
-        6:  'https://omg10.com/4/7351274',
-        7:  'https://omg10.com/4/7349694',
-        8:  'https://omg10.com/4/7349690',
-        9:  'https://omg10.com/4/7349680',
-        10: 'https://omg10.com/4/7346296',
-        11: 'https://omg10.com/4/7346296',
-        12: 'https://omg10.com/4/7349689',
-        13: 'https://omg10.com/4/7345679',
-        14: 'https://omg10.com/4/7382951',
-        15: 'https://omg10.com/4/7393658'
-    };
+    // Initialize EmailJS
+    emailjs.init(EMAILJS_PUBLIC_KEY);
 
-    function handleStartEarning() {
-        if (currentUser) {
-            showPage('earn');
-        } else {
-            showPage('register');
-        }
+    // State Variables
+    let pendingUser = null;
+    let currentUser = JSON.parse(localStorage.getItem('active_session')) || null;
+    let timerInterval = null;
+    let secondsRemaining = 10;
+    let activeAdId = null;
+    let batchWatchedCount = 0;
+
+    // Check Active Login Session
+    if (currentUser) {
+        showDashboard();
     }
 
-    function updateNavUI() {
-        const container = document.getElementById('navAuthBtns');
-        if (currentUser) {
-            container.innerHTML = `
-                <span style="font-weight:bold;color:var(--accent);">👤 ${currentUser.name}</span>
-                <button class="btn btn-outline" onclick="doLogout()" style="padding:6px 12px;font-size:12px;">Logout</button>
-            `;
-        } else {
-            container.innerHTML = `
-                <button class="btn btn-outline" onclick="showPage('login')">Login</button>
-                <button class="btn btn-primary" onclick="handleStartEarning()">Start Earning</button>
-            `;
-        }
-    }
-
-    function showPage(name) {
-        if ((name === 'earn' || name === 'withdraw') && !currentUser) { 
-            showToast('❌ Please login to access this page');
-            showPage('login'); 
-            return; 
-        }
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        const targetPage = document.getElementById('page-' + name);
-        if (targetPage) targetPage.classList.add('active');
-        
-        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-        const navEl = document.getElementById('nav-' + name);
-        if (navEl) navEl.classList.add('active');
-        
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        if (name === 'withdraw') {
-            document.getElementById('wdBalance').value = '₨' + balance.toFixed(2);
-            renderWithdrawals();
-        }
-        if (name === 'earn') {
-            updateEarnDisplay();
-            restoreAdButtons();
-        }
-        if (name === 'owner') {
-            renderOwnerPanel();
-        }
-    }
-
-    function toggleMenu() {
-        document.getElementById('hamburger').classList.toggle('active');
-        document.getElementById('mobileNav').classList.toggle('open');
-    }
-    function closeMobile() {
-        document.getElementById('hamburger').classList.remove('active');
-        document.getElementById('mobileNav').classList.remove('open');
-    }
-
-    function showToast(msg, duration = 3000) {
-        const t = document.getElementById('toast');
-        document.getElementById('toastMsg').textContent = msg;
-        t.classList.add('show');
-        setTimeout(() => t.classList.remove('show'), duration);
-    }
-
-    function saveState() {
-        localStorage.setItem('epk_balance', balance);
-        localStorage.setItem('epk_clicks', totalClick);
-        localStorage.setItem('epk_today', todayEarns);
-        localStorage.setItem('epk_clicked', JSON.stringify(clickedAds));
-        localStorage.setItem('epk_wd', JSON.stringify(withdrawals));
-        if (currentUser) {
-            localStorage.setItem('epk_user', JSON.stringify(currentUser));
-        }
-    }
-
-    function updateEarnDisplay() {
-        const tc = document.getElementById('totalClicks');
-        const bal = document.getElementById('balance');
-        const te = document.getElementById('todayEarn');
-        if (tc) tc.textContent = totalClick;
-        if (bal) bal.textContent = '₨' + balance.toFixed(2);
-        if (te) te.textContent = '₨' + todayEarns.toFixed(2);
-    }
-
-    function restoreAdButtons() {
-        for (let i = 1; i <= 15; i++) {
-            if (clickedAds['ad_' + i]) {
-                const card = document.getElementById('ad-' + i);
-                const btn = document.getElementById('btn-ad-' + i);
-                if (btn) {
-                    btn.textContent = '✅ Done';
-                    btn.style.background = 'linear-gradient(135deg,#059669,#10b981)';
-                    btn.disabled = true;
-                }
-                card?.classList.add('ad-done');
-            }
-        }
-    }
-
-    function setAllAdButtonsDisabled(disabled) {
-        for (let i = 1; i <= 15; i++) {
-            if (!clickedAds['ad_' + i]) {
-                const btn = document.getElementById('btn-ad-' + i);
-                if (btn) btn.disabled = disabled;
-            }
-        }
-    }
-
-    function openEarningTask(id) {
-        if (clickedAds['ad_' + id] || activeTimerAdId !== null) return;
-
-        const link = adLinks[id];
-        if (!link) return;
-
-        // Open ad tab
-        window.open(link, '_blank');
-
-        activeTimerAdId = id;
-        setAllAdButtonsDisabled(true);
-
-        const card = document.getElementById('ad-' + id);
-        const btn = document.getElementById('btn-ad-' + id);
-        let timeLeft = 10;
-
-        btn.disabled = true;
-        btn.textContent = `⏳ ${timeLeft}s...`;
-
-        showToast('⏳ Please stay on the ad tab for 10 seconds to receive your reward!');
-
-        const timerInterval = setInterval(() => {
-            timeLeft--;
-            if (timeLeft > 0) {
-                btn.textContent = `⏳ ${timeLeft}s...`;
-            } else {
-                clearInterval(timerInterval);
-                activeTimerAdId = null;
-
-                // Credit Rs 10
-                clickedAds['ad_' + id] = true;
-                balance += 10.0;
-                todayEarns += 10.0;
-                totalClick += 1;
-
-                saveState();
-                updateEarnDisplay();
-                restoreAdButtons();
-                setAllAdButtonsDisabled(false);
-
-                showToast('🎉 +₨10.00 Earned!');
-            }
-        }, 1000);
-    }
-
-    function doRegister() {
-        const name = document.getElementById('regName').value;
-        const email = document.getElementById('regEmail').value;
-        const pass = document.getElementById('regPass').value;
-
-        if (!name || !email || !pass) {
-            showToast('❌ Please fill all fields');
-            return;
-        }
-
-        generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
-        pendingVerify = { name, email, pass };
-        document.getElementById('verifyEmail').textContent = email;
-        document.getElementById('demoOtpCode').textContent = generatedOtp;
-        showPage('verify');
-    }
-
-    function verifySignup() {
-        const inputCode = document.getElementById('verifyCode').value.trim();
-        if (inputCode !== generatedOtp) {
-            showToast('❌ Incorrect verification code! Try again.');
-            return;
-        }
-
-        currentUser = { name: pendingVerify.name, email: pendingVerify.email };
-        balance += 5.0; // Welcome Bonus
-        saveState();
-        updateNavUI();
-        showToast('🎉 Email Verified! ₨5 Bonus Added.');
-        showPage('earn');
-    }
-
-    function doLogin() {
-        const email = document.getElementById('loginEmail').value;
-        const pass = document.getElementById('loginPass').value;
-
-        if (!email || !pass) {
-            showToast('❌ Fill in credentials');
-            return;
-        }
-
-        currentUser = { name: email.split('@')[0], email };
-        saveState();
-        updateNavUI();
-        showToast('🚀 Logged in successfully!');
-        showPage('earn');
-    }
-
-    function doLogout() {
-        currentUser = null;
-        localStorage.removeItem('epk_user');
-        updateNavUI();
-        showToast('Logged out');
-        showPage('home');
-    }
-
-    function updateAccountLabel() {
-        const m = document.getElementById('payMethod').value;
-        const l = document.getElementById('accountLabel');
-        const i = document.getElementById('accountInput');
-        if (m === 'usdt') {
-            l.textContent = 'TRC20 Wallet Address';
-            i.placeholder = 'T...';
-        } else {
-            l.textContent = 'Account Number';
-            i.placeholder = '03XX-XXXXXXX';
-        }
-    }
-
-    function submitWithdraw() {
-        const amt = parseFloat(document.getElementById('withdrawAmt').value);
-        const method = document.getElementById('payMethod').value;
-        const acc = document.getElementById('accountInput').value;
-
-        if (!method || !acc) {
-            showToast('❌ Select method & account');
-            return;
-        }
-        if (isNaN(amt) || amt < 50) {
-            showToast('❌ Minimum withdrawal is ₨50');
-            return;
-        }
-        if (amt > balance) {
-            showToast('❌ Insufficient balance');
-            return;
-        }
-
-        balance -= amt;
-        withdrawals.unshift({
-            id: Date.now(),
-            user: currentUser.email,
-            amount: amt,
-            method,
-            account: acc,
-            status: 'Pending'
+    function showView(viewId) {
+        ['register-section', 'verify-section', 'login-section', 'dashboard-section'].forEach(id => {
+            document.getElementById(id).classList.add('hidden');
         });
-
-        saveState();
-        showToast('✅ Withdrawal requested!');
-        showPage('withdraw');
+        document.getElementById(viewId).classList.remove('hidden');
     }
 
-    function renderWithdrawals() {
-        const tbody = document.getElementById('wdHistory');
-        if (withdrawals.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;color:var(--text-muted);padding:30px;">No withdrawals yet</td></tr>`;
-            return;
+    // 1. SIGNUP & SEND OTP EMAIL
+    function handleRegister() {
+        const name = document.getElementById('reg-name').value.trim();
+        const email = document.getElementById('reg-email').value.trim();
+        const password = document.getElementById('reg-password').value.trim();
+
+        if (!name || !email || !password) return alert("Please fill out all fields!");
+
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        pendingUser = { name, email, password, otp };
+
+        // Send Email via EmailJS API
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+            user_name: name,
+            user_email: email,
+            otp_code: otp
+        }).then(() => {
+            alert(`OTP code sent to ${email}! Check your inbox.`);
+            showView('verify-section');
+        }).catch((err) => {
+            alert("Email delivery failed. Please check your EmailJS keys.");
+            console.error(err);
+        });
+    }
+
+    // 2. VERIFY OTP CODE
+    function handleVerifyOtp() {
+        const enteredOtp = document.getElementById('otp-input').value.trim();
+        if (enteredOtp === pendingUser.otp) {
+            const users = JSON.parse(localStorage.getItem('registered_users')) || [];
+            
+            const newUser = {
+                name: pendingUser.name,
+                email: pendingUser.email,
+                password: pendingUser.password,
+                balance: 0.00,
+                adsWatched: 0
+            };
+
+            users.push(newUser);
+            localStorage.setItem('registered_users', JSON.stringify(users));
+            alert("Email verified! You can now log in.");
+            showView('login-section');
+        } else {
+            alert("Invalid OTP code. Please try again!");
         }
-        tbody.innerHTML = withdrawals.map(w => `
-            <tr>
-                <td>₨${w.amount.toFixed(2)}</td>
-                <td>${w.method.toUpperCase()}</td>
-                <td><span class="badge badge-${w.status === 'Pending' ? 'warning' : 'success'}">${w.status}</span></td>
-            </tr>
-        `).join('');
     }
 
-    function renderOwnerPanel() {
-        document.getElementById('ownerUsers').textContent = currentUser ? 1 : 0;
-        document.getElementById('ownerPending').textContent = withdrawals.filter(w => w.status === 'Pending').length;
-        document.getElementById('ownerPaid').textContent = withdrawals.filter(w => w.status === 'Paid').length;
+    // 3. LOGIN USER
+    function handleLogin() {
+        const email = document.getElementById('login-email').value.trim();
+        const password = document.getElementById('login-password').value.trim();
+        const users = JSON.parse(localStorage.getItem('registered_users')) || [];
 
-        const tbody = document.getElementById('ownerWdTable');
-        const pending = withdrawals.filter(w => w.status === 'Pending');
-        if (pending.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:20px;">No pending requests</td></tr>`;
-            return;
+        const found = users.find(u => u.email === email && u.password === password);
+        if (found) {
+            currentUser = found;
+            localStorage.setItem('active_session', JSON.stringify(currentUser));
+            showDashboard();
+        } else {
+            alert("Invalid email or password!");
         }
-        tbody.innerHTML = pending.map(w => `
-            <tr>
-                <td>${w.user}</td>
-                <td>${w.method}</td>
-                <td>${w.account}</td>
-                <td>₨${w.amount}</td>
-                <td><button class="btn btn-success" style="padding:4px 8px;font-size:12px;" onclick="approveWd(${w.id})">Mark Paid</button></td>
-            </tr>
-        `).join('');
     }
 
-    function approveWd(id) {
-        const w = withdrawals.find(item => item.id === id);
-        if (w) w.status = 'Paid';
-        saveState();
-        renderOwnerPanel();
-        showToast('Marked as Paid');
+    function handleLogout() {
+        localStorage.removeItem('active_session');
+        currentUser = null;
+        showView('login-section');
     }
 
-    function startRefreshTimer() {
-        setInterval(() => {
-            const now = new Date();
-            const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-            const diff = tomorrow - now;
-            const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
-            const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
-            const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
-            const el = document.getElementById('refreshTimer');
-            if (el) el.textContent = `${h}:${m}:${s}`;
+    function showDashboard() {
+        showView('dashboard-section');
+        document.getElementById('user-display-name').innerText = currentUser.name;
+        updateDashboardStats();
+    }
+
+    function updateDashboardStats() {
+        document.getElementById('user-balance').innerText = currentUser.balance.toFixed(2);
+        document.getElementById('ads-count').innerText = currentUser.adsWatched;
+
+        if (currentUser.balance >= MIN_WITHDRAWAL) {
+            document.getElementById('withdraw-locked').classList.add('hidden');
+            document.getElementById('withdraw-unlocked').classList.remove('hidden');
+
+            const message = encodeURIComponent(`Hello Admin, I have reached PKR ${currentUser.balance.toFixed(2)} on Click & Earn PK. I want to withdraw my earnings.`);
+            document.getElementById('whatsapp-link').href = `https://wa.me/${OWNER_PHONE}?text=${message}`;
+        } else {
+            document.getElementById('withdraw-locked').classList.remove('hidden');
+            document.getElementById('withdraw-unlocked').classList.add('hidden');
+        }
+    }
+
+    // STRICT 10-SECOND TIMER
+    function startAdTimer(adId) {
+        activeAdId = adId;
+        secondsRemaining = 10;
+        
+        disableAdButtons(true);
+        document.getElementById('timer-box').classList.remove('hidden');
+        document.getElementById('timer-seconds').innerText = secondsRemaining;
+
+        timerInterval = setInterval(() => {
+            secondsRemaining--;
+            document.getElementById('timer-seconds').innerText = secondsRemaining;
+
+            if (secondsRemaining <= 0) {
+                clearInterval(timerInterval);
+                document.getElementById('timer-box').classList.add('hidden');
+                document.getElementById('captcha-section').classList.remove('hidden');
+            }
         }, 1000);
     }
 
-    // INIT
-    window.onload = () => {
-        updateNavUI();
-        startRefreshTimer();
-    };
+    // ANTI-CHEAT DETECTOR
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden && timerInterval && secondsRemaining > 0) {
+            clearInterval(timerInterval);
+            alert("Timer canceled! You switched tabs or minimized the window. Stay on page for 10 seconds.");
+            resetTimerState();
+        }
+    });
+
+    function resetTimerState() {
+        clearInterval(timerInterval);
+        secondsRemaining = 10;
+        document.getElementById('timer-box').classList.add('hidden');
+        document.getElementById('captcha-section').classList.add('hidden');
+        disableAdButtons(false);
+    }
+
+    function disableAdButtons(disabled) {
+        document.getElementById('btn-ad-1').disabled = disabled;
+        document.getElementById('btn-ad-2').disabled = disabled;
+    }
+
+    // MONETAG DIRECT REVENUE LINK
+    function openMonetagAd() {
+        window.open('https://www.google.com', '_blank'); // Replace with your Monetag Direct Link
+    }
+
+    // CAPTCHA COMPLETION REWARD
+    function onCaptchaSolved(token) {
+        currentUser.balance += 5.00;
+        currentUser.adsWatched += 1;
+        batchWatchedCount += 1;
+
+        // Persist session and database update
+        localStorage.setItem('active_session', JSON.stringify(currentUser));
+        
+        const users = JSON.parse(localStorage.getItem('registered_users')) || [];
+        const index = users.findIndex(u => u.email === currentUser.email);
+        if (index !== -1) {
+            users[index] = currentUser;
+            localStorage.setItem('registered_users', JSON.stringify(users));
+        }
+
+        alert("Captcha verified! PKR 5.00 added to your account.");
+
+        document.getElementById('captcha-section').classList.add('hidden');
+        document.getElementById(`ad-unit-${activeAdId}`).style.display = 'none';
+
+        disableAdButtons(false);
+        updateDashboardStats();
+
+        // AUTO-REFRESH ADS LOOP
+        if (batchWatchedCount >= 2) {
+            alert("All ads completed! Refreshing ad list...");
+            document.getElementById('ad-unit-1').style.display = 'block';
+            document.getElementById('ad-unit-2').style.display = 'block';
+            batchWatchedCount = 0;
+        }
+    }
 </script>
+
 </body>
 </html>
