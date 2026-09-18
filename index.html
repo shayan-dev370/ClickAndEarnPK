@@ -391,20 +391,6 @@
             box-shadow: var(--shadow);
         }
         .earn-amount { font-size: 26px; font-weight: 800; color: var(--success); }
-        .earn-label { font-size: 12px; color: var(--text-muted); }
-
-        .progress-bar {
-            background: var(--bg-main);
-            border-radius: 50px;
-            height: 8px;
-            overflow: hidden;
-            margin: 8px 0;
-        }
-        .progress-fill {
-            height: 100%;
-            background: var(--gradient);
-            border-radius: 50px;
-        }
 
         /* FORMS */
         .form-box {
@@ -477,7 +463,6 @@
         }
         .badge-success { background: rgba(16,185,129,0.2); color: var(--success); }
         .badge-warning { background: rgba(245,158,11,0.2); color: var(--warning); }
-        .badge-danger  { background: rgba(239,68,68,0.2);  color: var(--danger); }
 
         .stats-grid {
             display: grid;
@@ -499,19 +484,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
-        .pay-card {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 18px;
-            background: var(--bg-main);
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            margin-bottom: 12px;
-            transition: border-color 0.3s;
-        }
-        .pay-card:hover { border-color: var(--primary); }
 
         /* FOOTER */
         .footer {
@@ -591,17 +563,6 @@
         .balance-value { font-size: 26px; font-weight: 800; }
 
         .ad-done { opacity: 0.65; }
-        .popular-badge {
-            background: var(--gradient);
-            color: white;
-            padding: 4px 14px;
-            border-radius: 50px;
-            font-size: 11px;
-            font-weight: 700;
-            display: inline-block;
-            margin-bottom: 12px;
-        }
-        .glow { box-shadow: 0 0 30px rgba(124,58,237,0.4); }
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
@@ -639,7 +600,7 @@
         </ul>
         <div class="nav-buttons" id="navAuthBtns">
             <button class="btn btn-outline" onclick="showPage('login')">Login</button>
-            <button class="btn btn-primary" onclick="showPage('register')">Join Free</button>
+            <button class="btn btn-primary" onclick="handleStartEarning()">Start Earning</button>
         </div>
         <div class="hamburger" id="hamburger" onclick="toggleMenu()">
             <span></span><span></span><span></span>
@@ -654,7 +615,7 @@
     <a onclick="showPage('withdraw');closeMobile()">💳 Withdraw</a>
     <a onclick="showPage('owner');closeMobile()">🔐 Owner Console</a>
     <a onclick="showPage('login');closeMobile()" id="mobileNavLogin">🔐 Login</a>
-    <a onclick="showPage('register');closeMobile()" id="mobileNavReg">✨ Join Free</a>
+    <a onclick="handleStartEarning();closeMobile()" id="mobileNavReg">🚀 Start Earning</a>
 </div>
 
 <!-- ==================== HOME PAGE ==================== -->
@@ -668,7 +629,7 @@
             <h1>Earn <span class="gradient-text">Real Money</span><br>From Your Clicks</h1>
             <p>Create an account, view available earning tasks and track your balance.<br>Get ₨0.1 per click & withdraw via JazzCash, Easypaisa!</p>
             <div class="hero-buttons">
-                <button class="btn btn-primary btn-lg" onclick="showPage('register')">🚀 Start Earning Free</button>
+                <button class="btn btn-primary btn-lg" onclick="handleStartEarning()">🚀 Start Earning Free</button>
             </div>
             <div class="hero-stats">
                 <div class="stat-item">
@@ -742,31 +703,7 @@
                     <h3>Account Controls</h3>
                     <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Production accounts require secure server-side authentication and storage.</p>
                 </div>
-                <div class="card">
-                    <div class="card-icon">⚡</div>
-                    <h3>Fast Payment</h3>
-                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Withdrawal requests are reviewed manually.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🔄</div>
-                    <h3>Daily New Ads</h3>
-                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">New ads refresh every 24 hours so you can earn every single day.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🇵🇰</div>
-                    <h3>Made for Pakistan</h3>
-                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Designed specifically for Pakistani users with PKR payments only.</p>
-                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="section" style="background:var(--bg-card);text-align:center;">
-        <div class="container">
-            <h2 class="section-title">Ready to Start <span class="gradient-text">Earning?</span></h2>
-            <p style="color:var(--text-muted);font-size:17px;margin:20px 0;">Join thousands of Pakistanis already earning on Click&EarnPK</p>
-            <button class="btn btn-primary btn-lg" onclick="showPage('register')">🚀 Create Free Account</button>
         </div>
     </section>
 
@@ -777,7 +714,7 @@
                     <div class="logo-icon">💜</div>
                     <span class="logo-text">Click&EarnPK</span>
                 </div>
-                <p>A simple rewards dashboard for Pakistani users. Account, earning and withdrawal features are subject to platform rules.</p>
+                <p>A simple rewards dashboard for Pakistani users.</p>
             </div>
             <div class="footer-links">
                 <h4>Platform</h4>
@@ -805,7 +742,6 @@
     <div class="page-header">
         <span class="section-tag">🔐 Owner Console</span>
         <h1 class="section-title">Owner <span class="gradient-text">Dashboard</span></h1>
-        <p style="color:var(--text-muted);font-size:16px;">Console for managing platform requests and platform data.</p>
     </div>
     <section style="padding:0 20px 80px;">
         <div class="container grid-3">
@@ -842,13 +778,16 @@
     <div class="page-header">
         <span class="section-tag">📧 Email Verification</span>
         <h1 class="section-title">Verify your <span class="gradient-text">Gmail</span></h1>
-        <p style="color:var(--text-muted);font-size:16px;">Enter the verification code sent to <strong id="verifyEmail">your email</strong>.</p>
+        <p style="color:var(--text-muted);font-size:16px;">A verification code was sent to <strong id="verifyEmail">your email</strong>.</p>
     </div>
     <section style="padding:0 20px 80px;">
         <div class="form-box">
+            <div style="background:rgba(124,58,237,0.15);border:1px solid var(--primary);border-radius:10px;padding:12px;margin-bottom:20px;text-align:center;font-size:14px;">
+                📩 Verification Code: <strong id="demoOtpCode" style="color:var(--accent);font-size:18px;letter-spacing:2px;">---</strong>
+            </div>
             <div class="form-group">
-                <label>6-digit verification code</label>
-                <input id="verifyCode" inputmode="numeric" maxlength="6" placeholder="123456">
+                <label>Enter 6-digit verification code</label>
+                <input id="verifyCode" inputmode="numeric" maxlength="6" placeholder="Enter code above">
             </div>
             <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;" onclick="verifySignup()">Verify & Create Account</button>
         </div>
@@ -892,7 +831,6 @@
             <h2 style="margin-bottom:20px;font-size:20px;">🔥 Available Ads (15 slots)</h2>
 
             <div style="display:flex;flex-direction:column;gap:14px;">
-                <!-- 15 AD SLOTS -->
                 <script>
                     for(let i=1; i<=15; i++){
                         document.write(`
@@ -1044,6 +982,7 @@
     let clickedAds = JSON.parse(localStorage.getItem('epk_clicked'))  || {};
     let withdrawals = JSON.parse(localStorage.getItem('epk_wd'))      || [];
     let pendingVerify = null;
+    let generatedOtp = null;
 
     const adLinks = {
         1:  'https://omg10.com/4/7343595',
@@ -1063,6 +1002,14 @@
         15: 'https://omg10.com/4/7393658'
     };
 
+    function handleStartEarning() {
+        if (currentUser) {
+            showPage('earn');
+        } else {
+            showPage('register');
+        }
+    }
+
     function updateNavUI() {
         const container = document.getElementById('navAuthBtns');
         if (currentUser) {
@@ -1073,7 +1020,7 @@
         } else {
             container.innerHTML = `
                 <button class="btn btn-outline" onclick="showPage('login')">Login</button>
-                <button class="btn btn-primary" onclick="showPage('register')">Join Free</button>
+                <button class="btn btn-primary" onclick="handleStartEarning()">Start Earning</button>
             `;
         }
     }
@@ -1183,15 +1130,17 @@
             return;
         }
 
+        generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
         pendingVerify = { name, email, pass };
         document.getElementById('verifyEmail').textContent = email;
+        document.getElementById('demoOtpCode').textContent = generatedOtp;
         showPage('verify');
     }
 
     function verifySignup() {
-        const code = document.getElementById('verifyCode').value;
-        if (code.length !== 6) {
-            showToast('❌ Please enter a valid 6-digit code');
+        const inputCode = document.getElementById('verifyCode').value.trim();
+        if (inputCode !== generatedOtp) {
+            showToast('❌ Incorrect verification code! Try again.');
             return;
         }
 
@@ -1199,7 +1148,7 @@
         balance += 5.0; // Welcome Bonus
         saveState();
         updateNavUI();
-        showToast('🎉 Account created! ₨5 Bonus Added.');
+        showToast('🎉 Email Verified! ₨5 Bonus Added.');
         showPage('earn');
     }
 
