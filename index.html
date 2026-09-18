@@ -627,7 +627,7 @@
         <div class="hero-content">
             <div class="hero-badge">🚀 Pakistan • Rewards Platform</div>
             <h1>Earn <span class="gradient-text">Real Money</span><br>From Your Clicks</h1>
-            <p>Create an account, view available earning tasks and track your balance.<br>Get ₨0.1 per click & withdraw via JazzCash, Easypaisa!</p>
+            <p>Create an account, view available earning tasks and track your balance.<br>Get ₨10 per click & withdraw via JazzCash, Easypaisa!</p>
             <div class="hero-buttons">
                 <button class="btn btn-primary btn-lg" onclick="handleStartEarning()">🚀 Start Earning Free</button>
             </div>
@@ -641,7 +641,7 @@
                     <div class="stat-label">Total Paid</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">₨0.1</div>
+                    <div class="stat-number">₨10</div>
                     <div class="stat-label">Per Click</div>
                 </div>
                 <div class="stat-item">
@@ -669,7 +669,7 @@
                 <div class="step">
                     <div class="step-number">2</div>
                     <h3>Click Ads</h3>
-                    <p style="color:var(--text-muted);font-size:14px;margin-top:10px;">Visit ad links & earn ₨0.1 per click</p>
+                    <p style="color:var(--text-muted);font-size:14px;margin-top:10px;">Visit ad links & earn ₨10 per click (10s view requirement)</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
@@ -691,7 +691,7 @@
                 <div class="card">
                     <div class="card-icon">💰</div>
                     <h3>Instant Earning</h3>
-                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Earn ₨0.1 on every single click. Balance updates instantly in real-time.</p>
+                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Earn ₨10 on every valid click. Balance updates after timer completes.</p>
                 </div>
                 <div class="card">
                     <div class="card-icon">📱</div>
@@ -838,11 +838,11 @@
                             <div style="font-size:36px;flex-shrink:0;">🎯</div>
                             <div style="flex:1;min-width:0;">
                                 <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Monetized Ad Link #${i}</div>
-                                <div style="color:var(--text-muted);font-size:13px;">Click to view target partner offer</div>
+                                <div style="color:var(--text-muted);font-size:13px;">View offer for 10s to earn reward</div>
                             </div>
                             <div style="text-align:right;flex-shrink:0;">
-                                <div class="earn-amount">+₨0.1</div>
-                                <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;" onclick="openEarningTask(${i})">Open ➡️</button>
+                                <div class="earn-amount">+₨10</div>
+                                <button class="btn btn-primary visit-btn" id="btn-ad-${i}" style="margin-top:10px;padding:8px 16px;font-size:13px;" onclick="openEarningTask(${i})">Open ➡️</button>
                             </div>
                         </div>`);
                     }
@@ -983,6 +983,7 @@
     let withdrawals = JSON.parse(localStorage.getItem('epk_wd'))      || [];
     let pendingVerify = null;
     let generatedOtp = null;
+    let activeTimerAdId = null;
 
     const adLinks = {
         1:  'https://omg10.com/4/7343595',
@@ -1093,7 +1094,7 @@
         for (let i = 1; i <= 15; i++) {
             if (clickedAds['ad_' + i]) {
                 const card = document.getElementById('ad-' + i);
-                const btn = card?.querySelector('.visit-btn');
+                const btn = document.getElementById('btn-ad-' + i);
                 if (btn) {
                     btn.textContent = '✅ Done';
                     btn.style.background = 'linear-gradient(135deg,#059669,#10b981)';
@@ -1104,20 +1105,58 @@
         }
     }
 
+    function setAllAdButtonsDisabled(disabled) {
+        for (let i = 1; i <= 15; i++) {
+            if (!clickedAds['ad_' + i]) {
+                const btn = document.getElementById('btn-ad-' + i);
+                if (btn) btn.disabled = disabled;
+            }
+        }
+    }
+
     function openEarningTask(id) {
-        if (clickedAds['ad_' + id]) return;
+        if (clickedAds['ad_' + id] || activeTimerAdId !== null) return;
+
         const link = adLinks[id];
-        if (link) window.open(link, '_blank');
-        
-        clickedAds['ad_' + id] = true;
-        balance += 0.1;
-        todayEarns += 0.1;
-        totalClick += 1;
-        
-        saveState();
-        updateEarnDisplay();
-        restoreAdButtons();
-        showToast('🎉 +₨0.10 Earned!');
+        if (!link) return;
+
+        // Open ad tab
+        window.open(link, '_blank');
+
+        activeTimerAdId = id;
+        setAllAdButtonsDisabled(true);
+
+        const card = document.getElementById('ad-' + id);
+        const btn = document.getElementById('btn-ad-' + id);
+        let timeLeft = 10;
+
+        btn.disabled = true;
+        btn.textContent = `⏳ ${timeLeft}s...`;
+
+        showToast('⏳ Please stay on the ad tab for 10 seconds to receive your reward!');
+
+        const timerInterval = setInterval(() => {
+            timeLeft--;
+            if (timeLeft > 0) {
+                btn.textContent = `⏳ ${timeLeft}s...`;
+            } else {
+                clearInterval(timerInterval);
+                activeTimerAdId = null;
+
+                // Credit Rs 10
+                clickedAds['ad_' + id] = true;
+                balance += 10.0;
+                todayEarns += 10.0;
+                totalClick += 1;
+
+                saveState();
+                updateEarnDisplay();
+                restoreAdButtons();
+                setAllAdButtonsDisabled(false);
+
+                showToast('🎉 +₨10.00 Earned!');
+            }
+        }, 1000);
     }
 
     function doRegister() {
