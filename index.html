@@ -3,341 +3,671 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click & Earn PK</title>
-    
-    <!-- EmailJS SDK (Free Frontend Email Sender) -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <!-- Cloudflare Turnstile Captcha Script -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-
+    <title>Click&EarnPK — Click • Earn • Withdraw</title>
     <style>
-        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #0f172a; color: #f8fafc; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { width: 100%; max-width: 480px; background: #1e293b; border-radius: 12px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); text-align: center; }
-        h1 { color: #38bdf8; font-size: 24px; margin-bottom: 5px; }
-        .card { background: #334155; padding: 15px; border-radius: 8px; margin: 15px 0; border: 1px solid #475569; }
-        .balance-amount { font-size: 28px; font-weight: bold; color: #22c55e; }
-        input, select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; }
-        button { background: #22c55e; color: #fff; border: none; padding: 12px; font-weight: bold; width: 100%; border-radius: 6px; cursor: pointer; font-size: 15px; margin-top: 5px; }
-        button:hover { opacity: 0.9; }
-        button:disabled { background: #64748b; cursor: not-allowed; }
-        .ad-box { background: #0f172a; border: 2px dashed #38bdf8; padding: 15px; margin: 12px 0; border-radius: 8px; }
-        #timer-box { background: #ef4444; color: #fff; font-weight: bold; padding: 10px; border-radius: 6px; margin: 15px 0; }
-        .hidden { display: none !important; }
-        .whatsapp-btn { background: #25d366; color: white; text-decoration: none; display: block; padding: 12px; border-radius: 6px; font-weight: bold; margin-top: 10px; }
-        .notice { font-size: 12px; color: #94a3b8; margin-top: 5px; }
-        .link-btn { background: none; color: #38bdf8; border: none; text-decoration: underline; cursor: pointer; width: auto; padding: 0; font-size: 13px; }
+        :root {
+            --primary: #7c3aed;
+            --primary-dark: #5b21b6;
+            --primary-light: #8b5cf6;
+            --accent: #a78bfa;
+            --bg-main: #0f0a1e;
+            --bg-card: #1a1033;
+            --bg-card2: #221644;
+            --text: #f3f0ff;
+            --text-muted: #a78bfa;
+            --border: #3b1fa8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --gradient: linear-gradient(135deg, #7c3aed, #4f46e5);
+            --gradient2: linear-gradient(135deg, #5b21b6, #7c3aed, #a78bfa);
+            --shadow: 0 8px 32px rgba(124, 58, 237, 0.3);
+            --shadow2: 0 4px 15px rgba(124, 58, 237, 0.2);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-main);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-main); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+        .page { display: none; min-height: 100vh; }
+        .page.active { display: block; }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 10, 30, 0.97);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 0 20px;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .logo-text {
+            font-size: 22px;
+            font-weight: 800;
+            background: var(--gradient2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a.active { color: var(--accent); }
+        .nav-links a.active::after { width: 100%; }
+        .nav-buttons { display: flex; gap: 10px; align-items: center; }
+
+        .btn {
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: var(--shadow2);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+        .btn-outline {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--primary);
+        }
+        .btn-outline:hover { background: var(--primary); color: white; }
+        .btn-lg { padding: 14px 32px; font-size: 16px; border-radius: 12px; }
+        .btn-success {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: white;
+        }
+        .btn-success:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(16,185,129,0.3); }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 10, 30, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 999;
+            padding: 20px;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .mobile-nav.open { display: flex; }
+        .mobile-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(59,31,168,0.3);
+            cursor: pointer;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px 60px;
+            position: relative;
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(124,58,237,0.2);
+            border: 1px solid var(--border);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            color: var(--accent);
+            margin-bottom: 25px;
+        }
+        .hero h1 { font-size: clamp(36px, 6vw, 72px); font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+        .gradient-text {
+            background: var(--gradient2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p { font-size: clamp(16px, 2vw, 20px); color: var(--text-muted); margin-bottom: 35px; line-height: 1.7; }
+        .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+
+        .section { padding: 80px 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-tag {
+            display: inline-block;
+            background: rgba(124,58,237,0.2);
+            color: var(--accent);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+        }
+        .section-title { font-size: clamp(28px, 4vw, 48px); font-weight: 800; margin-bottom: 15px; }
+
+        /* EARN CARDS */
+        .earn-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s;
+        }
+        .earn-card:hover { border-color: var(--primary); box-shadow: var(--shadow); }
+        .earn-amount { font-size: 26px; font-weight: 800; color: var(--success); }
+
+        /* FORMS */
+        .form-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 14px; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
+        .form-group input, .form-group select {
+            width: 100%;
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            color: var(--text);
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus { border-color: var(--primary); }
+
+        /* CAPTCHA CANVAS */
+        .captcha-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        #captchaCanvas {
+            background: #221644;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        .refresh-captcha {
+            background: var(--bg-card2);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* WITHDRAWAL LOCKED/UNLOCKED PANELS */
+        .threshold-lock {
+            background: var(--bg-card);
+            border: 1px dashed var(--warning);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+        }
+        .whatsapp-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--bg-card2);
+            border: 1px solid var(--primary);
+            color: var(--text);
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 14px;
+            z-index: 9999;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+
+        .page-header {
+            padding: 120px 20px 60px;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(124,58,237,0.15) 0%, transparent 70%);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .nav-buttons { display: none; }
+            .hamburger { display: flex; }
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Click & Earn PK</h1>
-    <p class="notice">Watch ads for 10 seconds & earn cash</p>
-
-    <!-- 1. REGISTRATION FORM -->
-    <div id="register-section" class="card">
-        <h3>Create an Account</h3>
-        <input type="text" id="reg-name" placeholder="Full Name">
-        <input type="email" id="reg-email" placeholder="Email Address">
-        <input type="password" id="reg-password" placeholder="Password">
-        <button onclick="handleRegister()">Sign Up & Send Code</button>
-        <p class="notice">Already have an account? <button class="link-btn" onclick="showView('login-section')">Login here</button></p>
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo" onclick="showPage('home')">
+            <div class="logo-icon">💜</div>
+            <span class="logo-text">Click&EarnPK</span>
+        </div>
+        <ul class="nav-links">
+            <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+            <li><a onclick="showPage('earn')" id="nav-earn">Earn</a></li>
+            <li><a onclick="showPage('withdraw')" id="nav-withdraw">Withdraw</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <button class="btn btn-outline" onclick="showPage('login')">Login</button>
+            <button class="btn btn-primary" onclick="showPage('register')">Join Free</button>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
     </div>
+</nav>
 
-    <!-- 2. EMAIL VERIFICATION (OTP) FORM -->
-    <div id="verify-section" class="card hidden">
-        <h3>Verify Email Address</h3>
-        <p class="notice">Enter the 6-digit code sent to your email inbox:</p>
-        <input type="text" id="otp-input" maxlength="6" placeholder="Enter 6-Digit OTP">
-        <button onclick="handleVerifyOtp()">Verify & Complete Signup</button>
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+    <a onclick="showPage('home');closeMobile()">🏠 Home</a>
+    <a onclick="showPage('earn');closeMobile()">💰 Earn</a>
+    <a onclick="showPage('withdraw');closeMobile()">💳 Withdraw</a>
+    <a onclick="showPage('login');closeMobile()">🔐 Login</a>
+    <a onclick="showPage('register');closeMobile()">✨ Join Free</a>
+</div>
+
+<!-- ==================== HOME PAGE ==================== -->
+<div class="page active" id="page-home">
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🚀 Pakistan • Rewards Platform</div>
+            <h1>Earn <span class="gradient-text">Real Money</span><br>From Your Clicks</h1>
+            <p>Get ₨0.1 per click and withdraw directly via JazzCash or Easypaisa once you hit minimum threshold!</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary btn-lg" onclick="showPage('register')">🚀 Start Earning Free</button>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ==================== EARN PAGE ==================== -->
+<div class="page" id="page-earn">
+    <div class="page-header">
+        <span class="section-tag">💰 Earning Center</span>
+        <h1 class="section-title">Click Ads & <span class="gradient-text">Earn Money</span></h1>
     </div>
+    <section style="padding:0 20px 80px;">
+        <div class="container">
+            <div style="background:var(--bg-card);padding:20px;border-radius:12px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                    <div style="color:var(--text-muted);font-size:13px;">Available Balance</div>
+                    <div style="font-size:28px;font-weight:800;color:var(--success);" id="balance">₨0.00</div>
+                </div>
+                <button class="btn btn-success" onclick="showPage('withdraw')">💳 Withdraw</button>
+            </div>
 
-    <!-- 3. LOGIN FORM -->
-    <div id="login-section" class="card hidden">
-        <h3>Account Login</h3>
-        <input type="email" id="login-email" placeholder="Email Address">
-        <input type="password" id="login-password" placeholder="Password">
-        <button onclick="handleLogin()" style="background:#3b82f6;">Login to Dashboard</button>
-        <p class="notice">Need an account? <button class="link-btn" onclick="showView('register-section')">Register here</button></p>
+            <div style="display:flex;flex-direction:column;gap:14px;">
+                <div class="earn-card">
+                    <div style="font-size:36px;">🎓</div>
+                    <div style="flex:1;">
+                        <div style="font-weight:700;">Free Online Courses Pakistan</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Earn by exploring learning programs</div>
+                    </div>
+                    <div>
+                        <div class="earn-amount">+₨0.1</div>
+                        <button class="btn btn-primary" onclick="openEarningTask('https://omg10.com/4/7343595')">Open ➡️</button>
+                    </div>
+                </div>
+                <div class="earn-card">
+                    <div style="font-size:36px;">💼</div>
+                    <div style="flex:1;">
+                        <div style="font-weight:700;">Latest Jobs Portal</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Explore modern job openings</div>
+                    </div>
+                    <div>
+                        <div class="earn-amount">+₨0.1</div>
+                        <button class="btn btn-primary" onclick="openEarningTask('https://omg10.com/4/7349687')">Open ➡️</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ==================== WITHDRAW PAGE ==================== -->
+<div class="page" id="page-withdraw">
+    <div class="page-header">
+        <span class="section-tag">💳 Withdrawal Desk</span>
+        <h1 class="section-title">Get Your <span class="gradient-text">Earnings</span></h1>
     </div>
+    <section style="padding:0 20px 80px;">
+        <div class="container">
+            <div class="form-box">
+                <h3 style="margin-bottom:15px;">💸 Withdraw Funds</h3>
+                <div class="form-group">
+                    <label>Current Balance</label>
+                    <input type="text" id="wdBalance" value="₨0.00" readonly style="color:var(--success);font-weight:700;">
+                </div>
 
-    <!-- 4. MAIN USER DASHBOARD -->
-    <div id="dashboard-section" class="hidden">
-        <div class="card">
-            <div>Welcome, <b id="user-display-name">User</b></div>
-            <div>Current Balance</div>
-            <div class="balance-amount">PKR <span id="user-balance">0.00</span></div>
-            <div style="margin-top:5px; font-size:13px;">Ads Watched: <span id="ads-count">0</span></div>
-            <button onclick="handleLogout()" style="background:#ef4444; padding:6px; margin-top:10px; font-size:12px;">Logout</button>
-        </div>
+                <!-- LOCKED THRESHOLD NOTICE -->
+                <div id="lockedPanel" class="threshold-lock">
+                    <div style="font-size:32px;margin-bottom:8px;">🔒</div>
+                    <h4 style="color:var(--warning);">Minimum Threshold Not Met</h4>
+                    <p style="color:var(--text-muted);font-size:13px;margin-top:5px;">You need a minimum balance of <strong>₨50.00</strong> to request a withdrawal. Keep clicking tasks to unlock payment options.</p>
+                </div>
 
-        <!-- STRICT TIMER BANNER -->
-        <div id="timer-box" class="hidden">
-            Stay on this tab! Viewing Ad: <span id="timer-seconds">10</span>s
-        </div>
-
-        <!-- ADS AREA -->
-        <div id="ads-section">
-            <h3>Available Sponsorship Ads</h3>
-            
-            <div class="ad-box" id="ad-unit-1">
-                <h4>Sponsor Ad #1</h4>
-                <button id="btn-ad-1" onclick="startAdTimer(1)">Watch Ad (10 Sec)</button>
-            </div>
-
-            <div class="ad-box" id="ad-unit-2">
-                <h4>Sponsor Ad #2</h4>
-                <button id="btn-ad-2" onclick="startAdTimer(2)">Watch Ad (10 Sec)</button>
+                <!-- UNLOCKED WHATSAPP CONTACT SECTION -->
+                <div id="unlockedPanel" class="whatsapp-box">
+                    <div style="font-size:36px;margin-bottom:8px;">🎉</div>
+                    <h3 style="color:var(--success);margin-bottom:5px;">Minimum Threshold Reached!</h3>
+                    <p style="color:var(--text-muted);font-size:14px;margin-bottom:15px;">Please contact our payout admin on WhatsApp to process your withdrawal transfer:</p>
+                    <a id="whatsappBtn" href="#" target="_blank" class="btn btn-success" style="padding:12px 20px;font-size:16px;">
+                        💬 Contact Payout Admin (03404876414)
+                    </a>
+                </div>
             </div>
         </div>
+    </section>
+</div>
 
-        <!-- MONETIZED CAPTCHA SECTION -->
-        <div id="captcha-section" class="card hidden">
-            <h3>Solve Captcha to Claim Reward</h3>
-            <p class="notice">Click below to open the sponsor link before solving:</p>
-
-            <button onclick="openMonetagAd()" style="background: #0ea5e9; margin-bottom: 12px;">
-                1. Open Sponsor Verification Link
-            </button>
-
-            <!-- Turnstile Widget -->
-            <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-callback="onCaptchaSolved"></div>
-        </div>
-
-        <hr style="border-color: #334155; margin: 25px 0;">
-
-        <!-- GATED WITHDRAWAL SECTION -->
-        <div id="withdrawal-section">
-            <h3>Withdraw Earnings</h3>
-            <p class="notice">Minimum Cashout Threshold: PKR 500.00</p>
-
-            <!-- LOCKED STATE -->
-            <div id="withdraw-locked">
-                <button disabled>Withdrawal Locked (Reach PKR 500)</button>
+<!-- ==================== LOGIN PAGE ==================== -->
+<div class="page" id="page-login">
+    <div style="padding:120px 20px 60px;">
+        <div class="form-box">
+            <h2 style="margin-bottom:15px;text-align:center;">🔐 Login</h2>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="loginEmail" placeholder="your@email.com">
             </div>
-
-            <!-- UNLOCKED STATE (Shows WhatsApp details) -->
-            <div id="withdraw-unlocked" class="hidden" style="background:#064e3b; padding:15px; border-radius:8px;">
-                <p style="color:#4ade80; font-weight:bold; margin:0 0 8px 0;">Threshold Reached!</p>
-                <p style="font-size:14px; margin:0;">Contact the owner on WhatsApp to process your cashout request:</p>
-                
-                <p style="font-size:18px; font-weight:bold; color:#fff; margin:10px 0 0 0;">
-                    WhatsApp: +92 340 4876414
-                </p>
-
-                <a id="whatsapp-link" href="#" target="_blank" class="whatsapp-btn">
-                    Click Here to Chat on WhatsApp
-                </a>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPass" placeholder="Enter password">
             </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="doLogin()">Login</button>
         </div>
     </div>
 </div>
 
+<!-- ==================== REGISTER PAGE ==================== -->
+<div class="page" id="page-register">
+    <div style="padding:120px 20px 60px;">
+        <div class="form-box">
+            <h2 style="margin-bottom:15px;text-align:center;">🚀 Register</h2>
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="regName" placeholder="Your Name">
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="regEmail" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="regPass" placeholder="Password">
+            </div>
+
+            <!-- DYNAMIC CANVAS CAPTCHA -->
+            <div class="form-group">
+                <label>Verification CAPTCHA</label>
+                <div class="captcha-box">
+                    <canvas id="captchaCanvas" width="140" height="40"></canvas>
+                    <button type="button" class="refresh-captcha" onclick="generateCaptcha()">🔄</button>
+                </div>
+                <input type="text" id="captchaInput" placeholder="Enter CAPTCHA code" style="margin-top:8px;">
+            </div>
+
+            <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="doRegister()">Create Account</button>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span id="toastMsg">Done!</span></div>
+
 <script>
-    // --- CONFIGURATION ---
-    const EMAILJS_PUBLIC_KEY = "YOUR_EMAILJS_PUBLIC_KEY";
-    const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
-    const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
-    const OWNER_PHONE = "923404876414";
-    const MIN_WITHDRAWAL = 500.00;
+    let currentUser = JSON.parse(localStorage.getItem('epk_user')) || null;
+    let balance = parseFloat(localStorage.getItem('epk_balance')) || 0;
+    let currentCaptcha = "";
 
-    // Initialize EmailJS
-    emailjs.init(EMAILJS_PUBLIC_KEY);
+    const MIN_WITHDRAW = 50.0;
+    const WHATSAPP_NUMBER = "923404876414"; // Format without leading 0 for direct WhatsApp API link
 
-    // State Variables
-    let pendingUser = null;
-    let currentUser = JSON.parse(localStorage.getItem('active_session')) || null;
-    let timerInterval = null;
-    let secondsRemaining = 10;
-    let activeAdId = null;
-    let batchWatchedCount = 0;
+    function showPage(name) {
+        if ((name === 'earn' || name === 'withdraw') && !currentUser) {
+            showToast('❌ Please login to access this page');
+            showPage('login');
+            return;
+        }
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        const target = document.getElementById('page-' + name);
+        if (target) target.classList.add('active');
 
-    // Check Active Login Session
-    if (currentUser) {
-        showDashboard();
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+        const navEl = document.getElementById('nav-' + name);
+        if (navEl) navEl.classList.add('active');
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        if (name === 'earn' || name === 'withdraw') {
+            updateBalanceDisplay();
+        }
+        if (name === 'register') {
+            generateCaptcha();
+        }
     }
 
-    function showView(viewId) {
-        ['register-section', 'verify-section', 'login-section', 'dashboard-section'].forEach(id => {
-            document.getElementById(id).classList.add('hidden');
-        });
-        document.getElementById(viewId).classList.remove('hidden');
+    function toggleMenu() {
+        document.getElementById('mobileNav').classList.toggle('open');
+    }
+    function closeMobile() {
+        document.getElementById('mobileNav').classList.remove('open');
     }
 
-    // 1. SIGNUP & SEND OTP EMAIL
-    function handleRegister() {
-        const name = document.getElementById('reg-name').value.trim();
-        const email = document.getElementById('reg-email').value.trim();
-        const password = document.getElementById('reg-password').value.trim();
-
-        if (!name || !email || !password) return alert("Please fill out all fields!");
-
-        const otp = Math.floor(100000 + Math.random() * 900000).toString();
-        pendingUser = { name, email, password, otp };
-
-        // Send Email via EmailJS API
-        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-            user_name: name,
-            user_email: email,
-            otp_code: otp
-        }).then(() => {
-            alert(`OTP code sent to ${email}! Check your inbox.`);
-            showView('verify-section');
-        }).catch((err) => {
-            alert("Email delivery failed. Please check your EmailJS keys.");
-            console.error(err);
-        });
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        document.getElementById('toastMsg').innerText = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
-    // 2. VERIFY OTP CODE
-    function handleVerifyOtp() {
-        const enteredOtp = document.getElementById('otp-input').value.trim();
-        if (enteredOtp === pendingUser.otp) {
-            const users = JSON.parse(localStorage.getItem('registered_users')) || [];
-            
-            const newUser = {
-                name: pendingUser.name,
-                email: pendingUser.email,
-                password: pendingUser.password,
-                balance: 0.00,
-                adsWatched: 0
-            };
+    function updateBalanceDisplay() {
+        document.getElementById('balance').innerText = '₨' + balance.toFixed(2);
+        document.getElementById('wdBalance').value = '₨' + balance.toFixed(2);
 
-            users.push(newUser);
-            localStorage.setItem('registered_users', JSON.stringify(users));
-            alert("Email verified! You can now log in.");
-            showView('login-section');
+        // WITHDRAWAL THRESHOLD CHECK
+        const lockedPanel = document.getElementById('lockedPanel');
+        const unlockedPanel = document.getElementById('unlockedPanel');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+
+        if (balance >= MIN_WITHDRAW) {
+            lockedPanel.style.display = 'none';
+            unlockedPanel.style.display = 'block';
+
+            const message = encodeURIComponent(`Hello Admin, I have reached the minimum threshold of Rs. ${balance.toFixed(2)} on Click&EarnPK. Please assist with my withdrawal.`);
+            whatsappBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
         } else {
-            alert("Invalid OTP code. Please try again!");
+            lockedPanel.style.display = 'block';
+            unlockedPanel.style.display = 'none';
         }
     }
 
-    // 3. LOGIN USER
-    function handleLogin() {
-        const email = document.getElementById('login-email').value.trim();
-        const password = document.getElementById('login-password').value.trim();
-        const users = JSON.parse(localStorage.getItem('registered_users')) || [];
-
-        const found = users.find(u => u.email === email && u.password === password);
-        if (found) {
-            currentUser = found;
-            localStorage.setItem('active_session', JSON.stringify(currentUser));
-            showDashboard();
-        } else {
-            alert("Invalid email or password!");
-        }
+    function openEarningTask(url) {
+        window.open(url, '_blank');
+        balance += 0.1;
+        localStorage.setItem('epk_balance', balance.toString());
+        updateBalanceDisplay();
+        showToast('✅ Earned +₨0.10!');
     }
 
-    function handleLogout() {
-        localStorage.removeItem('active_session');
-        currentUser = null;
-        showView('login-section');
-    }
+    // CAPTCHA GENERATOR
+    function generateCaptcha() {
+        const canvas = document.getElementById('captchaCanvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    function showDashboard() {
-        showView('dashboard-section');
-        document.getElementById('user-display-name').innerText = currentUser.name;
-        updateDashboardStats();
-    }
-
-    function updateDashboardStats() {
-        document.getElementById('user-balance').innerText = currentUser.balance.toFixed(2);
-        document.getElementById('ads-count').innerText = currentUser.adsWatched;
-
-        if (currentUser.balance >= MIN_WITHDRAWAL) {
-            document.getElementById('withdraw-locked').classList.add('hidden');
-            document.getElementById('withdraw-unlocked').classList.remove('hidden');
-
-            const message = encodeURIComponent(`Hello Admin, I have reached PKR ${currentUser.balance.toFixed(2)} on Click & Earn PK. I want to withdraw my earnings.`);
-            document.getElementById('whatsapp-link').href = `https://wa.me/${OWNER_PHONE}?text=${message}`;
-        } else {
-            document.getElementById('withdraw-locked').classList.remove('hidden');
-            document.getElementById('withdraw-unlocked').classList.add('hidden');
-        }
-    }
-
-    // STRICT 10-SECOND TIMER
-    function startAdTimer(adId) {
-        activeAdId = adId;
-        secondsRemaining = 10;
-        
-        disableAdButtons(true);
-        document.getElementById('timer-box').classList.remove('hidden');
-        document.getElementById('timer-seconds').innerText = secondsRemaining;
-
-        timerInterval = setInterval(() => {
-            secondsRemaining--;
-            document.getElementById('timer-seconds').innerText = secondsRemaining;
-
-            if (secondsRemaining <= 0) {
-                clearInterval(timerInterval);
-                document.getElementById('timer-box').classList.add('hidden');
-                document.getElementById('captcha-section').classList.remove('hidden');
-            }
-        }, 1000);
-    }
-
-    // ANTI-CHEAT DETECTOR
-    document.addEventListener("visibilitychange", () => {
-        if (document.hidden && timerInterval && secondsRemaining > 0) {
-            clearInterval(timerInterval);
-            alert("Timer canceled! You switched tabs or minimized the window. Stay on page for 10 seconds.");
-            resetTimerState();
-        }
-    });
-
-    function resetTimerState() {
-        clearInterval(timerInterval);
-        secondsRemaining = 10;
-        document.getElementById('timer-box').classList.add('hidden');
-        document.getElementById('captcha-section').classList.add('hidden');
-        disableAdButtons(false);
-    }
-
-    function disableAdButtons(disabled) {
-        document.getElementById('btn-ad-1').disabled = disabled;
-        document.getElementById('btn-ad-2').disabled = disabled;
-    }
-
-    // MONETAG DIRECT REVENUE LINK
-    function openMonetagAd() {
-        window.open('https://www.google.com', '_blank'); // Replace with your Monetag Direct Link
-    }
-
-    // CAPTCHA COMPLETION REWARD
-    function onCaptchaSolved(token) {
-        currentUser.balance += 5.00;
-        currentUser.adsWatched += 1;
-        batchWatchedCount += 1;
-
-        // Persist session and database update
-        localStorage.setItem('active_session', JSON.stringify(currentUser));
-        
-        const users = JSON.parse(localStorage.getItem('registered_users')) || [];
-        const index = users.findIndex(u => u.email === currentUser.email);
-        if (index !== -1) {
-            users[index] = currentUser;
-            localStorage.setItem('registered_users', JSON.stringify(users));
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        currentCaptcha = '';
+        for (let i = 0; i < 5; i++) {
+            currentCaptcha += chars.charAt(Math.floor(Math.random() * chars.length));
         }
 
-        alert("Captcha verified! PKR 5.00 added to your account.");
+        // Draw Background Noise
+        ctx.fillStyle = '#2a1a4a';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        document.getElementById('captcha-section').classList.add('hidden');
-        document.getElementById(`ad-unit-${activeAdId}`).style.display = 'none';
-
-        disableAdButtons(false);
-        updateDashboardStats();
-
-        // AUTO-REFRESH ADS LOOP
-        if (batchWatchedCount >= 2) {
-            alert("All ads completed! Refreshing ad list...");
-            document.getElementById('ad-unit-1').style.display = 'block';
-            document.getElementById('ad-unit-2').style.display = 'block';
-            batchWatchedCount = 0;
+        // Draw Lines
+        ctx.strokeStyle = '#3b1fa8';
+        for (let i = 0; i < 4; i++) {
+            ctx.beginPath();
+            ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+            ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+            ctx.stroke();
         }
+
+        // Draw Text
+        ctx.font = 'bold 20px Segoe UI';
+        ctx.fillStyle = '#a78bfa';
+        ctx.setTransform(1, 0.05, -0.05, 1, 0, 0);
+        ctx.fillText(currentCaptcha, 25, 28);
+    }
+
+    function doRegister() {
+        const name = document.getElementById('regName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const pass = document.getElementById('regPass').value.trim();
+        const captchaInput = document.getElementById('captchaInput').value.trim();
+
+        if (!name || !email || !pass) {
+            showToast('❌ Please fill all fields');
+            return;
+        }
+
+        if (captchaInput.toUpperCase() !== currentCaptcha) {
+            showToast('❌ Incorrect CAPTCHA code');
+            generateCaptcha();
+            return;
+        }
+
+        currentUser = { name, email };
+        localStorage.setItem('epk_user', JSON.stringify(currentUser));
+        showToast('🎉 Account created successfully!');
+        showPage('earn');
+    }
+
+    function doLogin() {
+        const email = document.getElementById('loginEmail').value.trim();
+        const pass = document.getElementById('loginPass').value.trim();
+
+        if (!email || !pass) {
+            showToast('❌ Fill all details');
+            return;
+        }
+
+        currentUser = { name: email.split('@')[0], email };
+        localStorage.setItem('epk_user', JSON.stringify(currentUser));
+        showToast('✅ Logged in successfully!');
+        showPage('earn');
     }
 </script>
-
 </body>
 </html>
