@@ -628,7 +628,6 @@
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -807,7 +806,7 @@
                 <div class="card" style="text-align:center;">
                     <div style="font-size:40px;margin-bottom:15px;">💎</div>
                     <h3>Pro</h3>
-                    <div style="font-size:40px;font-weight:900;color:var(--accent);margin:15px 0;">₨10+</div>
+                    <div style="font-size:40px;font-weight:900;color:var(--accent);margin:15px 0;">₨50+</div>
                     <p style="color:var(--text-muted);font-size:13px;">example</p>
                     <hr style="border-color:var(--border);margin:18px 0;">
                     <ul style="text-align:left;color:var(--text-muted);font-size:13px;list-style:none;line-height:2.2;">
@@ -931,16 +930,17 @@
     <div class="page-header">
         <span class="section-tag">📧 Email Verification</span>
         <h1 class="section-title">Verify your <span class="gradient-text">Gmail</span></h1>
-        <p style="color:var(--text-muted);font-size:16px;">A production version will send a 6-digit code to <strong id="verifyEmail"></strong>.</p>
+        <p style="color:var(--text-muted);font-size:16px;">Check your email and click the Supabase confirmation link to activate your account.</p>
     </div>
     <section style="padding:0 20px 80px;">
         <div class="form-box">
-            <div class="form-group">
-                <label>6-digit verification code</label>
-                <input id="verifyCode" inputmode="numeric" maxlength="6" placeholder="000000">
+            <div style="background:rgba(124,58,237,0.08);border:1px solid var(--border);border-radius:12px;padding:18px;line-height:1.7;color:var(--text-muted);">
+                <strong style="color:var(--text);">1.</strong> Open the confirmation email.<br>
+                <strong style="color:var(--text);">2.</strong> Click the confirmation link.<br>
+                <strong style="color:var(--text);">3.</strong> Return here and continue to your account.
             </div>
-            <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;" onclick="verifySignup()">Verify & Create Account</button>
-            <p style="color:var(--text-muted);font-size:12px;line-height:1.6;margin-top:15px;">A verification link has been sent to your email. Confirm your email, then return here and log in.</p>
+            <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:18px;" onclick="checkEmailVerification()">I Verified My Email</button>
+            <button class="btn btn-outline" style="width:100%;justify-content:center;margin-top:10px;" onclick="resendVerificationEmail()">Resend Confirmation Email</button>
         </div>
     </section>
     <footer class="footer">
@@ -1007,15 +1007,15 @@
             <!-- TIMER -->
             <div style="background:rgba(124,58,237,0.1);border:1px solid var(--border);border-radius:12px;padding:14px 20px;text-align:center;margin-bottom:28px;">
                 <p style="color:var(--text-muted);font-size:14px;">
-                    🔄 Earning tasks
-                    &nbsp;|&nbsp; No daily earning limit
+                    🔄 Tasks can be repeated after completion
+                    &nbsp;|&nbsp; No daily task limit
                 </p>
             </div>
 
             <!-- ADS TITLE -->
             <h2 style="margin-bottom:20px;font-size:20px;">
                 🔥 Available Ads
-                <span style="color:var(--text-muted);font-size:13px;font-weight:400;margin-left:8px;">(15 available slots)</span>
+                <span style="color:var(--text-muted);font-size:13px;font-weight:400;margin-left:8px;">(15 repeatable tasks)</span>
             </h2>
 
             <!-- ===== ALL 15 ADS WITH YOUR MONETAG LINKS ===== -->
@@ -1293,10 +1293,9 @@
 
             </div><!-- end ad list -->
 
-            <!-- MAX EARN TODAY -->
-            <div style="margin-top:25px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:12px;padding:16px 22px;text-align:center;">
-                <p style="color:var(--success);font-size:14px;font-weight:600;">
-                    💰 Click all 15 ads today = earn <strong>₨1.50</strong> per day = <strong>₨45/month</strong> guaranteed!
+            <div style="margin-top:25px;background:rgba(124,58,237,0.08);border:1px solid var(--border);border-radius:12px;padding:16px 22px;text-align:center;">
+                <p style="color:var(--text-muted);font-size:14px;font-weight:600;">
+                    🔄 After completing a task, you can return and complete it again. There is no daily task limit.
                 </p>
             </div>
 
@@ -1349,7 +1348,7 @@
                 <!-- FORM -->
                 <div class="form-box" style="max-width:100%;height:fit-content;">
                     <h3 style="margin-bottom:8px;font-size:20px;">💸 Request Withdrawal</h3>
-                    <p style="color:var(--text-muted);font-size:13px;margin-bottom:25px;">Minimum: ₨10 | Processed in 24 hours</p>
+                    <p style="color:var(--text-muted);font-size:13px;margin-bottom:25px;">Minimum: ₨50 | Processed in 24 hours</p>
 
                     <div class="form-group">
                         <label>Available Balance</label>
@@ -1371,7 +1370,7 @@
                     </div>
                     <div class="form-group">
                         <label>Amount (PKR)</label>
-                        <input type="number" id="withdrawAmt" placeholder="Minimum ₨10" min="50">
+                        <input type="number" id="withdrawAmt" placeholder="Minimum ₨50" min="50">
                     </div>
                     <button class="btn btn-success" style="width:100%;justify-content:center;padding:15px;font-size:16px;" onclick="submitWithdraw()">
                         💸 Request Withdrawal
@@ -1388,7 +1387,7 @@
                                 <span style="font-size:24px;">📱</span>
                                 <div>
                                     <div style="font-weight:600;font-size:14px;">JazzCash</div>
-                                    <div style="color:var(--text-muted);font-size:12px;">Min: ₨10</div>
+                                    <div style="color:var(--text-muted);font-size:12px;">Min: ₨50</div>
                                 </div>
                             </div>
                             <span class="badge badge-success">⚡ Fast</span>
@@ -1398,7 +1397,7 @@
                                 <span style="font-size:24px;">📱</span>
                                 <div>
                                     <div style="font-weight:600;font-size:14px;">Easypaisa</div>
-                                    <div style="color:var(--text-muted);font-size:12px;">Min: ₨10</div>
+                                    <div style="color:var(--text-muted);font-size:12px;">Min: ₨50</div>
                                 </div>
                             </div>
                             <span class="badge badge-success">⚡ Fast</span>
@@ -1408,7 +1407,7 @@
                                 <span style="font-size:24px;">🏦</span>
                                 <div>
                                     <div style="font-weight:600;font-size:14px;">Bank Transfer</div>
-                                    <div style="color:var(--text-muted);font-size:12px;">Min: ₨10</div>
+                                    <div style="color:var(--text-muted);font-size:12px;">Min: ₨50</div>
                                 </div>
                             </div>
                             <span class="badge badge-warning">1-2 Days</span>
@@ -1504,7 +1503,7 @@
                 <label style="display:flex;align-items:center;gap:8px;color:var(--text-muted);font-size:13px;cursor:pointer;">
                     <input type="checkbox" style="accent-color:var(--primary);"> Remember me
                 </label>
-                <a id="forgotPasswordLink" style="color:var(--accent);font-size:13px;cursor:pointer;">Forgot Password?</a>
+                <a style="color:var(--accent);font-size:13px;cursor:pointer;">Forgot Password?</a>
             </div>
             <button class="btn btn-primary" style="width:100%;justify-content:center;padding:15px;font-size:16px;" onclick="doLogin()">
                 🚀 Login to Account
@@ -1525,9 +1524,6 @@
                 <div style="font-size:52px;margin-bottom:12px;">🚀</div>
                 <h2 style="font-size:26px;font-weight:800;">Create Account</h2>
                 <p style="color:var(--text-muted);font-size:14px;margin-top:8px;">Join Click&EarnPK and start making money today!</p>
-                <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:8px;padding:8px 15px;margin-top:12px;font-size:13px;color:var(--success);">
-                    🎁 Welcome Bonus: ₨5 on registration!
-                </div>
             </div>
             <div class="form-group">
                 <label>👤 Full Name</label>
@@ -1569,585 +1565,37 @@
 
 <!-- ==================== JAVASCRIPT ==================== -->
 <script>
-    let currentUser = JSON.parse(localStorage.getItem('epk_user')) || null;
-
-    // ===== STATE =====
-    let balance    = parseFloat(localStorage.getItem('epk_balance'))  || 0;
-    let totalClick = parseInt(localStorage.getItem('epk_clicks'))     || 0;
-    let todayEarns = parseFloat(localStorage.getItem('epk_today'))    || 0;
-    let clickedAds = JSON.parse(localStorage.getItem('epk_clicked'))  || {};
-
-    // ===== MONETAG LINKS MAP =====
-    const adLinks = {
-        1:  'https://omg10.com/4/7343595',
-        2:  'https://omg10.com/4/7349687',
-        3:  'https://omg10.com/4/7349692',
-        4:  'https://omg10.com/4/7349688',
-        5:  'https://omg10.com/4/7393659',
-        6:  'https://omg10.com/4/7351274',
-        7:  'https://omg10.com/4/7349694',
-        8:  'https://omg10.com/4/7349690',
-        9:  'https://omg10.com/4/7349680',
-        10: 'https://omg10.com/4/7346296',
-        11: 'https://omg10.com/4/7346296',
-        12: 'https://omg10.com/4/7349689',
-        13: 'https://omg10.com/4/7345679',
-        14: 'https://omg10.com/4/7382951',
-        15: 'https://omg10.com/4/7393658'
-    };
-
-    // ===== PAGE ROUTER =====
-    function showPage(name) {
-        if ((name === 'earn' || name === 'withdraw') && !currentUser) { 
-            showToast('❌ Please login to access this page');
-            showPage('login'); 
-            return; 
-        }
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        const targetPage = document.getElementById('page-' + name);
-        if (targetPage) targetPage.classList.add('active');
-        
-        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-        const navEl = document.getElementById('nav-' + name);
-        if (navEl) navEl.classList.add('active');
-        
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        if (name === 'withdraw') {
-            document.getElementById('wdBalance').value = '₨' + balance.toFixed(2);
-        }
-        if (name === 'earn') {
-            updateEarnDisplay();
-            restoreAdButtons();
-        }
-    }
-
-    // ===== MOBILE MENU =====
-    function toggleMenu() {
-        document.getElementById('hamburger').classList.toggle('active');
-        document.getElementById('mobileNav').classList.toggle('open');
-    }
-    function closeMobile() {
-        document.getElementById('hamburger').classList.remove('active');
-        document.getElementById('mobileNav').classList.remove('open');
-    }
-
-    // ===== TOAST =====
-    function showToast(msg, duration = 3000) {
-        const t = document.getElementById('toast');
-        document.getElementById('toastMsg').textContent = msg;
-        t.classList.add('show');
-        setTimeout(() => t.classList.remove('show'), duration);
-    }
-
-    // ===== SAVE =====
-    function saveState() {
-        localStorage.setItem('epk_balance',  balance);
-        localStorage.setItem('epk_clicks',   totalClick);
-        localStorage.setItem('epk_today',    todayEarns);
-        localStorage.setItem('epk_clicked',  JSON.stringify(clickedAds));
-        if (currentUser) {
-            localStorage.setItem('epk_user', JSON.stringify(currentUser));
-        }
-    }
-
-    // ===== UPDATE DISPLAY =====
-    function updateEarnDisplay() {
-        const tc  = document.getElementById('totalClicks');
-        const bal = document.getElementById('balance');
-        const te  = document.getElementById('todayEarn');
-        if (tc)  tc.textContent  = totalClick;
-        if (bal) bal.textContent = '₨' + balance.toFixed(2);
-        if (te)  te.textContent  = '₨' + todayEarns.toFixed(2);
-    }
-
-    // ===== RESTORE BUTTONS =====
-    function restoreAdButtons() {
-        for (let i = 1; i <= 15; i++) {
-            if (clickedAds['ad_' + i]) {
-                const card = document.getElementById('ad-' + i);
-                const btn  = card?.querySelector('.visit-btn');
-                if (btn) {
-                    btn.textContent = '✅ Done';
-                    btn.style.background = 'linear-gradient(135deg,#059669,#10b981)';
-                    btn.disabled = true;
-                }
-                card?.classList.add('ad-done');
-            }
-        }
-    }
-
-    // ===== DAILY RESET =====
-    function checkDailyReset() {
-        const lastDay = localStorage.getItem('epk_lastday');
-        const today   = new Date().toDateString();
-        if (lastDay !== today) {
-            localStorage.setItem('epk_lastday', today);
-            todayEarns = 0;
-            clickedAds = {};
-            localStorage.setItem('epk_today',   '0');
-            localStorage.setItem('epk_clicked', '{}');
-        }
-    }
-
-    // ===== TIMER =====
-    function startRefreshTimer() {
-        const el = document.getElementById('refreshTimer');
-        if (!el) return;
-        function tick() {
-            const now      = new Date();
-            const midnight = new Date();
-            midnight.setHours(24, 0, 0, 0);
-            const diff = midnight - now;
-            const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
-            const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
-            const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
-            el.textContent = `${h}:${m}:${s}`;
-        }
-        tick();
-        setInterval(tick, 1000);
-    }
-
-    // ===== WITHDRAW =====
-    function updateAccountLabel() {
-        const method = document.getElementById('payMethod').value;
-        const label  = document.getElementById('accountLabel');
-        const input  = document.getElementById('accountInput');
-        const map = {
-            jazzcash:  { label: 'JazzCash Number',     ph: '0300-0000000' },
-            easypaisa: { label: 'Easypaisa Number',    ph: '0300-0000000' },
-            bank:      { label: 'IBAN Number',         ph: 'PK00XXXX0000000000000000' },
-            usdt:      { label: 'USDT Wallet (TRC20)', ph: 'TXxxxxxxxxxxxxxxxxxxxxxxxxxx' }
-        };
-        if (map[method]) {
-            label.textContent = map[method].label;
-            input.placeholder = map[method].ph;
-        } else {
-            label.textContent = 'Account Number';
-            input.placeholder = 'Select method first';
-        }
-    }
-
-    function submitWithdraw() {
-        const method  = document.getElementById('payMethod').value;
-        const account = document.getElementById('accountInput').value.trim();
-        const amount  = parseFloat(document.getElementById('withdrawAmt').value);
-
-        if (!method)             { showToast('❌ Select payment method!'); return; }
-        if (!account)            { showToast('❌ Enter account number!'); return; }
-        if (!amount || amount < 50)  { showToast('❌ Minimum withdrawal is ₨10!'); return; }
-        if (amount > balance)    { showToast('❌ Insufficient balance!'); return; }
-
-        balance -= amount;
-        saveState();
-        document.getElementById('wdBalance').value = '₨' + balance.toFixed(2);
-
-        const tbody  = document.getElementById('wdHistory');
-        const date   = new Date().toLocaleDateString('en-PK');
-        const newRow = `
-            <tr>
-                <td><strong style="color:var(--success);">₨${amount.toFixed(2)}</strong></td>
-                <td>${method.charAt(0).toUpperCase()+method.slice(1)}</td>
-                <td>${date}</td>
-                <td><span class="badge badge-warning">⏳ Pending</span></td>
-            </tr>`;
-        if (tbody.querySelector('td[colspan]')) tbody.innerHTML = '';
-        tbody.insertAdjacentHTML('afterbegin', newRow);
-
-        document.getElementById('payMethod').value    = '';
-        document.getElementById('accountInput').value = '';
-        document.getElementById('withdrawAmt').value  = '';
-
-        showToast('✅ Withdrawal submitted! Processing in 24hrs', 4000);
-    }
-
-    // ===== LOGIN =====
-    function doLogin() {
-        const email = document.getElementById('loginEmail').value.trim();
-        const pass  = document.getElementById('loginPass').value;
-        if (!email || !pass)      { showToast('❌ Fill all fields!'); return; }
-        if (!email.includes('@')) { showToast('❌ Invalid email!'); return; }
-        if (pass.length < 6)      { showToast('❌ Password too short!'); return; }
-        
-        currentUser = { email: email };
-        saveState();
-        showToast('✅ Login successful! Welcome back 💜');
-        setTimeout(() => showPage('earn'), 1500);
-    }
-
-    // ===== REGISTER =====
-    function doRegister() {
-        const name  = document.getElementById('regName').value.trim();
-        const email = document.getElementById('regEmail').value.trim();
-        const phone = document.getElementById('regPhone').value.trim();
-        const pass  = document.getElementById('regPass').value;
-        const terms = document.getElementById('termsCheck').checked;
-
-        if (!name || !email || !phone || !pass) { showToast('❌ Fill all fields!'); return; }
-        if (!email.includes('@'))               { showToast('❌ Invalid email!'); return; }
-        if (pass.length < 6)                    { showToast('❌ Min 6 char password!'); return; }
-        if (!terms)                             { showToast('❌ Accept Terms first!'); return; }
-
-        currentUser = { name: name, email: email, phone: phone };
-        
-        const verifyEmailEl = document.getElementById('verifyEmail');
-        if (verifyEmailEl) verifyEmailEl.textContent = email;
-        
-        showToast('📧 Verification code sent!');
-        showPage('verify');
-    }
-
-    function verifySignup() {
-        const code = document.getElementById('verifyCode').value.trim();
-        if (code.length !== 6) {
-            showToast('❌ Enter valid 6-digit code');
-            return;
-        }
-        balance += 5;
-        saveState();
-        showToast('🎉 Account created! ₨5 bonus added! 💜', 4000);
-        setTimeout(() => showPage('earn'), 1500);
-    }
-
-    function openEarningTask(adId) {
-        showToast('ℹ️ This earning task is currently pending provider approval. No reward was credited.', 4000);
-    }
-
-    // ===== INIT =====
-    window.addEventListener('load', () => {
-        checkDailyReset();
-        updateEarnDisplay();
-        restoreAdButtons();
-        startRefreshTimer();
-    });
+const SUPABASE_URL="https://flbruzcmuhhxhakdvour.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY="sb_publishable_zxLPB_25AgRGB-6GQ0isWg_g_7CXyib";
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+const TASK_REWARD=0.10, MIN_WITHDRAWAL=10, TASK_SECONDS=10;
+let currentUser=null,balance=0,totalClick=0,totalEarned=0,activeTask=null,launchingTaskId=null,taskWasHidden=false,timerInterval=null,remainingSeconds=TASK_SECONDS;
+const adLinks={1:'https://omg10.com/4/7343595',2:'https://omg10.com/4/7349687',3:'https://omg10.com/4/7349692',4:'https://omg10.com/4/7349688',5:'https://omg10.com/4/7393659',6:'https://omg10.com/4/7351274',7:'https://omg10.com/4/7349694',8:'https://omg10.com/4/7349690',9:'https://omg10.com/4/7349680',10:'https://omg10.com/4/7346296',11:'https://omg10.com/4/7346296',12:'https://omg10.com/4/7349689',13:'https://omg10.com/4/7345679',14:'https://omg10.com/4/7382951',15:'https://omg10.com/4/7393658'};
+function showPage(name){if((name==='earn'||name==='withdraw')&&!currentUser){showToast('❌ Please login first.');showPage('login');return;}document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));const target=document.getElementById('page-'+name);if(target)target.classList.add('active');document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));const nav=document.getElementById('nav-'+name);if(nav)nav.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});if(name==='earn'){updateEarnDisplay();resetTaskButtons();}if(name==='withdraw'){updateWithdrawBalance();loadWithdrawalHistory();}}
+function toggleMenu(){document.getElementById('hamburger').classList.toggle('active');document.getElementById('mobileNav').classList.toggle('open');}function closeMobile(){document.getElementById('hamburger').classList.remove('active');document.getElementById('mobileNav').classList.remove('open');}function showToast(msg,duration=3000){const t=document.getElementById('toast');document.getElementById('toastMsg').textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),duration);}
+function updateEarnDisplay(){const tc=document.getElementById('totalClicks'),bal=document.getElementById('balance'),te=document.getElementById('todayEarn');if(tc)tc.textContent=totalClick;if(bal)bal.textContent='₨'+balance.toFixed(2);if(te)te.textContent='₨'+totalEarned.toFixed(2);}
+function resetTaskButtons(){for(let i=1;i<=15;i++){const card=document.getElementById('ad-'+i),btn=card?.querySelector('.visit-btn');if(!btn)continue;if(activeTask&&activeTask.id===i)continue;btn.textContent='Open ➡️';btn.disabled=false;btn.style.background='';card?.classList.remove('ad-done');}}
+async function loadProfile(){if(!currentUser)return;const{data,error}=await supabaseClient.from('profiles').select('balance,total_earned,total_clicks').eq('id',currentUser.id).single();if(error){console.error(error);showToast('❌ Could not load account.',5000);return;}balance=Number(data.balance||0);totalEarned=Number(data.total_earned||0);totalClick=Number(data.total_clicks||0);updateEarnDisplay();updateWithdrawBalance();}
+async function loadWithdrawalHistory(){if(!currentUser)return;const tbody=document.getElementById('wdHistory');if(!tbody)return;const{data,error}=await supabaseClient.from('withdrawals').select('amount,method,status,created_at').eq('user_id',currentUser.id).order('created_at',{ascending:false});if(error){console.error(error);return;}if(!data?.length){tbody.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:30px;">No withdrawals yet</td></tr>';return;}tbody.innerHTML=data.map(row=>{const st=String(row.status||'pending'),badge=st==='paid'?'badge-success':st==='rejected'?'badge-danger':'badge-warning';return `<tr><td><strong style="color:var(--success);">₨${Number(row.amount).toFixed(2)}</strong></td><td>${escapeHtml(row.method)}</td><td>${new Date(row.created_at).toLocaleDateString('en-PK')}</td><td><span class="badge ${badge}">${escapeHtml(st.charAt(0).toUpperCase()+st.slice(1))}</span></td></tr>`}).join('');}
+function escapeHtml(v){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}function updateWithdrawBalance(){const e=document.getElementById('wdBalance');if(e)e.value='₨'+balance.toFixed(2);}
+function updateAccountLabel(){const method=document.getElementById('payMethod').value,label=document.getElementById('accountLabel'),input=document.getElementById('accountInput'),map={jazzcash:{label:'JazzCash Number',ph:'03XX-XXXXXXX'},easypaisa:{label:'Easypaisa Number',ph:'03XX-XXXXXXX'},bank:{label:'IBAN Number',ph:'PK00XXXX0000000000000000'},usdt:{label:'USDT Wallet (TRC20)',ph:'TXxxxxxxxxxxxxxxxxxxxxxxxxxx'}};label.textContent=map[method]?.label||'Account Number';input.placeholder=map[method]?.ph||'Select method first';}
+async function submitWithdraw(){if(!currentUser){showPage('login');return;}const method=document.getElementById('payMethod').value,account=document.getElementById('accountInput').value.trim(),amount=parseFloat(document.getElementById('withdrawAmt').value);if(!method)return showToast('❌ Select a payment method!');if(!account)return showToast('❌ Enter your payment account!');if(!amount||amount<MIN_WITHDRAWAL)return showToast('❌ Minimum withdrawal is ₨10!');if(amount>balance)return showToast('❌ Insufficient balance!');try{showToast('⏳ Submitting withdrawal...',4000);const{data:{session}}=await supabaseClient.auth.getSession();if(!session)throw new Error('Session expired. Please log in again.');const r=await fetch(`${SUPABASE_URL}/functions/v1/withdrawal`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${session.access_token}`,'apikey':SUPABASE_PUBLISHABLE_KEY},body:JSON.stringify({method,account,amount})});const result=await r.json().catch(()=>({}));if(!r.ok)throw new Error(result.error||'Withdrawal request failed.');document.getElementById('payMethod').value='';document.getElementById('accountInput').value='';document.getElementById('withdrawAmt').value='';await loadProfile();await loadWithdrawalHistory();showToast('✅ Withdrawal request submitted.',4000);}catch(e){console.error(e);showToast('❌ '+e.message,5000);}}
+async function doLogin(){const email=document.getElementById('loginEmail').value.trim(),pass=document.getElementById('loginPass').value;if(!email||!pass)return showToast('❌ Please fill all fields!');if(!email.includes('@'))return showToast('❌ Invalid email!');if(pass.length<6)return showToast('❌ Password must be at least 6 characters!');try{showToast('⏳ Logging in...',4000);const{data,error}=await supabaseClient.auth.signInWithPassword({email,password:pass});if(error){if(error.message.toLowerCase().includes('email not confirmed'))showToast('📧 Please confirm your email first.',5000);else showToast('❌ '+error.message,5000);return;}currentUser=data.user;updateNavAuth();await loadProfile();showToast('✅ Login successful.',3000);setTimeout(()=>showPage('earn'),700);}catch(e){console.error(e);showToast('❌ Login failed.',5000);}}
+async function doRegister(){const name=document.getElementById('regName').value.trim(),email=document.getElementById('regEmail').value.trim(),phone=document.getElementById('regPhone').value.trim(),pass=document.getElementById('regPass').value,terms=document.getElementById('termsCheck').checked;if(!name||!email||!phone||!pass)return showToast('❌ Please fill all fields!');if(!email.includes('@'))return showToast('❌ Invalid email!');if(pass.length<6)return showToast('❌ Password must be at least 6 characters!');if(!terms)return showToast('❌ Accept the Terms first!');try{showToast('⏳ Creating account...',4000);const{data,error}=await supabaseClient.auth.signUp({email,password:pass,options:{data:{name,phone},emailRedirectTo:window.location.origin+window.location.pathname}});if(error){showToast('❌ '+error.message,5000);return;}const ve=document.getElementById('verifyEmail');if(ve)ve.textContent=email;document.getElementById('regPass').value='';showPage('verify');showToast('📧 Confirmation email sent.',5000);}catch(e){console.error(e);showToast('❌ Registration failed.',5000);}}
+async function resendVerificationEmail(){const email=document.getElementById('regEmail')?.value.trim()||'';if(!email)return showToast('❌ Enter your email on the Register page first.');const{error}=await supabaseClient.auth.resend({type:'signup',email,options:{emailRedirectTo:window.location.origin+window.location.pathname}});if(error)showToast('❌ '+error.message,5000);else showToast('📧 Confirmation email resent.',5000);}
+async function checkEmailVerification(){const{data}=await supabaseClient.auth.getSession();if(data.session?.user){currentUser=data.session.user;updateNavAuth();await loadProfile();showToast('✅ Email verified. Account activated.',3500);setTimeout(()=>showPage('earn'),700);}else showToast('📧 Click the confirmation email first, then try again.',5000);}
+function updateNavAuth(){const box=document.getElementById('navButtons');if(!box)return;box.innerHTML=currentUser?`<button class="btn btn-outline" onclick="showPage('earn')">Account</button><button class="btn btn-primary" onclick="signOut()">Logout</button>`:`<button class="btn btn-outline" onclick="showPage('login')">Login</button><button class="btn btn-primary" onclick="showPage('register')">Join Free</button>`;}
+async function signOut(){await supabaseClient.auth.signOut();currentUser=null;balance=0;totalClick=0;totalEarned=0;stopTaskTimer();activeTask=null;updateNavAuth();showToast('✅ Logged out.',2500);showPage('home');}
+async function startEarningTask(taskId){if(!currentUser){showPage('login');return;}if(activeTask){showToast('⏳ Finish the current verification first.');return;}const url=adLinks[taskId];if(!url)return showToast('❌ Task link unavailable.');launchingTaskId=taskId;taskWasHidden=false;window.open(url,'_blank','noopener,noreferrer');try{const{data:{session}}=await supabaseClient.auth.getSession();if(!session)throw new Error('Session expired.');const r=await fetch(`${SUPABASE_URL}/functions/v1/start-task`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${session.access_token}`,'apikey':SUPABASE_PUBLISHABLE_KEY},body:JSON.stringify({task_id:taskId})});const result=await r.json().catch(()=>({}));if(!r.ok)throw new Error(result.error||'Could not start task.');activeTask={id:taskId,completionId:result.completion_id||null};launchingTaskId=null;updateTaskButton(taskId,'↩ Return to site…',true);showToast('↩ Return to Click&EarnPK. The 10-second timer starts only when this page is visible.',5000);}catch(e){console.error(e);activeTask=null;launchingTaskId=null;taskWasHidden=false;resetTaskButtons();showToast('❌ '+e.message,5000);}}
+function updateTaskButton(id,text,disabled){const card=document.getElementById('ad-'+id),btn=card?.querySelector('.visit-btn');if(!btn)return;btn.textContent=text;btn.disabled=!!disabled;}
+function beginVisibleTimer(){if(!activeTask||document.visibilityState!=='visible'||timerInterval)return;remainingSeconds=TASK_SECONDS;updateTaskButton(activeTask.id,`Verify ${remainingSeconds}s`,true);timerInterval=setInterval(async()=>{if(!activeTask||document.visibilityState!=='visible')return;remainingSeconds--;updateTaskButton(activeTask.id,`Verify ${Math.max(remainingSeconds,0)}s`,true);if(remainingSeconds<=0){stopTaskTimer();await completeActiveTask();}},1000);}
+function stopTaskTimer(){if(timerInterval)clearInterval(timerInterval);timerInterval=null;}
+async function completeActiveTask(){if(!activeTask||document.visibilityState!=='visible')return;const taskId=activeTask.id,completionId=activeTask.completionId;try{showToast('⏳ Verifying task...',4000);const{data:{session}}=await supabaseClient.auth.getSession();if(!session)throw new Error('Session expired.');const r=await fetch(`${SUPABASE_URL}/functions/v1/complete-task`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${session.access_token}`,'apikey':SUPABASE_PUBLISHABLE_KEY},body:JSON.stringify({task_id:taskId,completion_id:completionId})});const result=await r.json().catch(()=>({}));if(!r.ok)throw new Error(result.error||'Task verification failed.');activeTask=null;taskWasHidden=false;launchingTaskId=null;await loadProfile();resetTaskButtons();showToast(`✅ Task completed. ₨${Number(result.reward??TASK_REWARD).toFixed(2)} added. You can complete this task again.`,4500);}catch(e){console.error(e);activeTask=null;taskWasHidden=false;launchingTaskId=null;resetTaskButtons();showToast('❌ '+e.message,5000);}}
+function openEarningTask(id){startEarningTask(id);}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){if(activeTask&&taskWasHidden){taskWasHidden=false;beginVisibleTimer();}}else{if(launchingTaskId||activeTask)taskWasHidden=true;stopTaskTimer();}});
+window.addEventListener('load',async()=>{const{data}=await supabaseClient.auth.getSession();currentUser=data.session?.user||null;updateNavAuth();if(currentUser)await loadProfile();resetTaskButtons();updateEarnDisplay();});
+supabaseClient.auth.onAuthStateChange(async(_event,session)=>{currentUser=session?.user||null;updateNavAuth();if(currentUser)await loadProfile();});
 </script>
 
-<script>
-/* =========================================================
-   Click&EarnPK — Supabase production frontend layer
-   Backend functions expected:
-     start-task
-     complete-task
-     withdrawal
-   ========================================================= */
-(function () {
-  const SUPABASE_URL = "https://flbruzcmuhhxhakdvour.supabase.co";
-  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_zxLPB_25AgRGB-6GQ0isWg_g_7CXyib";
-  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
-  });
-  window.clickEarnSupabase = sb;
-
-  const TASK_URLS = {
-    1:'https://omg10.com/4/7343595', 2:'https://omg10.com/4/7349687', 3:'https://omg10.com/4/7349692',
-    4:'https://omg10.com/4/7349688', 5:'https://omg10.com/4/7393659', 6:'https://omg10.com/4/7351274',
-    7:'https://omg10.com/4/7349694', 8:'https://omg10.com/4/7349690', 9:'https://omg10.com/4/7349680',
-    10:'https://omg10.com/4/7346296', 11:'https://omg10.com/4/7346296', 12:'https://omg10.com/4/7349689',
-    13:'https://omg10.com/4/7345679', 14:'https://omg10.com/4/7382951', 15:'https://omg10.com/4/7393658'
-  };
-
-  let activeTask = null;
-  let taskSeconds = 0;
-  let taskTimer = null;
-  let completionId = null;
-  let profileCache = null;
-
-  function toast(msg, ms=3500) {
-    if (typeof showToast === 'function') showToast(msg, ms);
-  }
-
-  function setBalanceUI() {
-    const b = Number(profileCache?.balance || 0);
-    const earned = Number(profileCache?.total_earned || 0);
-    const clicks = Number(profileCache?.total_clicks || 0);
-    const bal = document.getElementById('balance');
-    const wd = document.getElementById('wdBalance');
-    const te = document.getElementById('todayEarn');
-    const tc = document.getElementById('totalClicks');
-    if (bal) bal.textContent = '₨' + b.toFixed(2);
-    if (wd) wd.value = '₨' + b.toFixed(2);
-    if (te) te.textContent = '₨' + earned.toFixed(2);
-    if (tc) tc.textContent = String(clicks);
-  }
-
-  async function getUser() {
-    const { data, error } = await sb.auth.getUser();
-    if (error) return null;
-    return data.user || null;
-  }
-
-  async function loadProfile() {
-    const user = await getUser();
-    if (!user) { profileCache = null; setBalanceUI(); return null; }
-    const { data, error } = await sb.from('profiles').select('*').eq('id', user.id).maybeSingle();
-    if (error) { console.error(error); toast('❌ Could not load your account.', 5000); return null; }
-    profileCache = data || { balance:0, total_earned:0, total_clicks:0 };
-    if (typeof currentUser !== 'undefined') currentUser = user;
-    if (typeof balance !== 'undefined') balance = Number(profileCache.balance || 0);
-    if (typeof totalClick !== 'undefined') totalClick = Number(profileCache.total_clicks || 0);
-    setBalanceUI();
-    return profileCache;
-  }
-
-  async function loadCompletedTasks() {
-    const user = await getUser();
-    if (!user) return;
-    const { data, error } = await sb.from('task_completions').select('task_id, completed_at').eq('user_id', user.id);
-    if (error) { console.error(error); return; }
-    (data || []).forEach(row => markTaskDone(Number(row.task_id)));
-  }
-
-  function markTaskDone(id) {
-    const card = document.getElementById('ad-' + id);
-    const btn = card?.querySelector('.visit-btn');
-    if (!btn) return;
-    btn.textContent = '✅ Completed';
-    btn.disabled = true;
-    btn.style.opacity = '.65';
-    btn.style.cursor = 'not-allowed';
-    card?.classList.add('ad-done');
-  }
-
-  function updateTaskTimerUI() {
-    const card = activeTask ? document.getElementById('ad-' + activeTask) : null;
-    const btn = card?.querySelector('.visit-btn');
-    if (!btn) return;
-    if (document.visibilityState === 'visible') {
-      const remaining = Math.max(0, 10 - taskSeconds);
-      btn.textContent = remaining > 0 ? `⏳ Verify ${remaining}s` : '⏳ Crediting...';
-    } else {
-      btn.textContent = '↩️ Return to verify';
-    }
-  }
-
-  function stopTaskTimer() {
-    if (taskTimer) clearInterval(taskTimer);
-    taskTimer = null;
-  }
-
-  async function finishTask() {
-    stopTaskTimer();
-    if (!activeTask || !completionId) return;
-    const task = activeTask;
-    const completion = completionId;
-    activeTask = null;
-    completionId = null;
-    try {
-      toast('⏳ Verifying task...', 2500);
-      const { data, error } = await sb.functions.invoke('complete-task', {
-        body: { task_id: task, completion_id: completion, visible_seconds: taskSeconds }
-      });
-      if (error) throw error;
-      await loadProfile();
-      markTaskDone(task);
-      toast('✅ Reward credited to your balance!', 4000);
-    } catch (e) {
-      console.error('complete-task:', e);
-      toast('❌ Task could not be verified. Please try again.', 5000);
-      const card = document.getElementById('ad-' + task);
-      const btn = card?.querySelector('.visit-btn');
-      if (btn) { btn.disabled = false; btn.textContent = 'Open ➡️'; btn.style.opacity = ''; btn.style.cursor = ''; }
-    }
-    taskSeconds = 0;
-  }
-
-  function startVisibleTimer() {
-    if (!activeTask || completionId || taskTimer) return;
-    if (document.visibilityState !== 'visible') return;
-    taskTimer = setInterval(() => {
-      if (document.visibilityState !== 'visible') return;
-      taskSeconds++;
-      updateTaskTimerUI();
-      if (taskSeconds >= 10) finishTask();
-    }, 1000);
-    updateTaskTimerUI();
-  }
-
-  document.addEventListener('visibilitychange', () => {
-    if (!activeTask) return;
-    updateTaskTimerUI();
-    if (document.visibilityState === 'visible') startVisibleTimer();
-  });
-
-  window.openEarningTask = async function (taskId) {
-    const user = await getUser();
-    if (!user) { toast('❌ Please login first.', 4000); showPage('login'); return; }
-    if (activeTask) { toast('⏳ Finish your current task first.'); return; }
-    if (document.getElementById('ad-' + taskId)?.querySelector('.visit-btn')?.disabled) return;
-
-    try {
-      toast('⏳ Starting task...');
-      const { data, error } = await sb.functions.invoke('start-task', { body: { task_id: taskId } });
-      if (error) throw error;
-      completionId = data?.completion_id || data?.id || null;
-      if (!completionId) throw new Error('No completion id returned');
-      activeTask = taskId;
-      taskSeconds = 0;
-      const card = document.getElementById('ad-' + taskId);
-      const btn = card?.querySelector('.visit-btn');
-      if (btn) { btn.disabled = true; btn.textContent = '↗️ Return here after visiting'; }
-      window.open(TASK_URLS[taskId], '_blank', 'noopener,noreferrer');
-      toast('↩️ Return to Click&EarnPK. Your 10-second verification starts when this tab is visible.', 6000);
-      if (document.visibilityState === 'visible') startVisibleTimer();
-    } catch (e) {
-      console.error('start-task:', e);
-      toast('❌ Could not start this task. The task service may not be deployed yet.', 6000);
-    }
-  };
-
-  window.submitWithdraw = async function () {
-    const method = document.getElementById('payMethod')?.value;
-    const account = document.getElementById('accountInput')?.value.trim();
-    const amount = Number(document.getElementById('withdrawAmt')?.value);
-    const user = await getUser();
-    if (!user) { toast('❌ Please login first.'); showPage('login'); return; }
-    if (!method) return toast('❌ Select payment method!');
-    if (!account) return toast('❌ Enter your payment account!');
-    if (!Number.isFinite(amount) || amount < 10) return toast('❌ Minimum withdrawal is ₨10!');
-    if (amount > Number(profileCache?.balance || 0)) return toast('❌ Insufficient balance!');
-    try {
-      toast('⏳ Submitting withdrawal...', 3000);
-      const { error } = await sb.functions.invoke('withdrawal', {
-        body: { method, account, amount }
-      });
-      if (error) throw error;
-      document.getElementById('payMethod').value = '';
-      document.getElementById('accountInput').value = '';
-      document.getElementById('withdrawAmt').value = '';
-      await loadProfile();
-      await loadWithdrawals();
-      toast('✅ Withdrawal request submitted.', 4500);
-    } catch (e) {
-      console.error('withdrawal:', e);
-      toast('❌ Withdrawal could not be submitted. Please try again.', 5000);
-    }
-  };
-
-  async function loadWithdrawals() {
-    const user = await getUser();
-    const tbody = document.getElementById('wdHistory');
-    if (!user || !tbody) return;
-    const { data, error } = await sb.from('withdrawals').select('amount, method, status, created_at').eq('user_id', user.id).order('created_at', { ascending:false });
-    if (error) { console.error(error); return; }
-    if (!data?.length) {
-      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:30px;">No withdrawals yet</td></tr>';
-      return;
-    }
-    tbody.innerHTML = data.map(w => {
-      const status = String(w.status || 'pending');
-      const badge = status === 'paid' ? 'badge-success' : status === 'rejected' ? 'badge-danger' : 'badge-warning';
-      const label = status.charAt(0).toUpperCase() + status.slice(1);
-      const date = new Date(w.created_at).toLocaleDateString('en-PK');
-      return `<tr><td><strong style="color:var(--success);">₨${Number(w.amount).toFixed(2)}</strong></td><td>${escapeHtml(w.method)}</td><td>${date}</td><td><span class="badge ${badge}">${label}</span></td></tr>`;
-    }).join('');
-  }
-
-  function escapeHtml(v) { return String(v).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
-
-  window.doLogin = async function () {
-    const email = document.getElementById('loginEmail').value.trim();
-    const pass = document.getElementById('loginPass').value;
-    if (!email || !pass) return toast('❌ Please fill in email and password!');
-    try {
-      toast('⏳ Logging in...', 2500);
-      const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
-      if (error) {
-        if (/not confirmed|email.*confirm/i.test(error.message)) return toast('📧 Please verify your email first.', 5000);
-        throw error;
-      }
-      currentUser = data.user;
-      await loadProfile();
-      await loadCompletedTasks();
-      await loadWithdrawals();
-      toast('✅ Login successful.', 3000);
-      setTimeout(() => showPage('earn'), 700);
-    } catch (e) { console.error(e); toast('❌ ' + (e.message || 'Login failed.'), 5000); }
-  };
-
-  window.doRegister = async function () {
-    const name = document.getElementById('regName').value.trim();
-    const email = document.getElementById('regEmail').value.trim();
-    const phone = document.getElementById('regPhone').value.trim();
-    const pass = document.getElementById('regPass').value;
-    const terms = document.getElementById('termsCheck').checked;
-    if (!name || !email || !phone || !pass) return toast('❌ Fill all fields!');
-    if (pass.length < 6) return toast('❌ Password must be at least 6 characters!');
-    if (!terms) return toast('❌ Accept Terms first!');
-    try {
-      toast('⏳ Creating account...', 3000);
-      const redirect = window.location.href.split('#')[0];
-      const { data, error } = await sb.auth.signUp({
-        email, password: pass,
-        options: { data: { name, phone }, emailRedirectTo: redirect }
-      });
-      if (error) throw error;
-      const ve = document.getElementById('verifyEmail'); if (ve) ve.textContent = email;
-      toast('📧 Verification email sent. Check your inbox.', 6000);
-      showPage('verify');
-    } catch (e) { console.error(e); toast('❌ ' + (e.message || 'Signup failed.'), 6000); }
-  };
-
-  window.verifySignup = async function () {
-    const email = document.getElementById('regEmail')?.value.trim();
-    if (!email) return toast('❌ Enter your signup email first.');
-    try {
-      const { error } = await sb.auth.resend({ type:'signup', email, options:{ emailRedirectTo:window.location.href.split('#')[0] } });
-      if (error) throw error;
-      toast('📧 A new verification email was sent.', 5000);
-    } catch (e) { console.error(e); toast('❌ ' + (e.message || 'Could not resend email.'), 5000); }
-  };
-
-  window.doLogout = async function () {
-    await sb.auth.signOut();
-    currentUser = null; profileCache = null; balance = 0; totalClick = 0;
-    setBalanceUI();
-    toast('✅ Logged out.', 2500);
-    showPage('home');
-  };
-
-  window.saveState = function () {};
-  window.checkDailyReset = function () {};
-  window.startRefreshTimer = function () {
-    const el = document.getElementById('refreshTimer');
-    if (el) el.textContent = 'No daily limit';
-  };
-  window.restoreAdButtons = function () { loadCompletedTasks(); };
-  window.updateEarnDisplay = function () { setBalanceUI(); };
-
-  const forgot = document.getElementById('forgotPasswordLink');
-  if (forgot) forgot.onclick = async function () {
-    const email = document.getElementById('loginEmail').value.trim();
-    if (!email) return toast('❌ Enter your email first.');
-    try {
-      const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo:window.location.href.split('#')[0] });
-      if (error) throw error;
-      toast('📧 Password reset email sent.', 5000);
-    } catch (e) { toast('❌ ' + (e.message || 'Could not send reset email.'), 5000); }
-  };
-
-  const oldWithdrawText = document.querySelector('#page-withdraw .form-box p');
-  if (oldWithdrawText) oldWithdrawText.textContent = 'Minimum: ₨10 | Processed after review';
-  document.querySelectorAll('#page-withdraw .pay-card div div div').forEach(el => {
-    if (/Min: ₨50/.test(el.textContent)) el.textContent = 'Min: ₨10';
-  });
-
-  sb.auth.onAuthStateChange(async (_event, session) => {
-    currentUser = session?.user || null;
-    if (session?.user) {
-      await loadProfile();
-      await loadCompletedTasks();
-      await loadWithdrawals();
-    } else {
-      profileCache = null; setBalanceUI();
-    }
-  });
-
-  window.addEventListener('load', async () => {
-    document.querySelectorAll('[id^="ad-"] .visit-btn').forEach(btn => { btn.disabled = false; btn.style.opacity = ''; });
-    const user = await getUser();
-    if (user) { currentUser = user; await loadProfile(); await loadCompletedTasks(); await loadWithdrawals(); }
-    setBalanceUI();
-  });
-})();
-</script>
 </body>
 </html>
