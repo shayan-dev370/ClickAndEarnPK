@@ -1,3325 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<meta
-    name="description"
-    content="Click&EarnPK - Earn rewards and request withdrawals."
->
-
-<!-- ==========================================================
-     MONETAG VERIFICATION TAG
-
-     No actual Monetag verification tag was supplied in the
-     request, so none is fabricated here.
-
-     Paste the exact tag supplied by Monetag here.
-     ========================================================== -->
-
-<title>Click&EarnPK — Earn & Withdraw</title>
-
-<style>
-/* ==========================================================
-   ROOT
-   ========================================================== */
-
-:root {
-    --bg: #0f0e17;
-    --card: #16151f;
-    --card-hover: #1b1925;
-
-    --primary: #7c3aed;
-    --primary-hover: #6d28d9;
-    --primary-light: #8b5cf6;
-
-    --text: #f5f3ff;
-    --muted: #aaa5b8;
-
-    --success: #22c55e;
-    --danger: #ef4444;
-    --warning: #f59e0b;
-
-    --border: rgba(255,255,255,0.08);
-
-    --radius: 18px;
-}
-
-
-/* ==========================================================
-   RESET
-   ========================================================== */
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    min-height: 100vh;
-    background: var(--bg);
-    color: var(--text);
-
-    font-family:
-        Inter,
-        ui-sans-serif,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-}
-
-button,
-input,
-select {
-    font: inherit;
-}
-
-button {
-    cursor: pointer;
-}
-
-.hidden {
-    display: none !important;
-}
-
-
-/* ==========================================================
-   AUTH
-   ========================================================== */
-
-.auth-screen {
-    min-height: 100vh;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 24px;
-}
-
-.auth-card {
-    width: 100%;
-    max-width: 430px;
-
-    background: var(--card);
-
-    border: 1px solid var(--border);
-    border-radius: 22px;
-
-    padding: 32px;
-
-    box-shadow:
-        0 25px 70px rgba(0,0,0,0.35);
-}
-
-.brand {
-    text-align: center;
-    margin-bottom: 28px;
-}
-
-.brand h1 {
-    font-size: 30px;
-    font-weight: 850;
-    letter-spacing: -1px;
-}
-
-.brand h1 span {
-    color: var(--primary-light);
-}
-
-.brand p {
-    color: var(--muted);
-    font-size: 14px;
-    margin-top: 7px;
-}
-
-.auth-tabs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    gap: 5px;
-
-    padding: 5px;
-
-    background: #0b0a10;
-
-    border-radius: 12px;
-
-    margin-bottom: 24px;
-}
-
-.auth-tab {
-    border: 0;
-
-    background: transparent;
-
-    color: var(--muted);
-
-    padding: 11px;
-
-    border-radius: 9px;
-
-    font-weight: 600;
-}
-
-.auth-tab.active {
-    background: var(--primary);
-    color: white;
-}
-
-.form-group {
-    margin-bottom: 16px;
-}
-
-.form-group label {
-    display: block;
-
-    color: #d9d4e5;
-
-    font-size: 13px;
-
-    margin-bottom: 7px;
-}
-
-.form-control {
-    width: 100%;
-
-    background: #0f0e17;
-
-    color: white;
-
-    border: 1px solid var(--border);
-
-    outline: none;
-
-    border-radius: 11px;
-
-    padding: 13px 14px;
-
-    transition: 0.2s;
-}
-
-.form-control:focus {
-    border-color: var(--primary);
-
-    box-shadow:
-        0 0 0 3px rgba(124,58,237,0.15);
-}
-
-.primary-button {
-    width: 100%;
-
-    border: 0;
-
-    background: var(--primary);
-
-    color: white;
-
-    border-radius: 11px;
-
-    padding: 13px 18px;
-
-    font-weight: 750;
-
-    transition: 0.2s;
-}
-
-.primary-button:hover:not(:disabled) {
-    background: var(--primary-hover);
-
-    transform: translateY(-1px);
-}
-
-.primary-button:disabled {
-    opacity: 0.5;
-
-    cursor: not-allowed;
-}
-
-.auth-message {
-    display: none;
-
-    margin-top: 15px;
-
-    padding: 11px 13px;
-
-    border-radius: 10px;
-
-    font-size: 13px;
-}
-
-.auth-message.show {
-    display: block;
-}
-
-.auth-message.error {
-    color: #fca5a5;
-
-    background: rgba(239,68,68,0.1);
-
-    border: 1px solid rgba(239,68,68,0.2);
-}
-
-.auth-message.success {
-    color: #86efac;
-
-    background: rgba(34,197,94,0.1);
-
-    border: 1px solid rgba(34,197,94,0.2);
-}
-
-
-/* ==========================================================
-   HEADER
-   ========================================================== */
-
-.dashboard {
-    min-height: 100vh;
-}
-
-.header {
-    position: sticky;
-
-    top: 0;
-
-    z-index: 50;
-
-    background:
-        rgba(15,14,23,0.9);
-
-    backdrop-filter: blur(16px);
-
-    border-bottom: 1px solid var(--border);
-}
-
-.header-inner {
-    width: 100%;
-
-    max-width: 1100px;
-
-    min-height: 70px;
-
-    margin: auto;
-
-    padding: 0 22px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-}
-
-.logo {
-    font-size: 20px;
-
-    font-weight: 850;
-}
-
-.logo span {
-    color: var(--primary-light);
-}
-
-.user-area {
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-}
-
-.user-name {
-    color: #ddd8e9;
-
-    font-size: 14px;
-}
-
-.logout-button {
-    background: var(--card);
-
-    border: 1px solid var(--border);
-
-    color: white;
-
-    border-radius: 9px;
-
-    padding: 9px 13px;
-}
-
-
-/* ==========================================================
-   CONTENT
-   ========================================================== */
-
-.container {
-    width: 100%;
-
-    max-width: 1100px;
-
-    margin: auto;
-
-    padding: 30px 22px 60px;
-}
-
-.welcome {
-    margin-bottom: 25px;
-}
-
-.welcome h2 {
-    font-size: 28px;
-
-    margin-bottom: 6px;
-}
-
-.welcome p {
-    color: var(--muted);
-
-    font-size: 14px;
-}
-
-
-/* ==========================================================
-   STATS
-   ========================================================== */
-
-.stats {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, minmax(0,1fr));
-
-    gap: 15px;
-
-    margin-bottom: 20px;
-}
-
-.stat-card {
-    background: var(--card);
-
-    border: 1px solid var(--border);
-
-    border-radius: var(--radius);
-
-    padding: 20px;
-}
-
-.stat-label {
-    color: var(--muted);
-
-    font-size: 13px;
-
-    margin-bottom: 8px;
-}
-
-.stat-value {
-    font-size: 25px;
-
-    font-weight: 850;
-}
-
-
-/* ==========================================================
-   AD CARD
-   ========================================================== */
-
-.ad-card {
-    background:
-        linear-gradient(
-            135deg,
-            rgba(124,58,237,0.16),
-            rgba(22,21,31,1) 58%
-        );
-
-    border: 1px solid rgba(124,58,237,0.25);
-
-    border-radius: var(--radius);
-
-    padding: 28px;
-
-    margin-bottom: 20px;
-}
-
-.reward-badge {
-    display: inline-flex;
-
-    background:
-        rgba(124,58,237,0.15);
-
-    border:
-        1px solid rgba(124,58,237,0.25);
-
-    color: #c4b5fd;
-
-    border-radius: 999px;
-
-    padding: 7px 12px;
-
-    font-size: 13px;
-
-    margin-bottom: 15px;
-}
-
-.ad-card h3 {
-    font-size: 22px;
-
-    margin-bottom: 8px;
-}
-
-.ad-description {
-    color: var(--muted);
-
-    font-size: 14px;
-
-    line-height: 1.6;
-
-    margin-bottom: 20px;
-}
-
-.watch-button {
-    width: 100%;
-
-    max-width: 430px;
-
-    border: 0;
-
-    background: var(--primary);
-
-    color: white;
-
-    border-radius: 12px;
-
-    padding: 15px 20px;
-
-    font-size: 15px;
-
-    font-weight: 800;
-
-    transition: 0.2s;
-}
-
-.watch-button:hover:not(:disabled) {
-    background: var(--primary-hover);
-
-    transform: translateY(-1px);
-}
-
-.watch-button:disabled {
-    opacity: 0.5;
-
-    cursor: not-allowed;
-}
-
-
-/* ==========================================================
-   TIMER
-   ========================================================== */
-
-.timer-box {
-    display: none;
-
-    max-width: 430px;
-
-    margin-top: 17px;
-
-    padding: 17px;
-
-    border-radius: 12px;
-
-    background: rgba(0,0,0,0.22);
-
-    border: 1px solid var(--border);
-}
-
-.timer-box.show {
-    display: block;
-}
-
-.timer-label {
-    color: var(--muted);
-
-    font-size: 12px;
-
-    margin-bottom: 4px;
-}
-
-.timer-number {
-    font-size: 32px;
-
-    font-weight: 850;
-}
-
-.progress-track {
-    height: 7px;
-
-    margin-top: 12px;
-
-    overflow: hidden;
-
-    background: #292633;
-
-    border-radius: 999px;
-}
-
-.progress-bar {
-    width: 0%;
-
-    height: 100%;
-
-    background: var(--primary-light);
-
-    transition:
-        width 0.2s linear;
-}
-
-
-/* ==========================================================
-   ERROR BANNER
-   ========================================================== */
-
-.top-error {
-    position: fixed;
-
-    top: 82px;
-
-    left: 50%;
-
-    z-index: 100;
-
-    width: calc(100% - 30px);
-
-    max-width: 600px;
-
-    transform:
-        translate(-50%, -20px);
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    padding: 13px 17px;
-
-    border-radius: 11px;
-
-    background:
-        rgba(127,29,29,0.96);
-
-    border:
-        1px solid rgba(248,113,113,0.4);
-
-    color: #fecaca;
-
-    font-size: 13px;
-
-    text-align: center;
-
-    transition: 0.25s;
-}
-
-.top-error.show {
-    opacity: 1;
-
-    transform:
-        translate(-50%, 0);
-}
-
-
-/* ==========================================================
-   TWO COLUMN
-   ========================================================== */
-
-.two-column {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2,minmax(0,1fr));
-
-    gap: 20px;
-}
-
-.card {
-    background: var(--card);
-
-    border: 1px solid var(--border);
-
-    border-radius: var(--radius);
-
-    padding: 24px;
-}
-
-.card h3 {
-    margin-bottom: 7px;
-}
-
-.card-description {
-    color: var(--muted);
-
-    font-size: 13px;
-
-    line-height: 1.5;
-
-    margin-bottom: 20px;
-}
-
-.small-note {
-    color: var(--muted);
-
-    font-size: 12px;
-
-    line-height: 1.5;
-
-    margin-top: 12px;
-}
-
-
-/* ==========================================================
-   WITHDRAWAL HISTORY
-   ========================================================== */
-
-.history-list {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 10px;
-}
-
-.history-item {
-    background: var(--card-hover);
-
-    border: 1px solid var(--border);
-
-    border-radius: 11px;
-
-    padding: 13px;
-}
-
-.history-top {
-    display: flex;
-
-    justify-content: space-between;
-
-    gap: 10px;
-}
-
-.history-method {
-    font-weight: 700;
-}
-
-.history-amount {
-    font-weight: 800;
-}
-
-.history-bottom {
-    display: flex;
-
-    justify-content: space-between;
-
-    gap: 10px;
-
-    color: var(--muted);
-
-    font-size: 12px;
-
-    margin-top: 7px;
-}
-
-.status {
-    text-transform: capitalize;
-}
-
-.status.pending {
-    color: var(--warning);
-}
-
-.status.approved {
-    color: #60a5fa;
-}
-
-.status.paid {
-    color: var(--success);
-}
-
-.status.rejected {
-    color: var(--danger);
-}
-
-
-/* ==========================================================
-   TOAST
-   ========================================================== */
-
-.toast-container {
-    position: fixed;
-
-    right: 18px;
-
-    bottom: 18px;
-
-    z-index: 200;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 9px;
-}
-
-.toast {
-    max-width: 350px;
-
-    padding: 13px 15px;
-
-    background: #201e2b;
-
-    border: 1px solid var(--border);
-
-    border-radius: 12px;
-
-    box-shadow:
-        0 15px 40px rgba(0,0,0,0.35);
-
-    font-size: 13px;
-
-    animation:
-        toastIn 0.2s ease;
-}
-
-.toast.success {
-    border-color:
-        rgba(34,197,94,0.3);
-}
-
-.toast.error {
-    border-color:
-        rgba(239,68,68,0.3);
-}
-
-@keyframes toastIn {
-
-    from {
-        opacity: 0;
-
-        transform:
-            translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            translateY(0);
-    }
-}
-
-
-/* ==========================================================
-   MOBILE
-   ========================================================== */
-
-@media (max-width: 760px) {
-
-    .stats {
-        grid-template-columns: 1fr;
-    }
-
-    .two-column {
-        grid-template-columns: 1fr;
-    }
-
-    .container {
-        padding:
-            23px 15px 45px;
-    }
-
-    .header-inner {
-        padding: 0 15px;
-    }
-
-    .user-name {
-        display: none;
-    }
-
-    .welcome h2 {
-        font-size: 24px;
-    }
-
-    .auth-card {
-        padding: 23px;
-    }
-
-    .ad-card {
-        padding: 22px;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click&EarnPK</title>
+    <!-- Supabase JS Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .header h1 span {
+            color: var(--primary);
+        }
+
+        .header p {
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background-color: var(--bg);
+            color: var(--text);
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stat-card {
+            background-color: var(--bg);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-card label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .stat-card div {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .timer-display {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 12px 0;
+            color: var(--primary);
+        }
+
+        .message {
+            margin-top: 12px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .message.error {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            display: block;
+        }
+
+        .message.success {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+            display: block;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 20px 0;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            margin-top: 12px;
+        }
+    </style>
 </head>
-
-
 <body>
 
-
-<!-- ==========================================================
-     TOP ERROR BANNER
-     ========================================================== -->
-
-<div
-    id="topError"
-    class="top-error"
-    role="alert"
-></div>
-
-
-<!-- ==========================================================
-     AUTH SCREEN
-     ========================================================== -->
-
-<section
-    id="authScreen"
-    class="auth-screen"
->
-
-    <div class="auth-card">
-
-        <div class="brand">
-
-            <h1>
-                Click<span>&amp;EarnPK</span>
-            </h1>
-
-            <p>
-                Earn rewards and request withdrawals.
-            </p>
-
+    <div class="container">
+        <!-- App Title Header -->
+        <div class="header">
+            <h1>Click<span>&amp;EarnPK</span></h1>
+            <p>Earn rewards and request withdrawals.</p>
         </div>
 
-
-        <div class="auth-tabs">
-
-            <button
-                id="loginTab"
-                class="auth-tab active"
-                type="button"
-            >
-                Login
-            </button>
-
-            <button
-                id="signupTab"
-                class="auth-tab"
-                type="button"
-            >
-                Sign Up
-            </button>
-
+        <!-- Auth View (Shown when logged out) -->
+        <div id="authView" class="card">
+            <h2>Account Access</h2>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required />
+            </div>
+            
+            <button id="btnLogin">Log In</button>
+            <button id="btnSignUp" class="btn-secondary">Create Account</button>
+            
+            <div id="authMessage" class="message"></div>
         </div>
 
+        <!-- Main Dashboard (Shown when logged in) -->
+        <div id="dashboardView" class="card" style="display: none;">
+            <p>Logged in as: <b id="userEmail"></b></p>
 
-        <!-- LOGIN -->
-
-        <form id="loginForm">
-
-            <div class="form-group">
-
-                <label for="loginEmail">
-                    Email
-                </label>
-
-                <input
-                    id="loginEmail"
-                    class="form-control"
-                    type="email"
-                    autocomplete="email"
-                    required
-                >
-
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <label>Balance</label>
+                    <div id="balanceDisplay">0.00 PKR</div>
+                </div>
+                <div class="stat-card">
+                    <label>Ads Watched</label>
+                    <div id="adsWatchedDisplay">0</div>
+                </div>
             </div>
 
+            <hr />
 
+            <!-- Watch Ad Section -->
+            <h2>Watch Ad &amp; Earn 0.1 PKR</h2>
+            <div class="timer-display" id="timerDisplay">20s</div>
+            <button id="btnWatchAd">Start Watching Ad</button>
+            <div id="adMessage" class="message"></div>
+
+            <hr />
+
+            <!-- Withdrawal Section -->
+            <h2>Withdraw Earnings (Min: 5 PKR)</h2>
             <div class="form-group">
-
-                <label for="loginPassword">
-                    Password
-                </label>
-
-                <input
-                    id="loginPassword"
-                    class="form-control"
-                    type="password"
-                    autocomplete="current-password"
-                    required
-                >
-
+                <label for="paymentMethod">Payment Method</label>
+                <select id="paymentMethod">
+                    <option value="Easypaisa">Easypaisa</option>
+                    <option value="JazzCash">JazzCash</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="accountDetails">Account Number / Phone</label>
+                <input type="text" id="accountDetails" placeholder="03XXXXXXXXX" />
+            </div>
+            <div class="form-group">
+                <label for="withdrawAmount">Amount (PKR)</label>
+                <input type="number" id="withdrawAmount" placeholder="5.00" min="5.00" step="0.5" />
             </div>
 
+            <button id="btnWithdraw">Request Withdrawal</button>
+            <div id="withdrawMessage" class="message"></div>
 
-            <button
-                id="loginButton"
-                class="primary-button"
-                type="submit"
-            >
-                Login
-            </button>
-
-        </form>
-
-
-        <!-- SIGN UP -->
-
-        <form
-            id="signupForm"
-            class="hidden"
-        >
-
-            <div class="form-group">
-
-                <label for="signupName">
-                    Name
-                </label>
-
-                <input
-                    id="signupName"
-                    class="form-control"
-                    type="text"
-                    autocomplete="name"
-                    maxlength="80"
-                    required
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="signupPhone">
-                    Phone
-                </label>
-
-                <input
-                    id="signupPhone"
-                    class="form-control"
-                    type="tel"
-                    autocomplete="tel"
-                    maxlength="30"
-                    required
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="signupEmail">
-                    Email
-                </label>
-
-                <input
-                    id="signupEmail"
-                    class="form-control"
-                    type="email"
-                    autocomplete="email"
-                    required
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="signupPassword">
-                    Password
-                </label>
-
-                <input
-                    id="signupPassword"
-                    class="form-control"
-                    type="password"
-                    autocomplete="new-password"
-                    minlength="6"
-                    required
-                >
-
-            </div>
-
-
-            <button
-                id="signupButton"
-                class="primary-button"
-                type="submit"
-            >
-                Create Account
-            </button>
-
-        </form>
-
-
-        <div
-            id="authMessage"
-            class="auth-message"
-        ></div>
-
+            <button id="btnLogout" class="btn-secondary">Log Out</button>
+        </div>
     </div>
 
-</section>
-
-
-<!-- ==========================================================
-     DASHBOARD
-     ========================================================== -->
-
-<section
-    id="dashboardScreen"
-    class="dashboard hidden"
->
-
-    <header class="header">
-
-        <div class="header-inner">
-
-            <div class="logo">
-                Click<span>&amp;EarnPK</span>
-            </div>
-
-            <div class="user-area">
-
-                <span
-                    id="userName"
-                    class="user-name"
-                >
-                    User
-                </span>
-
-                <button
-                    id="logoutButton"
-                    class="logout-button"
-                    type="button"
-                >
-                    Logout
-                </button>
-
-            </div>
-
-        </div>
-
-    </header>
-
-
-    <main class="container">
-
-
-        <section class="welcome">
-
-            <h2>
-                Welcome,
-                <span id="welcomeName">
-                    User
-                </span>
-            </h2>
-
-            <p>
-                Complete eligible tasks and build your balance.
-            </p>
-
-        </section>
-
-
-        <!-- ==================================================
-             STATS
-             ================================================== -->
-
-        <section class="stats">
-
-            <div class="stat-card">
-
-                <div class="stat-label">
-                    Current Balance
-                </div>
-
-                <div
-                    id="balanceValue"
-                    class="stat-value"
-                >
-                    ₨0.00
-                </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-label">
-                    Total Ads Watched
-                </div>
-
-                <div
-                    id="adsWatchedValue"
-                    class="stat-value"
-                >
-                    0
-                </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-label">
-                    Reward Per Ad
-                </div>
-
-                <div class="stat-value">
-                    ₨0.10
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ==================================================
-             AD
-             ================================================== -->
-
-        <section class="ad-card">
-
-            <div class="reward-badge">
-                Reward: ₨0.10
-            </div>
-
-            <h3>
-                Watch Ad &amp; Earn
-            </h3>
-
-            <p class="ad-description">
-                Click Watch Ad to open the advertiser in a new
-                tab. Keep this page active during the 20-second
-                verification period. Leaving this page cancels
-                the session and no reward is credited.
-            </p>
-
-
-            <button
-                id="watchButton"
-                class="watch-button"
-                type="button"
-            >
-                Watch Ad &amp; Earn ₨0.10
-            </button>
-
-
-            <div
-                id="timerBox"
-                class="timer-box"
-            >
-
-                <div class="timer-label">
-                    Verification time remaining
-                </div>
-
-                <div
-                    id="timerNumber"
-                    class="timer-number"
-                >
-                    20s
-                </div>
-
-                <div class="progress-track">
-
-                    <div
-                        id="progressBar"
-                        class="progress-bar"
-                    ></div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ==================================================
-             WITHDRAWAL + HISTORY
-             ================================================== -->
-
-        <section class="two-column">
-
-
-            <div class="card">
-
-                <h3>
-                    Withdraw
-                </h3>
-
-                <p class="card-description">
-                    Minimum withdrawal: ₨5.00
-                </p>
-
-
-                <form id="withdrawForm">
-
-                    <div class="form-group">
-
-                        <label for="withdrawMethod">
-                            Payment Method
-                        </label>
-
-                        <select
-                            id="withdrawMethod"
-                            class="form-control"
-                            required
-                        >
-
-                            <option value="Easypaisa">
-                                Easypaisa
-                            </option>
-
-                            <option value="JazzCash">
-                                JazzCash
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="withdrawAccount">
-                            Account Number
-                        </label>
-
-                        <input
-                            id="withdrawAccount"
-                            class="form-control"
-                            type="text"
-                            inputmode="numeric"
-                            maxlength="30"
-                            placeholder="03XXXXXXXXX"
-                            required
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="withdrawName">
-                            Account Name
-                        </label>
-
-                        <input
-                            id="withdrawName"
-                            class="form-control"
-                            type="text"
-                            maxlength="100"
-                            placeholder="Account holder name"
-                            required
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="withdrawAmount">
-                            Amount (PKR)
-                        </label>
-
-                        <input
-                            id="withdrawAmount"
-                            class="form-control"
-                            type="number"
-                            min="5"
-                            step="0.01"
-                            placeholder="5.00"
-                            required
-                        >
-
-                    </div>
-
-
-                    <button
-                        id="withdrawButton"
-                        class="primary-button"
-                        type="submit"
-                    >
-                        Request Withdrawal
-                    </button>
-
-                </form>
-
-
-                <p class="small-note">
-                    Withdrawal requests initially appear as
-                    pending until processed.
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <h3>
-                    Withdrawal History
-                </h3>
-
-                <p class="card-description">
-                    Your recent withdrawal requests.
-                </p>
-
-
-                <div
-                    id="historyList"
-                    class="history-list"
-                >
-
-                    <div
-                        style="
-                            color:#aaa5b8;
-                            font-size:13px;
-                        "
-                    >
-                        Loading...
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-</section>
-
-
-<!-- ==========================================================
-     TOAST
-     ========================================================== -->
-
-<div
-    id="toastContainer"
-    class="toast-container"
-></div>
-
-
-<!-- ==========================================================
-     SUPABASE JS V2
-     ========================================================== -->
-
-<script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
-
-
-<script>
-"use strict";
-
-
-/* ==========================================================
-   CONFIGURATION
-   ========================================================== */
-
-const SUPABASE_URL =
-    "https://flbruzcmuhhxhakdvour.supabase.co";
-
-const SUPABASE_ANON_KEY =
-    "sb_publishable_zxLPB_25AgRGB-6GQ0isWg_g_7CXyib";
-
-
-const MONETAG_LINKS = [
-    "https://omg10.com/4/7349692",
-    "https://omg10.com/4/7349688",
-    "https://omg10.com/4/7393659",
-    "https://omg10.com/4/7343595",
-    "https://omg10.com/4/7349687",
-    "https://omg10.com/4/7351274",
-    "https://omg10.com/4/7349694",
-    "https://omg10.com/4/7349690",
-    "https://omg10.com/4/7349680",
-    "https://omg10.com/4/11831163",
-    "https://omg10.com/4/7393664",
-    "https://omg10.com/4/7346296",
-    "https://omg10.com/4/7349689",
-    "https://omg10.com/4/7354679",
-    "https://omg10.com/4/7382951",
-    "https://omg10.com/4/7393658"
-];
-
-
-const REWARD_PKR = 0.10;
-
-const VERIFY_SECONDS = 20;
-
-const MIN_WITHDRAWAL = 5.00;
-
-
-/* ==========================================================
-   SUPABASE CLIENT
-   ========================================================== */
-
-const {
-    createClient
-} = window.supabase;
-
-
-const supabase =
-    createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-    );
-
-
-/* ==========================================================
-   STATE
-   ========================================================== */
-
-let currentUser = null;
-
-let currentProfile = null;
-
-let currentSessionId = null;
-
-let timerInterval = null;
-
-let timerRunning = false;
-
-let secondsRemaining =
-    VERIFY_SECONDS;
-
-
-/* ==========================================================
-   DOM
-   ========================================================== */
-
-const $ = id =>
-    document.getElementById(id);
-
-
-/* ==========================================================
-   AUTH TABS
-   ========================================================== */
-
-$("loginTab")
-.addEventListener(
-    "click",
-    () => switchAuth("login")
-);
-
-
-$("signupTab")
-.addEventListener(
-    "click",
-    () => switchAuth("signup")
-);
-
-
-function switchAuth(mode) {
-
-    clearAuthMessage();
-
-
-    if (mode === "signup") {
-
-        $("loginTab")
-            .classList
-            .remove("active");
-
-        $("signupTab")
-            .classList
-            .add("active");
-
-
-        $("loginForm")
-            .classList
-            .add("hidden");
-
-        $("signupForm")
-            .classList
-            .remove("hidden");
-
-    } else {
-
-        $("signupTab")
-            .classList
-            .remove("active");
-
-        $("loginTab")
-            .classList
-            .add("active");
-
-
-        $("signupForm")
-            .classList
-            .add("hidden");
-
-        $("loginForm")
-            .classList
-            .remove("hidden");
-    }
-}
-
-
-/* ==========================================================
-   AUTH MESSAGES
-   ========================================================== */
-
-function showAuthMessage(
-    message,
-    type = "error"
-) {
-
-    const box =
-        $("authMessage");
-
-    box.textContent =
-        message;
-
-    box.className =
-        "auth-message show " +
-        type;
-}
-
-
-function clearAuthMessage() {
-
-    const box =
-        $("authMessage");
-
-    box.textContent = "";
-
-    box.className =
-        "auth-message";
-}
-
-
-/* ==========================================================
-   TOP ERROR
-   ========================================================== */
-
-let topErrorTimeout = null;
-
-
-function showTopError(
-    message
-) {
-
-    const box =
-        $("topError");
-
-    box.textContent =
-        message;
-
-    box.classList
-        .add("show");
-
-
-    clearTimeout(
-        topErrorTimeout
-    );
-
-
-    topErrorTimeout =
-        setTimeout(
-            () => {
-
-                box.classList
-                    .remove("show");
-
-            },
-            5000
-        );
-}
-
-
-/* ==========================================================
-   TOAST
-   ========================================================== */
-
-function showToast(
-    message,
-    type = "success"
-) {
-
-    const container =
-        $("toastContainer");
-
-
-    const toast =
-        document.createElement("div");
-
-
-    toast.className =
-        "toast " + type;
-
-
-    toast.textContent =
-        message;
-
-
-    container.appendChild(
-        toast
-    );
-
-
-    setTimeout(
-        () => {
-
-            toast.style.opacity =
-                "0";
-
-            toast.style.transform =
-                "translateY(8px)";
-
-
-            setTimeout(
-                () => toast.remove(),
-                200
-            );
-
-        },
-        3500
-    );
-}
-
-
-/* ==========================================================
-   LOGIN
-   ========================================================== */
-
-$("loginForm")
-.addEventListener(
-    "submit",
-    async event => {
-
-        event.preventDefault();
-
-        clearAuthMessage();
-
-
-        const button =
-            $("loginButton");
-
-
-        const email =
-            $("loginEmail")
-            .value
-            .trim();
-
-
-        const password =
-            $("loginPassword")
-            .value;
-
-
-        button.disabled = true;
-
-        button.textContent =
-            "Logging in...";
-
-
-        try {
-
-            const {
-                data,
-                error
-            } =
-                await supabase
-                .auth
-                .signInWithPassword({
-                    email,
-                    password
-                });
-
-
-            if (error) {
-                throw error;
-            }
-
-
-            currentUser =
-                data.user;
-
-
-            showToast(
-                "Login successful.",
-                "success"
-            );
-
-
-        } catch (error) {
-
-            console.error(error);
-
-
-            showAuthMessage(
-                error.message ||
-                "Login failed.",
-                "error"
-            );
-
-        } finally {
-
-            button.disabled = false;
-
-            button.textContent =
-                "Login";
+    <script>
+        // ------------------------------------------------------------------
+        // REPLACE THESE WITH YOUR SUPABASE PROJECT CREDENTIALS
+        // ------------------------------------------------------------------
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // State Variables
+        let currentAdSessionId = null;
+        let adCountdownTimer = null;
+
+        // DOM Elements
+        const authView = document.getElementById('authView');
+        const dashboardView = document.getElementById('dashboardView');
+        const userEmail = document.getElementById('userEmail');
+        const balanceDisplay = document.getElementById('balanceDisplay');
+        const adsWatchedDisplay = document.getElementById('adsWatchedDisplay');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const btnWatchAd = document.getElementById('btnWatchAd');
+
+        // Helper: Show Message
+        function showMsg(elementId, text, isError = false) {
+            const el = document.getElementById(elementId);
+            el.textContent = text;
+            el.className = `message ${isError ? 'error' : 'success'}`;
         }
 
-    }
-);
-
-
-/* ==========================================================
-   SIGN UP
-   ========================================================== */
-
-$("signupForm")
-.addEventListener(
-    "submit",
-    async event => {
-
-        event.preventDefault();
-
-        clearAuthMessage();
-
-
-        const button =
-            $("signupButton");
-
-
-        const name =
-            $("signupName")
-            .value
-            .trim();
-
-
-        const phone =
-            $("signupPhone")
-            .value
-            .trim();
-
-
-        const email =
-            $("signupEmail")
-            .value
-            .trim();
-
-
-        const password =
-            $("signupPassword")
-            .value;
-
-
-        if (
-            password.length < 6
-        ) {
-
-            showAuthMessage(
-                "Password must contain at least 6 characters.",
-                "error"
-            );
-
-            return;
+        function clearMsg(elementId) {
+            const el = document.getElementById(elementId);
+            el.style.display = 'none';
         }
 
+        // --- AUTHENTICATION ---
+        document.getElementById('btnSignUp').addEventListener('click', async () => {
+            clearMsg('authMessage');
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
 
-        button.disabled = true;
-
-        button.textContent =
-            "Creating account...";
-
-
-        try {
-
-            const {
-                data,
-                error
-            } =
-                await supabase
-                .auth
-                .signUp({
-
-                    email,
-
-                    password,
-
-                    options: {
-
-                        data: {
-                            name,
-                            phone
-                        }
-
-                    }
-
-                });
-
-
+            const { data, error } = await supabase.auth.signUp({ email, password });
             if (error) {
-                throw error;
-            }
-
-
-            if (!data.session) {
-
-                showAuthMessage(
-                    "Account created. Check your email to confirm the account, then log in.",
-                    "success"
-                );
-
-                switchAuth("login");
-
+                showMsg('authMessage', error.message, true);
             } else {
+                showMsg('authMessage', 'Account created successfully! Check email or log in.');
+            }
+        });
 
-                showToast(
-                    "Account created.",
-                    "success"
-                );
+        document.getElementById('btnLogin').addEventListener('click', async () => {
+            clearMsg('authMessage');
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) {
+                showMsg('authMessage', error.message, true);
+            } else {
+                checkUser();
+            }
+        });
+
+        document.getElementById('btnLogout').addEventListener('click', async () => {
+            await supabase.auth.signOut();
+            checkUser();
+        });
+
+        // --- DASHBOARD & PROFILE DATA ---
+        async function fetchUserProfile(userId) {
+            const { data, error } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('user_id', userId)
+                .single();
+
+            if (data) {
+                balanceDisplay.textContent = `${Number(data.balance_pkr).toFixed(2)} PKR`;
+                adsWatchedDisplay.textContent = data.total_ads_watched;
+            }
+        }
+
+        async function checkUser() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                authView.style.display = 'none';
+                dashboardView.style.display = 'block';
+                userEmail.textContent = session.user.email;
+                fetchUserProfile(session.user.id);
+            } else {
+                authView.style.display = 'block';
+                dashboardView.style.display = 'none';
+            }
+        }
+
+        // --- AD WATCH LOGIC ---
+        btnWatchAd.addEventListener('click', async () => {
+            clearMsg('adMessage');
+            btnWatchAd.disabled = true;
+
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) return;
+
+            // 1. Create Ad Session Record
+            const { data, error } = await supabase
+                .from('ad_sessions')
+                .insert([{ user_id: session.user.id }])
+                .select()
+                .single();
+
+            if (error) {
+                showMsg('adMessage', 'Failed to start ad session.', true);
+                btnWatchAd.disabled = false;
+                return;
             }
 
-
-        } catch (error) {
-
-            console.error(error);
-
-
-            showAuthMessage(
-                error.message ||
-                "Could not create account.",
-                "error"
-            );
-
-        } finally {
-
-            button.disabled = false;
-
-            button.textContent =
-                "Create Account";
-        }
-
-    }
-);
-
-
-/* ==========================================================
-   LOGOUT
-   ========================================================== */
-
-$("logoutButton")
-.addEventListener(
-    "click",
-    async () => {
-
-        cancelAdSession(
-            false
-        );
-
-
-        const {
-            error
-        } =
-            await supabase
-            .auth
-            .signOut();
-
-
-        if (error) {
-
-            showToast(
-                error.message ||
-                "Logout failed.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        currentUser = null;
-
-        currentProfile = null;
-
-        currentSessionId = null;
-
-    }
-);
-
-
-/* ==========================================================
-   AUTH STATE
-   ========================================================== */
-
-supabase
-.auth
-.onAuthStateChange(
-    async (
-        event,
-        session
-    ) => {
-
-        if (
-            session &&
-            session.user
-        ) {
-
-            currentUser =
-                session.user;
-
-            await openDashboard();
-
-        } else {
-
-            currentUser = null;
-
-            currentProfile = null;
-
-            showAuth();
-        }
-
-    }
-);
-
-
-/* ==========================================================
-   SHOW AUTH
-   ========================================================== */
-
-function showAuth() {
-
-    $("authScreen")
-        .classList
-        .remove("hidden");
-
-
-    $("dashboardScreen")
-        .classList
-        .add("hidden");
-}
-
-
-/* ==========================================================
-   OPEN DASHBOARD
-   ========================================================== */
-
-async function openDashboard() {
-
-    $("authScreen")
-        .classList
-        .add("hidden");
-
-
-    $("dashboardScreen")
-        .classList
-        .remove("hidden");
-
-
-    await loadProfile();
-
-    await loadWithdrawalHistory();
-}
-
-
-/* ==========================================================
-   LOAD PROFILE
-   ========================================================== */
-
-async function loadProfile() {
-
-    if (!currentUser) {
-        return;
-    }
-
-
-    const {
-        data,
-        error
-    } =
-        await supabase
-        .from("profiles")
-        .select(
-            "id,name,phone,balance_pkr,total_ads_watched,created_at"
-        )
-        .eq(
-            "id",
-            currentUser.id
-        )
-        .maybeSingle();
-
-
-    if (error) {
-
-        console.error(error);
-
-        showToast(
-            "Could not load profile.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    if (!data) {
-
-        showToast(
-            "Profile has not been created yet. Please refresh.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    currentProfile =
-        data;
-
-
-    updateProfileUI();
-}
-
-
-/* ==========================================================
-   UPDATE PROFILE UI
-   ========================================================== */
-
-function updateProfileUI() {
-
-    if (!currentProfile) {
-        return;
-    }
-
-
-    const name =
-        currentProfile.name ||
-        currentUser?.email
-            ?.split("@")[0] ||
-        "User";
-
-
-    $("userName")
-        .textContent =
-        name;
-
-
-    $("welcomeName")
-        .textContent =
-        name;
-
-
-    $("balanceValue")
-        .textContent =
-        "₨" +
-        Number(
-            currentProfile.balance_pkr || 0
-        ).toFixed(2);
-
-
-    $("adsWatchedValue")
-        .textContent =
-        Number(
-            currentProfile.total_ads_watched || 0
-        );
-}
-
-
-/* ==========================================================
-   RANDOM AD LINK
-   ========================================================== */
-
-function getRandomAdLink() {
-
-    const index =
-        Math.floor(
-            Math.random() *
-            MONETAG_LINKS.length
-        );
-
-
-    return MONETAG_LINKS[index];
-}
-
-
-/* ==========================================================
-   WATCH AD
-   ========================================================== */
-
-$("watchButton")
-.addEventListener(
-    "click",
-    startAd
-);
-
-
-async function startAd() {
-
-    if (!currentUser) {
-
-        showToast(
-            "Please log in first.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    if (timerRunning) {
-        return;
-    }
-
-
-    /*
-     * Open popup synchronously as part of the user's click.
-     * This avoids waiting for an asynchronous RPC before
-     * opening the tab.
-     */
-
-    let adWindow = null;
-
-
-    try {
-
-        adWindow =
-            window.open(
-                "about:blank",
-                "_blank"
-            );
-
-    } catch (error) {
-
-        console.error(error);
-    }
-
-
-    if (!adWindow) {
-
-        showTopError(
-            "Your browser blocked the advertisement tab. Allow pop-ups for this site and try again."
-        );
-
-        return;
-    }
-
-
-    const button =
-        $("watchButton");
-
-
-    button.disabled = true;
-
-    button.textContent =
-        "Starting...";
-
-
-    try {
-
-        /*
-         * IMPORTANT:
-         *
-         * Do not insert directly into ad_sessions from the
-         * browser.
-         *
-         * start_ad_session() creates the server timestamp.
-         */
-
-        const {
-            data: sessionId,
-            error
-        } =
-            await supabase
-            .rpc(
-                "start_ad_session"
-            );
-
-
-        if (error) {
-            throw error;
-        }
-
-
-        if (!sessionId) {
-
-            throw new Error(
-                "The server did not create an ad session."
-            );
-        }
-
-
-        currentSessionId =
-            sessionId;
-
-
-        /*
-         * Random supplied Monetag URL.
-         */
-
-        const adUrl =
-            getRandomAdLink();
-
-
-        /*
-         * Navigate popup.
-         */
-
-        adWindow.location.href =
-            adUrl;
-
-
-        /*
-         * Start verification.
-         */
-
-        startTimer();
-
-
-    } catch (error) {
-
-        console.error(error);
-
-
-        try {
-            adWindow.close();
-        } catch (_) {}
-
-
-        currentSessionId =
-            null;
-
-
-        button.disabled =
-            false;
-
-
-        button.textContent =
-            "Watch Ad & Earn ₨0.10";
-
-
-        showTopError(
-            getErrorMessage(
-                error,
-                "Could not start advertisement."
-            )
-        );
-    }
-}
-
-
-/* ==========================================================
-   TIMER
-   ========================================================== */
-
-function startTimer() {
-
-    stopTimer();
-
-
-    timerRunning =
-        true;
-
-
-    secondsRemaining =
-        VERIFY_SECONDS;
-
-
-    $("timerBox")
-        .classList
-        .add("show");
-
-
-    $("watchButton")
-        .disabled = true;
-
-
-    updateTimer();
-
-
-    timerInterval =
-        setInterval(
-            async () => {
-
-                /*
-                 * Defense in depth:
-                 * If page is hidden, immediately cancel.
-                 */
-
-                if (
-                    document.hidden ||
-                    document.visibilityState !==
-                        "visible"
-                ) {
-
-                    cancelAdSession(
-                        true
-                    );
-
-                    return;
-                }
-
-
-                secondsRemaining--;
-
-                updateTimer();
-
-
-                if (
-                    secondsRemaining <= 0
-                ) {
-
-                    stopTimer();
-
-                    await claimReward();
-                }
-
-            },
-            1000
-        );
-}
-
-
-/* ==========================================================
-   UPDATE TIMER
-   ========================================================== */
-
-function updateTimer() {
-
-    $("timerNumber")
-        .textContent =
-        secondsRemaining + "s";
-
-
-    const completed =
-        VERIFY_SECONDS -
-        secondsRemaining;
-
-
-    const percentage =
-        Math.max(
-            0,
-            Math.min(
-                100,
-                completed /
-                VERIFY_SECONDS *
-                100
-            )
-        );
-
-
-    $("progressBar")
-        .style
-        .width =
-        percentage + "%";
-}
-
-
-/* ==========================================================
-   STOP TIMER
-   ========================================================== */
-
-function stopTimer() {
-
-    if (timerInterval) {
-
-        clearInterval(
-            timerInterval
-        );
-
-        timerInterval =
-            null;
-    }
-
-
-    timerRunning =
-        false;
-}
-
-
-/* ==========================================================
-   CANCEL SESSION
-   ========================================================== */
-
-function cancelAdSession(
-    showWarning = true
-) {
-
-    if (
-        !timerRunning &&
-        !currentSessionId
-    ) {
-        return;
-    }
-
-
-    stopTimer();
-
-
-    /*
-     * Most importantly:
-     *
-     * currentSessionId is discarded.
-     *
-     * Therefore claim_ad_reward() will never be called for
-     * this session by the normal application flow.
-     */
-
-    currentSessionId =
-        null;
-
-
-    secondsRemaining =
-        VERIFY_SECONDS;
-
-
-    $("timerBox")
-        .classList
-        .remove("show");
-
-
-    $("timerNumber")
-        .textContent =
-        VERIFY_SECONDS + "s";
-
-
-    $("progressBar")
-        .style
-        .width = "0%";
-
-
-    $("watchButton")
-        .disabled = false;
-
-
-    $("watchButton")
-        .textContent =
-        "Watch Ad & Earn ₨0.10";
-
-
-    if (showWarning) {
-
-        showTopError(
-            "Please don't leave the advertisement tab"
-        );
-    }
-}
-
-
-/* ==========================================================
-   VISIBILITY CHANGE
-   ========================================================== */
-
-document.addEventListener(
-    "visibilitychange",
-    () => {
-
-        if (
-            timerRunning &&
-            document.hidden
-        ) {
-
-            cancelAdSession(
-                true
-            );
-        }
-
-    }
-);
-
-
-/* ==========================================================
-   WINDOW BLUR
-   ========================================================== */
-
-window.addEventListener(
-    "blur",
-    () => {
-
-        if (timerRunning) {
-
-            cancelAdSession(
-                true
-            );
-        }
-
-    }
-);
-
-
-/* ==========================================================
-   CLAIM REWARD
-   ========================================================== */
-
-async function claimReward() {
-
-    const sessionId =
-        currentSessionId;
-
-
-    currentSessionId =
-        null;
-
-
-    if (!sessionId) {
-
-        resetWatchButton();
-
-        return;
-    }
-
-
-    $("watchButton")
-        .disabled = true;
-
-
-    $("watchButton")
-        .textContent =
-        "Verifying...";
-
-
-    try {
-
-        const {
-            data,
-            error
-        } =
-            await supabase
-            .rpc(
-                "claim_ad_reward",
-                {
-                    p_session_id:
-                        sessionId
-                }
-            );
-
-
-        if (error) {
-            throw error;
-        }
-
-
-        if (
-            !data ||
-            data.success !== true
-        ) {
-
-            throw new Error(
-                "The server did not confirm the reward."
-            );
-        }
-
-
-        /*
-         * Do not calculate balance locally.
-         *
-         * PostgreSQL supplies the authoritative balance.
-         */
-
-        if (currentProfile) {
-
-            currentProfile.balance_pkr =
-                Number(
-                    data.balance_pkr
-                );
-
-
-            currentProfile.total_ads_watched =
-                Number(
-                    currentProfile.total_ads_watched || 0
-                ) + 1;
-
-
-            updateProfileUI();
-        }
-
-
-        $("timerBox")
-            .classList
-            .remove("show");
-
-
-        $("progressBar")
-            .style
-            .width =
-            "0%";
-
-
-        showToast(
-            "₨0.10 reward credited.",
-            "success"
-        );
-
-
-    } catch (error) {
-
-        console.error(error);
-
-
-        $("timerBox")
-            .classList
-            .remove("show");
-
-
-        showTopError(
-            getErrorMessage(
-                error,
-                "Reward could not be credited."
-            )
-        );
-
-    } finally {
-
-        resetWatchButton();
-    }
-}
-
-
-/* ==========================================================
-   RESET WATCH BUTTON
-   ========================================================== */
-
-function resetWatchButton() {
-
-    timerRunning =
-        false;
-
-
-    secondsRemaining =
-        VERIFY_SECONDS;
-
-
-    $("watchButton")
-        .disabled = false;
-
-
-    $("watchButton")
-        .textContent =
-        "Watch Ad & Earn ₨0.10";
-
-
-    $("timerNumber")
-        .textContent =
-        "20s";
-
-
-    $("progressBar")
-        .style
-        .width =
-        "0%";
-}
-
-
-/* ==========================================================
-   WITHDRAWAL
-   ========================================================== */
-
-$("withdrawForm")
-.addEventListener(
-    "submit",
-    submitWithdrawal
-);
-
-
-async function submitWithdrawal(event) {
-
-    event.preventDefault();
-
-
-    if (!currentUser) {
-
-        showToast(
-            "Please log in first.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    const method =
-        $("withdrawMethod")
-        .value
-        .trim();
-
-
-    const accountNumber =
-        $("withdrawAccount")
-        .value
-        .trim();
-
-
-    const accountName =
-        $("withdrawName")
-        .value
-        .trim();
-
-
-    const amount =
-        Number(
-            $("withdrawAmount")
-            .value
-        );
-
-
-    if (!accountNumber) {
-
-        showToast(
-            "Enter the payment account number.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    if (!accountName) {
-
-        showToast(
-            "Enter the account holder name.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    if (
-        !Number.isFinite(amount) ||
-        amount < MIN_WITHDRAWAL
-    ) {
-
-        showToast(
-            "Minimum withdrawal is ₨5.00.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    if (
-        currentProfile &&
-        amount >
-        Number(
-            currentProfile.balance_pkr || 0
-        )
-    ) {
-
-        showToast(
-            "Insufficient balance.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    /*
-     * The existing database RPC accepts one account string.
-     *
-     * We store both account number and account name in that
-     * field in a structured format.
-     *
-     * Example:
-     * 03001234567 | Muhammad Ali
-     */
-
-    const account =
-        accountNumber +
-        " | " +
-        accountName;
-
-
-    const button =
-        $("withdrawButton");
-
-
-    button.disabled = true;
-
-    button.textContent =
-        "Submitting...";
-
-
-    try {
-
-        const {
-            data,
-            error
-        } =
-            await supabase
-            .rpc(
-                "request_withdrawal",
-                {
-                    p_method:
-                        method,
-
-                    p_account:
-                        account,
-
-                    p_amount:
-                        amount
-                }
-            );
-
-
-        if (error) {
-            throw error;
-        }
-
-
-        if (
-            !data ||
-            data.success !== true
-        ) {
-
-            throw new Error(
-                "Withdrawal request was not accepted."
-            );
-        }
-
-
-        /*
-         * Server-authoritative balance.
-         */
-
-        if (currentProfile) {
-
-            currentProfile.balance_pkr =
-                Number(
-                    data.balance_pkr
-                );
-
-
-            updateProfileUI();
-        }
-
-
-        $("withdrawForm")
-            .reset();
-
-
-        showToast(
-            "Withdrawal request submitted successfully.",
-            "success"
-        );
-
-
-        await loadWithdrawalHistory();
-
-
-    } catch (error) {
-
-        console.error(error);
-
-
-        showToast(
-            getErrorMessage(
-                error,
-                "Withdrawal failed."
-            ),
-            "error"
-        );
-
-    } finally {
-
-        button.disabled = false;
-
-        button.textContent =
-            "Request Withdrawal";
-    }
-}
-
-
-/* ==========================================================
-   WITHDRAWAL HISTORY
-   ========================================================== */
-
-async function loadWithdrawalHistory() {
-
-    if (!currentUser) {
-        return;
-    }
-
-
-    const {
-        data,
-        error
-    } =
-        await supabase
-        .from("withdrawals")
-        .select(
-            "id,method,account,amount_pkr,status,created_at"
-        )
-        .eq(
-            "user_id",
-            currentUser.id
-        )
-        .order(
-            "created_at",
-            {
-                ascending: false
-            }
-        )
-        .limit(20);
-
-
-    if (error) {
-
-        console.error(error);
-
-
-        $("historyList")
-            .innerHTML =
-            `
-            <div
-                style="
-                    color:#aaa5b8;
-                    font-size:13px;
-                "
-            >
-                Could not load withdrawal history.
-            </div>
-            `;
-
-        return;
-    }
-
-
-    renderHistory(
-        data || []
-    );
-}
-
-
-/* ==========================================================
-   RENDER HISTORY
-   ========================================================== */
-
-function renderHistory(
-    rows
-) {
-
-    const container =
-        $("historyList");
-
-
-    if (!rows.length) {
-
-        container.innerHTML =
-            `
-            <div
-                style="
-                    color:#aaa5b8;
-                    font-size:13px;
-                "
-            >
-                No withdrawal requests yet.
-            </div>
-            `;
-
-        return;
-    }
-
-
-    container.innerHTML = "";
-
-
-    rows.forEach(
-        row => {
-
-            const item =
-                document.createElement(
-                    "div"
-                );
-
-
-            item.className =
-                "history-item";
-
-
-            const date =
-                new Date(
-                    row.created_at
-                );
-
-
-            const formattedDate =
-                date.toLocaleString(
-                    "en-PK",
-                    {
-                        dateStyle:
-                            "medium",
-
-                        timeStyle:
-                            "short"
+            currentAdSessionId = data.id;
+            let timeLeft = 20;
+            timerDisplay.textContent = `${timeLeft}s`;
+
+            // 2. Start Countdown Timer
+            adCountdownTimer = setInterval(async () => {
+                timeLeft--;
+                timerDisplay.textContent = `${timeLeft}s`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(adCountdownTimer);
+                    // 3. Claim Reward RPC Call
+                    const { data: rpcData, error: rpcError } = await supabase.rpc('claim_ad_reward', {
+                        p_session_id: currentAdSessionId
+                    });
+
+                    if (rpcError) {
+                        showMsg('adMessage', rpcError.message, true);
+                    } else {
+                        showMsg('adMessage', '0.10 PKR credited to your balance!');
+                        fetchUserProfile(session.user.id);
                     }
-                );
-
-
-            item.innerHTML = `
-
-                <div class="history-top">
-
-                    <span class="history-method">
-                        ${escapeHtml(
-                            row.method
-                        )}
-                    </span>
-
-                    <span class="history-amount">
-                        ₨${Number(
-                            row.amount_pkr
-                        ).toFixed(2)}
-                    </span>
-
-                </div>
-
-                <div class="history-bottom">
-
-                    <span>
-                        ${escapeHtml(
-                            maskAccount(
-                                row.account
-                            )
-                        )}
-                    </span>
-
-                    <span
-                        class="status ${escapeHtml(
-                            row.status
-                        )}"
-                    >
-                        ${escapeHtml(
-                            row.status
-                        )}
-                    </span>
-
-                </div>
-
-                <div
-                    style="
-                        margin-top:7px;
-                        color:#777285;
-                        font-size:11px;
-                    "
-                >
-                    ${escapeHtml(
-                        formattedDate
-                    )}
-                </div>
-
-            `;
-
-
-            container.appendChild(
-                item
-            );
-        }
-    );
-}
-
-
-/* ==========================================================
-   MASK ACCOUNT
-   ========================================================== */
-
-function maskAccount(
-    account
-) {
-
-    const value =
-        String(account || "");
-
-
-    if (
-        value.length <= 4
-    ) {
-        return "••••";
-    }
-
-
-    return (
-        "••••" +
-        value.slice(-4)
-    );
-}
-
-
-/* ==========================================================
-   HTML ESCAPE
-   ========================================================== */
-
-function escapeHtml(
-    value
-) {
-
-    return String(value)
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
-}
-
-
-/* ==========================================================
-   ERROR NORMALIZATION
-   ========================================================== */
-
-function getErrorMessage(
-    error,
-    fallback
-) {
-
-    const message =
-        String(
-            error?.message ||
-            error ||
-            ""
-        );
-
-
-    const lower =
-        message.toLowerCase();
-
-
-    if (
-        lower.includes(
-            "not authenticated"
-        )
-    ) {
-
-        return "Your login session has expired. Please log in again.";
-    }
-
-
-    if (
-        lower.includes(
-            "ad session has not reached"
-        )
-    ) {
-
-        return "The 20-second verification period has not completed.";
-    }
-
-
-    if (
-        lower.includes(
-            "already been claimed"
-        )
-    ) {
-
-        return "This advertisement session has already been claimed.";
-    }
-
-
-    if (
-        lower.includes(
-            "minimum withdrawal"
-        )
-    ) {
-
-        return "Minimum withdrawal is ₨5.00.";
-    }
-
-
-    if (
-        lower.includes(
-            "insufficient balance"
-        )
-    ) {
-
-        return "Insufficient balance.";
-    }
-
-
-    return message ||
-        fallback;
-}
-
-
-/* ==========================================================
-   INITIAL SESSION
-   ========================================================== */
-
-async function initialize() {
-
-    try {
-
-        const {
-            data,
-            error
-        } =
-            await supabase
-            .auth
-            .getSession();
-
-
-        if (error) {
-            throw error;
-        }
-
-
-        if (
-            data?.session?.user
-        ) {
-
-            currentUser =
-                data.session.user;
-
-            await openDashboard();
-
-        } else {
-
-            showAuth();
-        }
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        showAuth();
-
-        showAuthMessage(
-            "Unable to initialize the application. Please refresh.",
-            "error"
-        );
-    }
-}
-
-
-/* ==========================================================
-   START
-   ========================================================== */
-
-initialize();
-
-</script>
-
+                    btnWatchAd.disabled = false;
+                }
+            }, 1000);
+        });
+
+        // --- WITHDRAWAL LOGIC ---
+        document.getElementById('btnWithdraw').addEventListener('click', async () => {
+            clearMsg('withdrawMessage');
+            const method = document.getElementById('paymentMethod').value;
+            const account = document.getElementById('accountDetails').value;
+            const amount = parseFloat(document.getElementById('withdrawAmount').value);
+
+            if (!account) {
+                showMsg('withdrawMessage', 'Please enter your account details.', true);
+                return;
+            }
+
+            if (isNaN(amount) || amount < 5.0) {
+                showMsg('withdrawMessage', 'Minimum withdrawal amount is 5.00 PKR.', true);
+                return;
+            }
+
+            const { data, error } = await supabase.rpc('request_withdrawal', {
+                p_method: method,
+                p_account: account,
+                p_amount: amount
+            });
+
+            if (error) {
+                showMsg('withdrawMessage', error.message, true);
+            } else {
+                showMsg('withdrawMessage', 'Withdrawal requested successfully!');
+                const { data: { session } } = await supabase.auth.getSession();
+                fetchUserProfile(session.user.id);
+            }
+        });
+
+        // Initial check on page load
+        checkUser();
+    </script>
 </body>
 </html>
