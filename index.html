@@ -1,2402 +1,2933 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click&EarnPK — Click • Earn • Withdraw</title>
-    <style>
-        :root {
-            --primary: #7c3aed;
-            --primary-dark: #5b21b6;
-            --primary-light: #8b5cf6;
-            --accent: #a78bfa;
-            --bg-main: #0f0a1e;
-            --bg-card: #1a1033;
-            --bg-card2: #221644;
-            --text: #f3f0ff;
-            --text-muted: #a78bfa;
-            --border: #3b1fa8;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --gradient: linear-gradient(135deg, #7c3aed, #4f46e5);
-            --gradient2: linear-gradient(135deg, #5b21b6, #7c3aed, #a78bfa);
-            --shadow: 0 8px 32px rgba(124, 58, 237, 0.3);
-            --shadow2: 0 4px 15px rgba(124, 58, 237, 0.2);
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-main);
-            color: var(--text);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-main); }
-        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+<meta charset="UTF-8">
 
-        .page { display: none; min-height: 100vh; }
-        .page.active { display: block; }
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-        /* NAVBAR */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(15, 10, 30, 0.97);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            padding: 0 20px;
-        }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 70px;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-        .logo-text {
-            font-size: 22px;
-            font-weight: 800;
-            background: var(--gradient2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            list-style: none;
-        }
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: color 0.3s;
-            position: relative;
-        }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-        .nav-links a:hover { color: var(--text); }
-        .nav-links a:hover::after { width: 100%; }
-        .nav-links a.active { color: var(--accent); }
-        .nav-links a.active::after { width: 100%; }
-        .nav-buttons { display: flex; gap: 10px; align-items: center; }
+<meta
+    name="description"
+    content="Click&EarnPK - Watch eligible advertisements and earn rewards."
+>
 
-        .btn {
-            padding: 10px 22px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .btn-primary {
-            background: var(--gradient);
-            color: white;
-            box-shadow: var(--shadow2);
-        }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-        .btn-outline {
-            background: transparent;
-            color: var(--accent);
-            border: 2px solid var(--primary);
-        }
-        .btn-outline:hover { background: var(--primary); color: white; }
-        .btn-lg { padding: 14px 32px; font-size: 16px; border-radius: 12px; }
-        .btn-success {
-            background: linear-gradient(135deg, #059669, #10b981);
-            color: white;
-        }
-        .btn-success:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(16,185,129,0.3); }
+<!-- =========================================================
+     MONETAG VERIFICATION META TAG
+     
+     Your message did not contain the actual meta-tag value.
+     Therefore no fabricated verification tag is inserted here.
+     
+     If Monetag gives you something like:
+     <meta name="..." content="...">
+     
+     place that exact tag here.
+     ========================================================= -->
 
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 5px;
-        }
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 3px;
-            transition: all 0.3s;
-        }
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 8px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -8px); }
+<title>Click&EarnPK — Earn & Withdraw</title>
 
-        .mobile-nav {
-            display: none;
-            position: fixed;
-            top: 70px;
-            left: 0;
-            width: 100%;
-            background: rgba(15, 10, 30, 0.98);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 999;
-            padding: 20px;
-            flex-direction: column;
-            gap: 5px;
-        }
-        .mobile-nav.open { display: flex; }
-        .mobile-nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 16px;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(59,31,168,0.3);
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        .mobile-nav a:hover { color: var(--accent); }
+<style>
+/* =========================================================
+   RESET
+   ========================================================= */
 
-        /* HERO */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 100px 20px 60px;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at center, rgba(124,58,237,0.15) 0%, transparent 70%);
-        }
-        .hero-orb1 {
-            position: absolute;
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(124,58,237,0.2), transparent);
-            border-radius: 50%;
-            top: -100px; right: -100px;
-            animation: float 6s ease-in-out infinite;
-        }
-        .hero-orb2 {
-            position: absolute;
-            width: 300px; height: 300px;
-            background: radial-gradient(circle, rgba(79,70,229,0.15), transparent);
-            border-radius: 50%;
-            bottom: -50px; left: -50px;
-            animation: float 8s ease-in-out infinite reverse;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        .hero-content { position: relative; z-index: 1; max-width: 800px; }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(124,58,237,0.2);
-            border: 1px solid var(--border);
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 14px;
-            color: var(--accent);
-            margin-bottom: 25px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(124,58,237,0.4); }
-            50% { box-shadow: 0 0 0 10px rgba(124,58,237,0); }
-        }
-        .hero h1 {
-            font-size: clamp(36px, 6vw, 72px);
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 20px;
-        }
-        .gradient-text {
-            background: var(--gradient2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero p {
-            font-size: clamp(16px, 2vw, 20px);
-            color: var(--text-muted);
-            margin-bottom: 35px;
-            line-height: 1.7;
-        }
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 60px;
-            flex-wrap: wrap;
-        }
-        .stat-item { text-align: center; }
-        .stat-number {
-            font-size: 32px;
-            font-weight: 800;
-            background: var(--gradient2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 5px; }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 25px;
-            transition: all 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: var(--shadow);
-        }
-        .card-icon {
-            width: 55px; height: 55px;
-            background: var(--gradient);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
+html {
+    scroll-behavior: smooth;
+}
 
-        .section { padding: 80px 20px; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-tag {
-            display: inline-block;
-            background: rgba(124,58,237,0.2);
-            color: var(--accent);
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            border: 1px solid var(--border);
-        }
-        .section-title {
-            font-size: clamp(28px, 4vw, 48px);
-            font-weight: 800;
-            margin-bottom: 15px;
-        }
-        .section-desc {
-            color: var(--text-muted);
-            font-size: 17px;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-        }
+body {
+    min-height: 100vh;
+    background: #0f0e17;
+    color: #f5f3ff;
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
 
-        .steps { display: flex; justify-content: center; flex-wrap: wrap; }
-        .step {
-            text-align: center;
-            padding: 30px 20px;
-            flex: 1;
-            min-width: 180px;
-            max-width: 230px;
-            position: relative;
-        }
-        .step-number {
-            width: 60px; height: 60px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            font-weight: 800;
-            margin: 0 auto 15px;
-        }
-        .step:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            top: 60px; right: -15px;
-            width: 30px; height: 2px;
-            background: var(--gradient);
-            opacity: 0.5;
-        }
 
-        /* EARN CARDS */
-        .earn-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px 25px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            transition: all 0.3s;
-        }
-        .earn-card:hover {
-            border-color: var(--primary);
-            box-shadow: var(--shadow);
-        }
-        .earn-amount { font-size: 26px; font-weight: 800; color: var(--success); }
-        .earn-label { font-size: 12px; color: var(--text-muted); }
+/* =========================================================
+   VARIABLES
+   ========================================================= */
 
-        .progress-bar {
-            background: var(--bg-main);
-            border-radius: 50px;
-            height: 8px;
-            overflow: hidden;
-            margin: 8px 0;
-        }
-        .progress-fill {
-            height: 100%;
-            background: var(--gradient);
-            border-radius: 50px;
-        }
+:root {
+    --bg: #0f0e17;
+    --card: #16151f;
+    --card-2: #1c1a27;
 
-        /* FORMS */
-        .form-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 480px;
-            margin: 0 auto;
-        }
-        .form-group { margin-bottom: 20px; }
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            background: var(--bg-main);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 14px 16px;
-            color: var(--text);
-            font-size: 15px;
-            outline: none;
-            transition: border-color 0.3s;
-            font-family: inherit;
-        }
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(124,58,237,0.15);
-        }
-        .form-group input::placeholder { color: rgba(167,139,250,0.4); }
-        .form-group select option { background: var(--bg-card); }
+    --primary: #7c3aed;
+    --primary-hover: #6d28d9;
+    --primary-light: #8b5cf6;
 
-        /* TABLE */
-        .table-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        .table-box table { width: 100%; border-collapse: collapse; }
-        .table-box th {
-            background: var(--bg-card2);
-            padding: 14px 20px;
-            text-align: left;
-            font-size: 12px;
-            color: var(--text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .table-box td {
-            padding: 14px 20px;
-            border-top: 1px solid rgba(59,31,168,0.3);
-            font-size: 14px;
-        }
-        .table-box tr:hover td { background: rgba(124,58,237,0.05); }
+    --text: #f5f3ff;
+    --muted: #aaa5b8;
 
-        .badge {
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .badge-success { background: rgba(16,185,129,0.2); color: var(--success); }
-        .badge-warning { background: rgba(245,158,11,0.2); color: var(--warning); }
-        .badge-danger  { background: rgba(239,68,68,0.2);  color: var(--danger); }
+    --success: #22c55e;
+    --danger: #ef4444;
+    --warning: #f59e0b;
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 20px;
-        }
-        .stat-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 22px 18px;
-            text-align: center;
-        }
-        .stat-box .number {
-            font-size: 30px;
-            font-weight: 800;
-            background: var(--gradient2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+    --border: rgba(255,255,255,0.08);
 
-        .pay-card {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 18px;
-            background: var(--bg-main);
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            margin-bottom: 12px;
-            transition: border-color 0.3s;
-        }
-        .pay-card:hover { border-color: var(--primary); }
+    --radius: 18px;
+}
 
-        /* FOOTER */
-        .footer {
-            background: var(--bg-card);
-            border-top: 1px solid var(--border);
-            padding: 60px 20px 20px;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .footer-brand p { color: var(--text-muted); font-size: 14px; line-height: 1.8; margin-top: 15px; }
-        .footer-links h4 { font-size: 15px; font-weight: 700; margin-bottom: 20px; color: var(--accent); }
-        .footer-links ul { list-style: none; }
-        .footer-links ul li { margin-bottom: 10px; }
-        .footer-links ul li a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 14px;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        .footer-links ul li a:hover { color: var(--text); }
-        .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            margin-top: 40px;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 13px;
-        }
 
-        /* TOAST */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--bg-card2);
-            border: 1px solid var(--primary);
-            color: var(--text);
-            padding: 15px 25px;
-            border-radius: 12px;
-            font-size: 14px;
-            z-index: 9999;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.4s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            max-width: 300px;
-        }
-        .toast.show { transform: translateY(0); opacity: 1; }
+/* =========================================================
+   GENERAL
+   ========================================================= */
 
-        .page-header {
-            padding: 120px 20px 60px;
-            text-align: center;
-            background: radial-gradient(ellipse at center, rgba(124,58,237,0.15) 0%, transparent 70%);
-        }
+button,
+input,
+select {
+    font: inherit;
+}
 
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-        .fade-up.visible { opacity: 1; transform: translateY(0); }
+button {
+    cursor: pointer;
+}
 
-        .balance-bar {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 22px 28px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-        .balance-label { color: var(--text-muted); font-size: 13px; margin-bottom: 4px; }
-        .balance-value { font-size: 26px; font-weight: 800; }
+.hidden {
+    display: none !important;
+}
 
-        .ad-done { opacity: 0.65; }
-        .popular-badge {
-            background: var(--gradient);
-            color: white;
-            padding: 4px 14px;
-            border-radius: 50px;
-            font-size: 11px;
-            font-weight: 700;
-            display: inline-block;
-            margin-bottom: 12px;
-        }
-        .glow { box-shadow: 0 0 30px rgba(124,58,237,0.4); }
 
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .nav-buttons { display: none; }
-            .hamburger { display: flex; }
-            .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
-            .step::after { display: none; }
-            .form-box { padding: 25px 20px; }
-            .table-box { overflow-x: auto; }
-            .earn-card { flex-wrap: wrap; }
-            .balance-bar { flex-direction: column; align-items: flex-start; }
-        }
-        @media (max-width: 480px) {
-            .footer-grid { grid-template-columns: 1fr; }
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .hero-stats { gap: 20px; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-    </style>
+/* =========================================================
+   AUTH SCREEN
+   ========================================================= */
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 32px;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.35);
+}
+
+.brand {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.brand h1 {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+}
+
+.brand h1 span {
+    color: var(--primary-light);
+}
+
+.brand p {
+    color: var(--muted);
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.auth-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    background: #0f0e17;
+    padding: 5px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+}
+
+.auth-tab {
+    border: 0;
+    color: var(--muted);
+    background: transparent;
+    padding: 11px;
+    border-radius: 9px;
+}
+
+.auth-tab.active {
+    background: var(--primary);
+    color: white;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    color: #d7d2e2;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.form-control {
+    width: 100%;
+    border: 1px solid var(--border);
+    outline: none;
+    background: #0f0e17;
+    color: white;
+    border-radius: 11px;
+    padding: 13px 14px;
+    transition: 0.2s;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow:
+        0 0 0 3px rgba(124,58,237,0.15);
+}
+
+.primary-btn {
+    width: 100%;
+    border: 0;
+    background: var(--primary);
+    color: white;
+    padding: 13px 18px;
+    border-radius: 11px;
+    font-weight: 700;
+    transition: 0.2s;
+}
+
+.primary-btn:hover:not(:disabled) {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.primary-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.secondary-btn {
+    border: 1px solid var(--border);
+    background: var(--card-2);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+.message {
+    margin-top: 14px;
+    border-radius: 10px;
+    padding: 11px 13px;
+    font-size: 13px;
+    display: none;
+}
+
+.message.show {
+    display: block;
+}
+
+.message.error {
+    background: rgba(239,68,68,0.12);
+    border: 1px solid rgba(239,68,68,0.2);
+    color: #fca5a5;
+}
+
+.message.success {
+    background: rgba(34,197,94,0.12);
+    border: 1px solid rgba(34,197,94,0.2);
+    color: #86efac;
+}
+
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+.dashboard {
+    min-height: 100vh;
+}
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+
+    background: rgba(15,14,23,0.88);
+    backdrop-filter: blur(15px);
+
+    border-bottom: 1px solid var(--border);
+}
+
+.topbar-inner {
+    max-width: 1100px;
+    margin: auto;
+    min-height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 22px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.logo span {
+    color: var(--primary-light);
+}
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-name {
+    color: #ddd8e9;
+    font-size: 14px;
+}
+
+.logout-btn {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: white;
+    border-radius: 9px;
+    padding: 9px 13px;
+}
+
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 30px 22px 60px;
+}
+
+.welcome {
+    margin-bottom: 25px;
+}
+
+.welcome h2 {
+    font-size: 28px;
+    margin-bottom: 7px;
+}
+
+.welcome p {
+    color: var(--muted);
+}
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.stats {
+    display: grid;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 25px;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   AD CARD
+   ========================================================= */
+
+.ad-card {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,58,237,0.16),
+            rgba(22,21,31,1) 55%
+        );
+
+    border: 1px solid rgba(124,58,237,0.25);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 20px;
+}
+
+.ad-card h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.ad-card-description {
+    color: var(--muted);
+    line-height: 1.6;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.reward-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    background: rgba(124,58,237,0.15);
+    color: #c4b5fd;
+
+    border: 1px solid rgba(124,58,237,0.25);
+    border-radius: 999px;
+
+    padding: 7px 12px;
+    font-size: 13px;
+    margin-bottom: 17px;
+}
+
+.watch-btn {
+    width: 100%;
+    max-width: 420px;
+
+    border: 0;
+    background: var(--primary);
+    color: white;
+
+    padding: 15px 20px;
+    border-radius: 12px;
+
+    font-weight: 800;
+    font-size: 15px;
+
+    transition: 0.2s;
+}
+
+.watch-btn:hover:not(:disabled) {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.watch-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   TIMER
+   ========================================================= */
+
+.timer-box {
+    margin-top: 18px;
+    max-width: 420px;
+
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+    padding: 17px;
+
+    display: none;
+}
+
+.timer-box.show {
+    display: block;
+}
+
+.timer-title {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.timer-number {
+    font-size: 31px;
+    font-weight: 800;
+}
+
+.progress-track {
+    height: 7px;
+    background: #292633;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 13px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--primary-light);
+    transition: width 0.2s linear;
+}
+
+
+/* =========================================================
+   WITHDRAWAL
+   ========================================================= */
+
+.grid-two {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 20px;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+}
+
+.card h3 {
+    margin-bottom: 7px;
+}
+
+.card-description {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.withdrawal-note {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+
+/* =========================================================
+   WITHDRAWAL HISTORY
+   ========================================================= */
+
+.withdrawal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.withdrawal-item {
+    background: var(--card-2);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    padding: 13px;
+}
+
+.withdrawal-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.withdrawal-method {
+    font-weight: 700;
+}
+
+.withdrawal-amount {
+    font-weight: 800;
+}
+
+.withdrawal-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 7px;
+
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.status {
+    text-transform: capitalize;
+}
+
+.status.pending {
+    color: var(--warning);
+}
+
+.status.approved {
+    color: #60a5fa;
+}
+
+.status.paid {
+    color: var(--success);
+}
+
+.status.rejected {
+    color: var(--danger);
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast-container {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    max-width: 340px;
+
+    background: #201e2b;
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+    padding: 13px 15px;
+
+    box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+
+    font-size: 13px;
+
+    animation: toastIn 0.2s ease;
+}
+
+.toast.success {
+    border-color: rgba(34,197,94,0.3);
+}
+
+.toast.error {
+    border-color: rgba(239,68,68,0.3);
+}
+
+@keyframes toastIn {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-two {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar-inner {
+        padding: 0 15px;
+    }
+
+    .user-name {
+        display: none;
+    }
+
+    .container {
+        padding: 23px 15px 45px;
+    }
+
+    .welcome h2 {
+        font-size: 24px;
+    }
+
+    .auth-card {
+        padding: 23px;
+    }
+
+    .ad-card {
+        padding: 22px;
+    }
+}
+</style>
 </head>
+
+
 <body>
 
-<!-- ===== NAVBAR ===== -->
-<nav class="navbar">
-    <div class="nav-container">
-        <div class="logo" onclick="showPage('home')">
-            <div class="logo-icon">💜</div>
-            <span class="logo-text">Click&EarnPK</span>
-        </div>
-        <ul class="nav-links">
-            <li><a onclick="showPage('home')"     id="nav-home"     class="active">Home</a></li>
-            <li><a onclick="showPage('earn')"     id="nav-earn">Earn</a></li>
-            <li><a onclick="showPage('withdraw')" id="nav-withdraw">Withdraw</a></li>
-            <li><a onclick="showPage('owner')"    id="nav-owner">Owner Console</a></li>
-        </ul>
-        <div class="nav-buttons">
-            <button class="btn btn-outline" onclick="showPage('login')">Login</button>
-            <button class="btn btn-primary" onclick="showPage('register')">Join Free</button>
-        </div>
-        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-            <span></span><span></span><span></span>
-        </div>
-    </div>
-</nav>
 
-<!-- MOBILE NAV -->
-<div class="mobile-nav" id="mobileNav">
-    <a onclick="showPage('home');closeMobile()">🏠 Home</a>
-    <a onclick="showPage('earn');closeMobile()">💰 Earn</a>
-    <a onclick="showPage('withdraw');closeMobile()">💳 Withdraw</a>
-    <a onclick="showPage('owner');closeMobile()">🔐 Owner Console</a>
-    <a onclick="showPage('login');closeMobile()">🔐 Login</a>
-    <a onclick="showPage('register');closeMobile()">✨ Join Free</a>
-</div>
+<!-- =========================================================
+     AUTH SCREEN
+     ========================================================= -->
 
-<!-- ==================== HOME PAGE ==================== -->
-<div class="page active" id="page-home">
+<section id="authScreen" class="auth-wrapper">
 
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-orb1"></div>
-        <div class="hero-orb2"></div>
-        <div class="hero-content">
-            <div class="hero-badge">🚀 Pakistan • Rewards Platform</div>
-            <h1>Earn <span class="gradient-text">Real Money</span><br>From Your Clicks</h1>
-            <p>Create an account, view available earning tasks and track your balance.<br>Get ₨0.1 per click & withdraw via JazzCash, Easypaisa!</p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary btn-lg" onclick="showPage('register')">🚀 Start Earning Free</button>
-            </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <div class="stat-number">—</div>
-                    <div class="stat-label">Active Users</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">—</div>
-                    <div class="stat-label">Total Paid</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">₨0.1</div>
-                    <div class="stat-label">Per Click</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">Support</div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="auth-card">
 
-    <!-- HOW IT WORKS -->
-    <section class="section" style="background:var(--bg-card);">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">⚡ Simple Process</span>
-                <h2 class="section-title">How It <span class="gradient-text">Works</span></h2>
-                <p class="section-desc">Start earning in just 3 easy steps</p>
-            </div>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Register</h3>
-                    <p style="color:var(--text-muted);font-size:14px;margin-top:10px;">Create free account in 30 seconds</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Click Ads</h3>
-                    <p style="color:var(--text-muted);font-size:14px;margin-top:10px;">Visit ad links & earn ₨0.1 per click</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Withdraw</h3>
-                    <p style="color:var(--text-muted);font-size:14px;margin-top:10px;">Transfer to JazzCash or Easypaisa</p>
-                </div>
-            </div>
+        <div class="brand">
+            <h1>Click<span>&EarnPK</span></h1>
+            <p>Earn rewards and request withdrawals.</p>
         </div>
-    </section>
 
-    <!-- FEATURES -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">✨ Features</span>
-                <h2 class="section-title">Why Choose <span class="gradient-text">Click&EarnPK?</span></h2>
-            </div>
-            <div class="grid-3">
-                <div class="card">
-                    <div class="card-icon">💰</div>
-                    <h3>Instant Earning</h3>
-                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Earn ₨0.1 on every single click. Balance updates instantly in real-time.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">📱</div>
-                    <h3>Easy Withdrawal</h3>
-                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Withdraw via JazzCash, Easypaisa, Bank Transfer anytime.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🔒</div>
-                    <h3>Account Controls</h3>
-                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Production accounts require secure server-side authentication and storage.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">⚡</div>
-                    <h3>Fast Payment</h3>
-                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Withdrawal requests are reviewed manually.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🔄</div>
-                    <h3>Daily New Ads</h3>
-                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">New ads refresh every 24 hours so you can earn every single day.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🇵🇰</div>
-                    <h3>Made for Pakistan</h3>
-                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Designed specifically for Pakistani users with PKR payments only.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- EARNING LEVELS -->
-    <section class="section" style="background:var(--bg-card);">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">💵 Earning Examples</span>
-                <h2 class="section-title">Example Daily Activity</h2>
-            </div>
-            <div class="grid-3">
-                <div class="card" style="text-align:center;">
-                    <div style="font-size:40px;margin-bottom:15px;">🌱</div>
-                    <h3>Beginner</h3>
-                    <div style="font-size:40px;font-weight:900;color:var(--accent);margin:15px 0;">₨5</div>
-                    <p style="color:var(--text-muted);font-size:13px;">example</p>
-                    <hr style="border-color:var(--border);margin:18px 0;">
-                    <ul style="text-align:left;color:var(--text-muted);font-size:13px;list-style:none;line-height:2.2;">
-                        <li>✅ 50 eligible tasks/day</li>
-                        <li>✅ Standard access</li>
-                        <li>✅ JazzCash withdrawal</li>
-                    </ul>
-                </div>
-                <div class="card glow" style="text-align:center;border-color:var(--primary);">
-                    <div class="popular-badge">⭐ POPULAR</div>
-                    <div style="font-size:40px;margin-bottom:15px;">🚀</div>
-                    <h3>Intermediate</h3>
-                    <div style="font-size:40px;font-weight:900;color:var(--accent);margin:15px 0;">₨20</div>
-                    <p style="color:var(--text-muted);font-size:13px;">example</p>
-                    <hr style="border-color:var(--border);margin:18px 0;">
-                    <ul style="text-align:left;color:var(--text-muted);font-size:13px;list-style:none;line-height:2.2;">
-                        <li>✅ 200 eligible tasks/day</li>
-                        <li>✅ Available tasks</li>
-                        <li>✅ Support access</li>
-                    </ul>
-                </div>
-                <div class="card" style="text-align:center;">
-                    <div style="font-size:40px;margin-bottom:15px;">💎</div>
-                    <h3>Pro</h3>
-                    <div style="font-size:40px;font-weight:900;color:var(--accent);margin:15px 0;">₨10+</div>
-                    <p style="color:var(--text-muted);font-size:13px;">example</p>
-                    <hr style="border-color:var(--border);margin:18px 0;">
-                    <ul style="text-align:left;color:var(--text-muted);font-size:13px;list-style:none;line-height:2.2;">
-                        <li>✅ 500+ eligible tasks/day</li>
-                        <li>✅ Additional tasks</li>
-                        <li>✅ Manual review</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+        <div class="auth-tabs">
 
-    <!-- PLATFORM INFORMATION -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">ℹ️ Information</span>
-                <h2 class="section-title">Before You <span class="gradient-text">Earn</span></h2>
-                <p class="section-desc">Rewards, eligibility and withdrawals are subject to the final platform rules and provider approval.</p>
-            </div>
-            <div class="grid-3">
-                <div class="card"><div class="card-icon">🧾</div><h3>Activity Ledger</h3><p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Every credited activity should be recorded server-side with its time, user and status.</p></div>
-                <div class="card"><div class="card-icon">🛡️</div><h3>Fair Use</h3><p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Bots, duplicate accounts, auto-clickers and artificial traffic are not supported.</p></div>
-                <div class="card"><div class="card-icon">💳</div><h3>Manual Review</h3><p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Withdrawal requests are sent to the owner for review and manual payment.</p></div>
-            </div>
-        </div>
-    </section>
+            <button
+                id="loginTab"
+                class="auth-tab active"
+                type="button"
+                onclick="switchAuth('login')"
+            >
+                Login
+            </button>
 
-    <!-- CTA -->
-    <section class="section" style="background:var(--bg-card);text-align:center;">
-        <div class="container">
-            <h2 class="section-title">Ready to Start <span class="gradient-text">Earning?</span></h2>
-            <p style="color:var(--text-muted);font-size:17px;margin:20px 0;">Join 50,000+ Pakistanis already earning on Click&EarnPK</p>
-            <button class="btn btn-primary btn-lg" onclick="showPage('register')">🚀 Create Free Account</button>
-        </div>
-    </section>
+            <button
+                id="signupTab"
+                class="auth-tab"
+                type="button"
+                onclick="switchAuth('signup')"
+            >
+                Sign Up
+            </button>
 
-    <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="logo" onclick="showPage('home')" style="margin-bottom:8px;">
-                    <div class="logo-icon">💜</div>
-                    <span class="logo-text">Click&EarnPK</span>
-                </div>
-                <p>A simple rewards dashboard for Pakistani users. Account, earning and withdrawal features are subject to platform rules.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Platform</h4>
-                <ul>
-                    <li><a onclick="showPage('earn')">Earn Money</a></li>
-                    <li><a onclick="showPage('withdraw')">Withdraw</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Account</h4>
-                <ul>
-                    <li><a onclick="showPage('login')">Login</a></li>
-                    <li><a onclick="showPage('register')">Register</a></li>
-                    <li><a>Privacy Policy</a></li>
-                    <li><a>Terms of Service</a></li>
-                </ul>
-            </div>
         </div>
-        <div class="footer-bottom">
-            <p>© 2026 Click&EarnPK | Independent project</p>
-        </div>
-    </footer>
-</div>
 
-<!-- ==================== OWNER PANEL ==================== -->
-<div class="page" id="page-owner">
-    <div class="page-header">
-        <span class="section-tag">🔐 Owner Console</span>
-        <h1 class="section-title">Owner <span class="gradient-text">Dashboard</span></h1>
-        <p style="color:var(--text-muted);font-size:16px;">UI for reviewing withdrawal requests. Production access must be protected server-side.</p>
-    </div>
-    <section style="padding:0 20px 80px;">
-        <div class="container grid-3">
-            <div class="stat-box"><div class="number" id="ownerUsers">0</div><div style="color:var(--text-muted);font-size:13px;">Registered users</div></div>
-            <div class="stat-box"><div class="number" id="ownerPending">0</div><div style="color:var(--text-muted);font-size:13px;">Pending withdrawals</div></div>
-            <div class="stat-box"><div class="number" id="ownerPaid">0</div><div style="color:var(--text-muted);font-size:13px;">Marked paid</div></div>
-        </div>
-        <div class="card" style="margin-top:25px;">
-            <h3>Withdrawal queue</h3>
-            <p class="muted" style="margin-top:8px;">The final version should store these requests in a secure database and notify the owner. This static demo cannot securely receive multi-user requests.</p>
-            <div class="notice" style="margin-top:15px;background:rgba(124,58,237,0.1);border:1px solid var(--border);border-radius:10px;padding:15px;font-size:13px;color:var(--text-muted);">Recommended production stack: Supabase Auth + PostgreSQL/Row Level Security + an email provider for OTP + a server-side API for reward validation and admin notifications.</div>
-        </div>
-    </section>
-    <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="logo" onclick="showPage('home')" style="margin-bottom:8px;">
-                    <div class="logo-icon">💜</div>
-                    <span class="logo-text">Click&EarnPK</span>
-                </div>
-                <p>A simple rewards dashboard for Pakistani users.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Platform</h4>
-                <ul>
-                    <li><a onclick="showPage('earn')">Earn Money</a></li>
-                    <li><a onclick="showPage('withdraw')">Withdraw</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Account</h4>
-                <ul>
-                    <li><a onclick="showPage('login')">Login</a></li>
-                    <li><a onclick="showPage('register')">Register</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 Click&EarnPK | Independent project</p>
-        </div>
-    </footer>
-</div>
 
-<!-- ==================== VERIFY PAGE ==================== -->
-<div class="page" id="page-verify">
-    <div class="page-header">
-        <span class="section-tag">📧 Email Verification</span>
-        <h1 class="section-title">Verify your <span class="gradient-text">Gmail</span></h1>
-        <p style="color:var(--text-muted);font-size:16px;">A production version will send a 6-digit code to <strong id="verifyEmail"></strong>.</p>
-    </div>
-    <section style="padding:0 20px 80px;">
-        <div class="form-box">
+        <!-- LOGIN -->
+
+        <form id="loginForm">
+
             <div class="form-group">
-                <label>6-digit verification code</label>
-                <input id="verifyCode" inputmode="numeric" maxlength="6" placeholder="000000">
-            </div>
-            <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;" onclick="verifySignup()">Verify & Create Account</button>
-            <p style="color:var(--text-muted);font-size:12px;line-height:1.6;margin-top:15px;">A verification link has been sent to your email. Confirm your email, then return here and log in.</p>
-        </div>
-    </section>
-    <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="logo" onclick="showPage('home')" style="margin-bottom:8px;">
-                    <div class="logo-icon">💜</div>
-                    <span class="logo-text">Click&EarnPK</span>
-                </div>
-                <p>A simple rewards dashboard for Pakistani users.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Platform</h4>
-                <ul>
-                    <li><a onclick="showPage('earn')">Earn Money</a></li>
-                    <li><a onclick="showPage('withdraw')">Withdraw</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Account</h4>
-                <ul>
-                    <li><a onclick="showPage('login')">Login</a></li>
-                    <li><a onclick="showPage('register')">Register</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 Click&EarnPK | Independent project</p>
-        </div>
-    </footer>
-</div>
 
-<!-- ==================== EARN PAGE ==================== -->
-<div class="page" id="page-earn">
+                <label for="loginEmail">
+                    Email
+                </label>
 
-    <div class="page-header">
-        <span class="section-tag">💰 Earning Center</span>
-        <h1 class="section-title" style="margin-top:15px;">Click Ads & <span class="gradient-text">Earn Money</span></h1>
-        <p style="color:var(--text-muted);font-size:16px;">Complete eligible earning tasks and track your balance</p>
+                <input
+                    id="loginEmail"
+                    class="form-control"
+                    type="email"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="loginPassword">
+                    Password
+                </label>
+
+                <input
+                    id="loginPassword"
+                    class="form-control"
+                    type="password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                id="loginButton"
+                class="primary-btn"
+                type="submit"
+            >
+                Login
+            </button>
+
+        </form>
+
+
+        <!-- SIGNUP -->
+
+        <form id="signupForm" class="hidden">
+
+            <div class="form-group">
+
+                <label for="signupName">
+                    Name
+                </label>
+
+                <input
+                    id="signupName"
+                    class="form-control"
+                    type="text"
+                    autocomplete="name"
+                    maxlength="80"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="signupPhone">
+                    Phone
+                </label>
+
+                <input
+                    id="signupPhone"
+                    class="form-control"
+                    type="tel"
+                    autocomplete="tel"
+                    maxlength="30"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="signupEmail">
+                    Email
+                </label>
+
+                <input
+                    id="signupEmail"
+                    class="form-control"
+                    type="email"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="signupPassword">
+                    Password
+                </label>
+
+                <input
+                    id="signupPassword"
+                    class="form-control"
+                    type="password"
+                    autocomplete="new-password"
+                    minlength="6"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                id="signupButton"
+                class="primary-btn"
+                type="submit"
+            >
+                Create Account
+            </button>
+
+        </form>
+
+
+        <div
+            id="authMessage"
+            class="message"
+        ></div>
+
     </div>
 
-    <section style="padding:0 20px 80px;">
-        <div class="container">
+</section>
 
-            <!-- BALANCE BAR -->
-            <div class="balance-bar">
-                <div style="display:flex;gap:35px;flex-wrap:wrap;">
-                    <div>
-                        <div class="balance-label">Total Earned</div>
-                        <div class="balance-value" id="todayEarn" style="color:var(--success);">₨0.00</div>
-                    </div>
-                    <div>
-                        <div class="balance-label">Total Clicks</div>
-                        <div class="balance-value" id="totalClicks" style="color:var(--accent);">0</div>
-                    </div>
-                    <div>
-                        <div class="balance-label">Available Balance</div>
-                        <div class="balance-value" id="balance" style="background:var(--gradient2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">₨0.00</div>
-                    </div>
-                </div>
-                <button class="btn btn-success" onclick="showPage('withdraw')">💳 Withdraw Now</button>
+
+
+<!-- =========================================================
+     DASHBOARD
+     ========================================================= -->
+
+<section
+    id="dashboardScreen"
+    class="dashboard hidden"
+>
+
+    <header class="topbar">
+
+        <div class="topbar-inner">
+
+            <div class="logo">
+                Click<span>&EarnPK</span>
             </div>
 
-            <!-- TIMER -->
-            <div style="background:rgba(124,58,237,0.1);border:1px solid var(--border);border-radius:12px;padding:14px 20px;text-align:center;margin-bottom:28px;">
-                <p style="color:var(--text-muted);font-size:14px;">
-                    🔄 Earning tasks
-                    &nbsp;|&nbsp; No daily earning limit
-                </p>
+            <div class="user-area">
+
+                <span
+                    id="userName"
+                    class="user-name"
+                >
+                    User
+                </span>
+
+                <button
+                    id="logoutButton"
+                    class="logout-btn"
+                    type="button"
+                >
+                    Logout
+                </button>
+
             </div>
 
-            <!-- ADS TITLE -->
-            <h2 style="margin-bottom:20px;font-size:20px;">
-                🔥 Available Ads
-                <span style="color:var(--text-muted);font-size:13px;font-weight:400;margin-left:8px;">(15 available slots)</span>
+        </div>
+
+    </header>
+
+
+    <main class="container">
+
+        <div class="welcome">
+
+            <h2>
+                Welcome,
+                <span id="welcomeName">
+                    User
+                </span>
             </h2>
 
-            <!-- ===== ALL 15 ADS WITH YOUR MONETAG LINKS ===== -->
-            <div style="display:flex;flex-direction:column;gap:14px;">
+            <p>
+                Complete eligible tasks and build your balance.
+            </p>
 
-                <!-- AD 1 -->
-                <div class="earn-card" id="ad-1">
-                    <div style="font-size:36px;flex-shrink:0;">🎓</div>
-                    <div style="flex:1;min-width:0;">
-                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Free Online Courses Pakistan</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Learn Graphic Design, IT & more for free!</div>
-                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
-                            <div class="progress-fill" style="width:72%;"></div>
-                        </div>
-                    </div>
-                    <div style="text-align:right;flex-shrink:0;">
-                        <div class="earn-amount">+₨0.1</div>
-                        <div class="earn-label">per click</div>
-                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
-                            onclick="openEarningTask(1)">Open ➡️</button>
-                    </div>
+        </div>
+
+
+        <!-- STATS -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Current Balance
                 </div>
 
-                <!-- AD 2 -->
-                <div class="earn-card" id="ad-2">
-                    <div style="font-size:36px;flex-shrink:0;">💼</div>
-                    <div style="flex:1;min-width:0;">
-                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Latest Jobs in Pakistan 2024</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Government & Private Jobs - Apply Now!</div>
-                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
-                            <div class="progress-fill" style="width:85%;"></div>
-                        </div>
-                    </div>
-                    <div style="text-align:right;flex-shrink:0;">
-                        <div class="earn-amount">+₨0.1</div>
-                        <div class="earn-label">per click</div>
-                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
-                            onclick="openEarningTask(2)">Open ➡️</button>
-                    </div>
+                <div
+                    id="balanceValue"
+                    class="stat-value"
+                >
+                    ₨0.00
                 </div>
 
-                <!-- AD 3 -->
-                <div class="earn-card" id="ad-3">
-                    <div style="font-size:36px;flex-shrink:0;">🛍️</div>
-                    <div style="flex:1;min-width:0;">
-                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Online Shopping Deals - Daraz</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Best discounts & flash sales today only!</div>
-                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
-                            <div class="progress-fill" style="width:60%;"></div>
-                        </div>
-                    </div>
-                    <div style="text-align:right;flex-shrink:0;">
-                        <div class="earn-amount">+₨0.1</div>
-                        <div class="earn-label">per click</div>
-                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
-                            onclick="openEarningTask(3)">Open ➡️</button>
-                    </div>
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Ads Watched
                 </div>
 
-                <!-- AD 4 -->
-                <div class="earn-card" id="ad-4">
-                    <div style="font-size:36px;flex-shrink:0;">📱</div>
-                    <div style="flex:1;min-width:0;">
-                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Best Earning Apps Pakistan</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Top mobile apps to earn money online 2024</div>
-                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
-                            <div class="progress-fill" style="width:45%;"></div>
-                        </div>
-                    </div>
-                    <div style="text-align:right;flex-shrink:0;">
-                        <div class="earn-amount">+₨0.1</div>
-                        <div class="earn-label">per click</div>
-                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
-                            onclick="openEarningTask(4)">Open ➡️</button>
-                    </div>
+                <div
+                    id="adsWatchedValue"
+                    class="stat-value"
+                >
+                    0
                 </div>
 
-                <!-- AD 5 -->
-                <div class="earn-card" id="ad-5">
-                    <div style="font-size:36px;flex-shrink:0;">🏠</div>
-                    <div style="flex:1;min-width:0;">
-                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Real Estate Pakistan</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Best property deals in Lahore, Karachi & Islamabad</div>
-                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
-                            <div class="progress-fill" style="width:90%;"></div>
-                        </div>
-                    </div>
-                    <div style="text-align:right;flex-shrink:0;">
-                        <div class="earn-amount">+₨0.1</div>
-                        <div class="earn-label">per click</div>
-                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
-                            onclick="openEarningTask(5)">Open ➡️</button>
-                    </div>
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Reward / Ad
                 </div>
 
-                <!-- AD 6 -->
-                <div class="earn-card" id="ad-6">
-                    <div style="font-size:36px;flex-shrink:0;">🏏</div>
-                    <div style="flex:1;min-width:0;">
-                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Pakistan Cricket Live Updates</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Latest scores, news & PSL 2024 highlights</div>
-                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
-                            <div class="progress-fill" style="width:55%;"></div>
-                        </div>
-                    </div>
-                    <div style="text-align:right;flex-shrink:0;">
-                        <div class="earn-amount">+₨0.1</div>
-                        <div class="earn-label">per click</div>
-                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
-                            onclick="openEarningTask(6)">Open ➡️</button>
-                    </div>
+                <div class="stat-value">
+                    ₨0.10
                 </div>
 
-                <!-- AD 7 -->
-                <div class="earn-card" id="ad-7">
-                    <div style="font-size:36px;flex-shrink:0;">💊</div>
-                    <div style="flex:1;min-width:0;">
-                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Health Tips & Desi Totkay</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Natural remedies & health advice for Pakistanis</div>
-                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
-                            <div class="progress-fill" style="width:38%;"></div>
-                        </div>
-                    </div>
-                    <div style="text-align:right;flex-shrink:0;">
-                        <div class="earn-amount">+₨0.1</div>
-                        <div class="earn-label">per click</div>
-                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
-                            onclick="openEarningTask(7)">Open ➡️</button>
-                    </div>
+            </div>
+
+        </section>
+
+
+        <!-- AD -->
+
+        <section class="ad-card">
+
+            <div class="reward-badge">
+                Reward: ₨0.10
+            </div>
+
+            <h3>
+                Watch Ad & Earn
+            </h3>
+
+            <p class="ad-card-description">
+                Click the button to open the eligible advertiser
+                page. Keep this Click&amp;EarnPK page active for
+                the complete 20-second verification period.
+                Leaving the page cancels the session.
+            </p>
+
+
+            <button
+                id="watchAdButton"
+                class="watch-btn"
+                type="button"
+            >
+                Watch Ad &amp; Earn ₨0.10
+            </button>
+
+
+            <div
+                id="timerBox"
+                class="timer-box"
+            >
+
+                <div class="timer-title">
+                    Verification timer
                 </div>
 
-                <!-- AD 8 -->
-                <div class="earn-card" id="ad-8">
-                    <div style="font-size:36px;flex-shrink:0;">🎮</div>
-                    <div style="flex:1;min-width:0;">
-                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Free Fire & PUBG Tips 2024</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Gaming tricks, hacks & pro strategies</div>
-                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
-                            <div class="progress-fill" style="width:78%;"></div>
-                        </div>
-                    </div>
-                    <div style="text-align:right;flex-shrink:0;">
-                        <div class="earn-amount">+₨0.1</div>
-                        <div class="earn-label">per click</div>
-                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
-                            onclick="openEarningTask(8)">Open ➡️</button>
-                    </div>
+                <div
+                    id="timerNumber"
+                    class="timer-number"
+                >
+                    20s
                 </div>
 
-                <!-- AD 9 -->
-                <div class="earn-card" id="ad-9">
-                    <div style="font-size:36px;flex-shrink:0;">🍽️</div>
-                    <div style="flex:1;min-width:0;">
-                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Pakistani Recipes & Food</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Best desi recipes, biryani, karahi & more!</div>
-                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
-                            <div class="progress-fill" style="width:65%;"></div>
-                        </div>
-                    </div>
-                    <div style="text-align:right;flex-shrink:0;">
-                        <div class="earn-amount">+₨0.1</div>
-                        <div class="earn-label">per click</div>
-                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
-                            onclick="openEarningTask(9)">Open ➡️</button>
-                    </div>
+                <div class="progress-track">
+
+                    <div
+                        id="progressBar"
+                        class="progress-bar"
+                    ></div>
+
                 </div>
 
-                <!-- AD 10 -->
-                <div class="earn-card" id="ad-10">
-                    <div style="font-size:36px;flex-shrink:0;">💻</div>
-                    <div style="flex:1;min-width:0;">
-                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Freelancing Guide Pakistan</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Earn dollars from Fiverr & Upwork - Complete guide</div>
-                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
-                            <div class="progress-fill" style="width:82%;"></div>
-                        </div>
-                    </div>
-                    <div style="text-align:right;flex-shrink:0;">
-                        <div class="earn-amount">+₨0.1</div>
-                        <div class="earn-label">per click</div>
-                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
-                            onclick="openEarningTask(10)">Open ➡️</button>
-                    </div>
-                </div>
+            </div>
 
-                <!-- AD 11 -->
-                <div class="earn-card" id="ad-11">
-                    <div style="font-size:36px;flex-shrink:0;">📺</div>
-                    <div style="flex:1;min-width:0;">
-                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Pakistani Drama & Entertainment</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Latest dramas, movies & shows online free</div>
-                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
-                            <div class="progress-fill" style="width:50%;"></div>
-                        </div>
-                    </div>
-                    <div style="text-align:right;flex-shrink:0;">
-                        <div class="earn-amount">+₨0.1</div>
-                        <div class="earn-label">per click</div>
-                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
-                            onclick="openEarningTask(11)">Open ➡️</button>
-                    </div>
-                </div>
+        </section>
 
-                <!-- AD 12 -->
-                <div class="earn-card" id="ad-12">
-                    <div style="font-size:36px;flex-shrink:0;">🚗</div>
-                    <div style="flex:1;min-width:0;">
-                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Cars & Bikes Pakistan</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Latest car prices, reviews & buying guide</div>
-                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
-                            <div class="progress-fill" style="width:43%;"></div>
-                        </div>
-                    </div>
-                    <div style="text-align:right;flex-shrink:0;">
-                        <div class="earn-amount">+₨0.1</div>
-                        <div class="earn-label">per click</div>
-                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
-                            onclick="openEarningTask(12)">Open ➡️</button>
-                    </div>
-                </div>
 
-                <!-- AD 13 -->
-                <div class="earn-card" id="ad-13">
-                    <div style="font-size:36px;flex-shrink:0;">📰</div>
-                    <div style="flex:1;min-width:0;">
-                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Pakistan News Today</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Breaking news, politics & current affairs</div>
-                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
-                            <div class="progress-fill" style="width:95%;"></div>
-                        </div>
-                    </div>
-                    <div style="text-align:right;flex-shrink:0;">
-                        <div class="earn-amount">+₨0.1</div>
-                        <div class="earn-label">per click</div>
-                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
-                            onclick="openEarningTask(13)">Open ➡️</button>
-                    </div>
-                </div>
+        <!-- WITHDRAW + HISTORY -->
 
-                <!-- AD 14 -->
-                <div class="earn-card" id="ad-14">
-                    <div style="font-size:36px;flex-shrink:0;">🎵</div>
-                    <div style="flex:1;min-width:0;">
-                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Pakistani Music & Songs</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Latest Coke Studio, OSTs & trending songs</div>
-                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
-                            <div class="progress-fill" style="width:68%;"></div>
-                        </div>
-                    </div>
-                    <div style="text-align:right;flex-shrink:0;">
-                        <div class="earn-amount">+₨0.1</div>
-                        <div class="earn-label">per click</div>
-                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
-                            onclick="openEarningTask(14)">Open ➡️</button>
-                    </div>
-                </div>
+        <section class="grid-two">
 
-                <!-- AD 15 -->
-                <div class="earn-card" id="ad-15">
-                    <div style="font-size:36px;flex-shrink:0;">📚</div>
-                    <div style="flex:1;min-width:0;">
-                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Study Material & Past Papers</div>
-                        <div style="color:var(--text-muted);font-size:13px;">Matric, FSc, CSS & university past papers free</div>
-                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
-                            <div class="progress-fill" style="width:77%;"></div>
-                        </div>
-                    </div>
-                    <div style="text-align:right;flex-shrink:0;">
-                        <div class="earn-amount">+₨0.1</div>
-                        <div class="earn-label">per click</div>
-                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
-                            onclick="openEarningTask(15)">Open ➡️</button>
-                    </div>
-                </div>
 
-            </div><!-- end ad list -->
+            <!-- WITHDRAW -->
 
-            <!-- MAX EARN TODAY -->
-            <div style="margin-top:25px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:12px;padding:16px 22px;text-align:center;">
-                <p style="color:var(--success);font-size:14px;font-weight:600;">
-                    💰 Click all 15 ads today = earn <strong>₨1.50</strong> per day = <strong>₨45/month</strong> guaranteed!
+            <div class="card">
+
+                <h3>
+                    Withdraw
+                </h3>
+
+                <p class="card-description">
+                    Minimum withdrawal: ₨5.00
                 </p>
-            </div>
 
-        </div>
-    </section>
 
-    <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="logo" onclick="showPage('home')" style="margin-bottom:8px;">
-                    <div class="logo-icon">💜</div>
-                    <span class="logo-text">Click&EarnPK</span>
-                </div>
-                <p>Pakistan's trusted online earning platform.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Platform</h4>
-                <ul>
-                    <li><a onclick="showPage('earn')">Earn Money</a></li>
-                    <li><a onclick="showPage('withdraw')">Withdraw</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Account</h4>
-                <ul>
-                    <li><a onclick="showPage('login')">Login</a></li>
-                    <li><a onclick="showPage('register')">Register</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 Click&EarnPK | Made with 💜 for Pakistan</p>
-        </div>
-    </footer>
-</div>
-
-<!-- ==================== WITHDRAW PAGE ==================== -->
-<div class="page" id="page-withdraw">
-
-    <div class="page-header">
-        <span class="section-tag">💳 Withdraw</span>
-        <h1 class="section-title" style="margin-top:15px;">Get Your <span class="gradient-text">Money Out!</span></h1>
-        <p style="color:var(--text-muted);font-size:16px;">Fast & secure withdrawal via Pakistani payment methods</p>
-    </div>
-
-    <section style="padding:0 20px 80px;">
-        <div class="container">
-            <div class="grid-2">
-
-                <!-- FORM -->
-                <div class="form-box" style="max-width:100%;height:fit-content;">
-                    <h3 style="margin-bottom:8px;font-size:20px;">💸 Request Withdrawal</h3>
-                    <p style="color:var(--text-muted);font-size:13px;margin-bottom:25px;">Minimum: ₨10 | Processed in 24 hours</p>
+                <form id="withdrawForm">
 
                     <div class="form-group">
-                        <label>Available Balance</label>
-                        <input type="text" id="wdBalance" value="₨0.00" readonly style="color:var(--success);font-weight:700;font-size:18px;">
-                    </div>
-                    <div class="form-group">
-                        <label>Payment Method</label>
-                        <select id="payMethod" onchange="updateAccountLabel()">
-                            <option value="">-- Select Method --</option>
-                            <option value="jazzcash">📱 JazzCash</option>
-                            <option value="easypaisa">📱 Easypaisa</option>
-                            <option value="bank" disabled>🏦 Bank Transfer — Coming Soon</option>
-                            <option value="usdt">💎 USDT (TRC20)</option>
+
+                        <label for="withdrawMethod">
+                            Payment Method
+                        </label>
+
+                        <select
+                            id="withdrawMethod"
+                            class="form-control"
+                            required
+                        >
+
+                            <option value="Easypaisa">
+                                Easypaisa
+                            </option>
+
+                            <option value="JazzCash">
+                                JazzCash
+                            </option>
+
                         </select>
+
                     </div>
+
+
                     <div class="form-group">
-                        <label id="accountLabel">Account Number</label>
-                        <input type="text" id="accountInput" placeholder="Select method first">
+
+                        <label for="withdrawAccount">
+                            Account Number
+                        </label>
+
+                        <input
+                            id="withdrawAccount"
+                            class="form-control"
+                            type="text"
+                            inputmode="numeric"
+                            maxlength="30"
+                            placeholder="03XXXXXXXXX"
+                            required
+                        >
+
                     </div>
+
+
                     <div class="form-group">
-                        <label>Amount (PKR)</label>
-                        <input type="number" id="withdrawAmt" placeholder="Minimum ₨10" min="50">
+
+                        <label for="withdrawAmount">
+                            Amount (PKR)
+                        </label>
+
+                        <input
+                            id="withdrawAmount"
+                            class="form-control"
+                            type="number"
+                            min="5"
+                            step="0.01"
+                            placeholder="5.00"
+                            required
+                        >
+
                     </div>
-                    <button class="btn btn-success" style="width:100%;justify-content:center;padding:15px;font-size:16px;" onclick="submitWithdraw()">
-                        💸 Request Withdrawal
+
+
+                    <button
+                        id="withdrawButton"
+                        class="primary-btn"
+                        type="submit"
+                    >
+                        Request Withdrawal
                     </button>
-                    <p style="color:var(--text-muted);font-size:12px;text-align:center;margin-top:15px;">⚡ Processed within 24 hours</p>
-                </div>
 
-                <!-- RIGHT -->
-                <div>
-                    <div class="card" style="margin-bottom:25px;">
-                        <h3 style="margin-bottom:20px;font-size:18px;">📋 Payment Methods</h3>
-                        <div class="pay-card">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <span style="font-size:24px;">📱</span>
-                                <div>
-                                    <div style="font-weight:600;font-size:14px;">JazzCash</div>
-                                    <div style="color:var(--text-muted);font-size:12px;">Min: ₨10</div>
-                                </div>
-                            </div>
-                            <span class="badge badge-success">⚡ Fast</span>
-                        </div>
-                        <div class="pay-card">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <span style="font-size:24px;">📱</span>
-                                <div>
-                                    <div style="font-weight:600;font-size:14px;">Easypaisa</div>
-                                    <div style="color:var(--text-muted);font-size:12px;">Min: ₨10</div>
-                                </div>
-                            </div>
-                            <span class="badge badge-success">⚡ Fast</span>
-                        </div>
-                        <div class="pay-card">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <span style="font-size:24px;">🏦</span>
-                                <div>
-                                    <div style="font-weight:600;font-size:14px;">Bank Transfer</div>
-                                    <div style="color:var(--text-muted);font-size:12px;">Min: ₨10</div>
-                                </div>
-                            </div>
-                            <span class="badge badge-warning">1-2 Days</span>
-                        </div>
-                        <div class="pay-card" style="margin-bottom:0;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <span style="font-size:24px;">💎</span>
-                                <div>
-                                    <div style="font-weight:600;font-size:14px;">USDT TRC20</div>
-                                    <div style="color:var(--text-muted);font-size:12px;">Min: ₨200</div>
-                                </div>
-                            </div>
-                            <span class="badge badge-success">⚡ Instant</span>
-                        </div>
-                    </div>
+                </form>
 
-                    <div class="table-box">
-                        <div style="padding:18px 22px;border-bottom:1px solid var(--border);">
-                            <h3 style="font-size:16px;">📜 Withdrawal History</h3>
-                        </div>
-                        <div style="overflow-x:auto;">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Amount</th>
-                                        <th>Method</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="wdHistory">
-                                    <tr>
-                                        <td colspan="4" style="text-align:center;color:var(--text-muted);padding:30px;">No withdrawals yet</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+
+                <p class="withdrawal-note">
+                    Requests are processed manually and initially
+                    appear as pending.
+                </p>
+
+            </div>
+
+
+            <!-- HISTORY -->
+
+            <div class="card">
+
+                <h3>
+                    Withdrawal History
+                </h3>
+
+                <p class="card-description">
+                    Your recent withdrawal requests.
+                </p>
+
+                <div
+                    id="withdrawalList"
+                    class="withdrawal-list"
+                >
+                    <div style="color:#aaa5b8;font-size:13px;">
+                        Loading...
                     </div>
                 </div>
 
             </div>
-        </div>
-    </section>
 
-    <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="logo" onclick="showPage('home')" style="margin-bottom:8px;">
-                    <div class="logo-icon">💜</div>
-                    <span class="logo-text">Click&EarnPK</span>
-                </div>
-                <p>Pakistan's trusted online earning platform.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Platform</h4>
-                <ul>
-                    <li><a onclick="showPage('earn')">Earn Money</a></li>
-                    <li><a onclick="showPage('withdraw')">Withdraw</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Account</h4>
-                <ul>
-                    <li><a onclick="showPage('login')">Login</a></li>
-                    <li><a onclick="showPage('register')">Register</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 Click&EarnPK | Made with 💜 for Pakistan</p>
-        </div>
-    </footer>
-</div>
+        </section>
 
-<!-- ==================== LOGIN PAGE ==================== -->
-<div class="page" id="page-login">
-    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 20px 60px;background:radial-gradient(ellipse at center,rgba(124,58,237,0.1) 0%,transparent 70%);">
-        <div class="form-box" style="width:100%;">
-            <div style="text-align:center;margin-bottom:30px;">
-                <div style="font-size:52px;margin-bottom:12px;">🔐</div>
-                <h2 style="font-size:26px;font-weight:800;">Welcome Back!</h2>
-                <p style="color:var(--text-muted);font-size:14px;margin-top:8px;">Login to your Click&EarnPK account</p>
-            </div>
-            <div class="form-group">
-                <label>📧 Email Address</label>
-                <input type="email" id="loginEmail" placeholder="your@email.com">
-            </div>
-            <div class="form-group">
-                <label>🔑 Password</label>
-                <input type="password" id="loginPass" placeholder="Enter your password">
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;">
-                <label style="display:flex;align-items:center;gap:8px;color:var(--text-muted);font-size:13px;cursor:pointer;">
-                    <input type="checkbox" style="accent-color:var(--primary);"> Remember me
-                </label>
-                <a id="forgotPasswordLink" style="color:var(--accent);font-size:13px;cursor:pointer;">Forgot Password?</a>
-            </div>
-            <button class="btn btn-primary" style="width:100%;justify-content:center;padding:15px;font-size:16px;" onclick="doLogin()">
-                🚀 Login to Account
-            </button>
-            <div style="text-align:center;margin-top:20px;color:var(--text-muted);font-size:14px;">
-                Don't have account?
-                <a style="color:var(--accent);font-weight:600;cursor:pointer;" onclick="showPage('register')"> Register Free</a>
-            </div>
-        </div>
-    </div>
-</div>
+    </main>
 
-<!-- ==================== REGISTER PAGE ==================== -->
-<div class="page" id="page-register">
-    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 20px 60px;background:radial-gradient(ellipse at center,rgba(124,58,237,0.1) 0%,transparent 70%);">
-        <div class="form-box" style="width:100%;">
-            <div style="text-align:center;margin-bottom:30px;">
-                <div style="font-size:52px;margin-bottom:12px;">🚀</div>
-                <h2 style="font-size:26px;font-weight:800;">Create Account</h2>
-                <p style="color:var(--text-muted);font-size:14px;margin-top:8px;">Join Click&EarnPK and start making money today!</p>
-                <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:8px;padding:8px 15px;margin-top:12px;font-size:13px;color:var(--success);">
-                    🎁 Welcome Bonus: ₨5 on registration!
-                </div>
-            </div>
-            <div class="form-group">
-                <label>👤 Full Name</label>
-                <input type="text" id="regName" placeholder="Muhammad Ali">
-            </div>
-            <div class="form-group">
-                <label>📧 Email Address</label>
-                <input type="email" id="regEmail" placeholder="your@email.com">
-            </div>
-            <div class="form-group">
-                <label>📱 Phone Number</label>
-                <input type="tel" id="regPhone" placeholder="03XX-XXXXXXX">
-            </div>
-            <div class="form-group">
-                <label>🔑 Password</label>
-                <input type="password" id="regPass" placeholder="Minimum 6 characters">
-            </div>
-            <div style="margin-bottom:22px;">
-                <label style="display:flex;align-items:flex-start;gap:8px;color:var(--text-muted);font-size:13px;cursor:pointer;line-height:1.6;">
-                    <input type="checkbox" id="termsCheck" style="accent-color:var(--primary);margin-top:3px;">
-                    I agree to <a style="color:var(--accent);cursor:pointer;">&nbsp;Terms of Service</a>&nbsp;and&nbsp;<a style="color:var(--accent);cursor:pointer;">Privacy Policy</a>
-                </label>
-            </div>
-            <button class="btn btn-primary" style="width:100%;justify-content:center;padding:15px;font-size:16px;" onclick="doRegister()">
-                🚀 Create Free Account
-            </button>
-            <div style="text-align:center;margin-top:20px;color:var(--text-muted);font-size:14px;">
-                Already have account?
-                <a style="color:var(--accent);font-weight:600;cursor:pointer;" onclick="showPage('login')"> Login Here</a>
-            </div>
-        </div>
-    </div>
-</div>
+</section>
 
-<!-- TOAST -->
-<div class="toast" id="toast">
-    <span id="toastMsg">✅ Done!</span>
-</div>
 
-<!-- ==================== JAVASCRIPT ==================== -->
+
+<!-- =========================================================
+     TOAST CONTAINER
+     ========================================================= -->
+
+<div
+    id="toastContainer"
+    class="toast-container"
+></div>
+
+
+
+<!-- =========================================================
+     SUPABASE SDK
+     ========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
 <script>
-    let currentUser = JSON.parse(localStorage.getItem('epk_user')) || null;
+/* ============================================================
+   CLICK&EARNPK
+   FRONTEND CONFIGURATION
+   ============================================================ */
 
-    // ===== STATE =====
-    let balance    = parseFloat(localStorage.getItem('epk_balance'))  || 0;
-    let totalClick = parseInt(localStorage.getItem('epk_clicks'))     || 0;
-    let todayEarns = parseFloat(localStorage.getItem('epk_today'))    || 0;
-    let clickedAds = JSON.parse(localStorage.getItem('epk_clicked'))  || {};
+const SUPABASE_URL =
+    "https://flbruzcmuhhxhakdvour.supabase.co";
 
-    // ===== MONETAG LINKS MAP =====
-    const adLinks = {
-        1:  'https://omg10.com/4/7343595',
-        2:  'https://omg10.com/4/7349687',
-        3:  'https://omg10.com/4/7349692',
-        4:  'https://omg10.com/4/7349688',
-        5:  'https://omg10.com/4/7393659',
-        6:  'https://omg10.com/4/7351274',
-        7:  'https://omg10.com/4/7349694',
-        8:  'https://omg10.com/4/7349690',
-        9:  'https://omg10.com/4/7349680',
-        10: 'https://omg10.com/4/7346296',
-        11: 'https://omg10.com/4/7346296',
-        12: 'https://omg10.com/4/7349689',
-        13: 'https://omg10.com/4/7345679',
-        14: 'https://omg10.com/4/7382951',
-        15: 'https://omg10.com/4/7393658'
-    };
+const SUPABASE_ANON_KEY =
+    "sb_publishable_zxLPB_25AgRGB-6GQ0isWg_g_7CXyib";
 
-    // ===== PAGE ROUTER =====
-    function showPage(name) {
-        if ((name === 'earn' || name === 'withdraw') && !currentUser) { 
-            showToast('❌ Please login to access this page');
-            showPage('login'); 
-            return; 
-        }
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        const targetPage = document.getElementById('page-' + name);
-        if (targetPage) targetPage.classList.add('active');
-        
-        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-        const navEl = document.getElementById('nav-' + name);
-        if (navEl) navEl.classList.add('active');
-        
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        if (name === 'withdraw') {
-            document.getElementById('wdBalance').value = '₨' + balance.toFixed(2);
-        }
-        if (name === 'earn') {
-            updateEarnDisplay();
-            restoreAdButtons();
-        }
+
+/*
+ * Monetag links supplied for this project.
+ *
+ * IMPORTANT:
+ * Only use these for incentivized/PTC traffic if your
+ * Monetag account/campaign explicitly permits it.
+ */
+
+const MONETAG_AD_LINKS = [
+    "https://omg10.com/4/7349692",
+    "https://omg10.com/4/7349688",
+    "https://omg10.com/4/7393659",
+    "https://omg10.com/4/7343595",
+    "https://omg10.com/4/7349687",
+    "https://omg10.com/4/7351274",
+    "https://omg10.com/4/7349694",
+    "https://omg10.com/4/7349690",
+    "https://omg10.com/4/7349680",
+    "https://omg10.com/4/11831163",
+    "https://omg10.com/4/7393664",
+    "https://omg10.com/4/7346296",
+    "https://omg10.com/4/7349689",
+    "https://omg10.com/4/7345679",
+    "https://omg10.com/4/7382951",
+    "https://omg10.com/4/7393658"
+];
+
+
+const REWARD_PKR = 0.10;
+
+const VERIFY_SECONDS = 20;
+
+const MIN_WITHDRAWAL = 5.00;
+
+
+/* ============================================================
+   SUPABASE CLIENT
+   ============================================================ */
+
+const {
+    createClient
+} = window.supabase;
+
+
+const supabaseClient =
+    createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+/* ============================================================
+   APPLICATION STATE
+   ============================================================ */
+
+let currentUser = null;
+
+let currentProfile = null;
+
+let currentSessionId = null;
+
+let timerInterval = null;
+
+let timerSecondsRemaining = VERIFY_SECONDS;
+
+let timerRunning = false;
+
+let intentionallyLoggingOut = false;
+
+
+/* ============================================================
+   DOM HELPERS
+   ============================================================ */
+
+const $ = (id) =>
+    document.getElementById(id);
+
+
+/* ============================================================
+   AUTH UI
+   ============================================================ */
+
+function switchAuth(mode) {
+
+    const loginTab = $("loginTab");
+    const signupTab = $("signupTab");
+
+    const loginForm = $("loginForm");
+    const signupForm = $("signupForm");
+
+    clearAuthMessage();
+
+
+    if (mode === "signup") {
+
+        loginTab.classList.remove("active");
+        signupTab.classList.add("active");
+
+        loginForm.classList.add("hidden");
+        signupForm.classList.remove("hidden");
+
+    } else {
+
+        signupTab.classList.remove("active");
+        loginTab.classList.add("active");
+
+        signupForm.classList.add("hidden");
+        loginForm.classList.remove("hidden");
     }
+}
 
-    // ===== MOBILE MENU =====
-    function toggleMenu() {
-        document.getElementById('hamburger').classList.toggle('active');
-        document.getElementById('mobileNav').classList.toggle('open');
-    }
-    function closeMobile() {
-        document.getElementById('hamburger').classList.remove('active');
-        document.getElementById('mobileNav').classList.remove('open');
-    }
 
-    // ===== TOAST =====
-    function showToast(msg, duration = 3000) {
-        const t = document.getElementById('toast');
-        document.getElementById('toastMsg').textContent = msg;
-        t.classList.add('show');
-        setTimeout(() => t.classList.remove('show'), duration);
-    }
+/* ============================================================
+   AUTH MESSAGE
+   ============================================================ */
 
-    // ===== SAVE =====
-    function saveState() {
-        localStorage.setItem('epk_balance',  balance);
-        localStorage.setItem('epk_clicks',   totalClick);
-        localStorage.setItem('epk_today',    todayEarns);
-        localStorage.setItem('epk_clicked',  JSON.stringify(clickedAds));
-        if (currentUser) {
-            localStorage.setItem('epk_user', JSON.stringify(currentUser));
-        }
-    }
+function showAuthMessage(
+    message,
+    type = "error"
+) {
 
-    // ===== UPDATE DISPLAY =====
-    function updateEarnDisplay() {
-        const tc  = document.getElementById('totalClicks');
-        const bal = document.getElementById('balance');
-        const te  = document.getElementById('todayEarn');
-        if (tc)  tc.textContent  = totalClick;
-        if (bal) bal.textContent = '₨' + balance.toFixed(2);
-        if (te)  te.textContent  = '₨' + todayEarns.toFixed(2);
-    }
+    const box = $("authMessage");
 
-    // ===== RESTORE BUTTONS =====
-    function restoreAdButtons() {
-        for (let i = 1; i <= 15; i++) {
-            if (clickedAds['ad_' + i]) {
-                const card = document.getElementById('ad-' + i);
-                const btn  = card?.querySelector('.visit-btn');
-                if (btn) {
-                    btn.textContent = '✅ Done';
-                    btn.style.background = 'linear-gradient(135deg,#059669,#10b981)';
-                    btn.disabled = true;
-                }
-                card?.classList.add('ad-done');
+    box.textContent = message;
+
+    box.className =
+        "message show " + type;
+}
+
+
+function clearAuthMessage() {
+
+    const box = $("authMessage");
+
+    box.textContent = "";
+
+    box.className = "message";
+}
+
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+
+function showToast(
+    message,
+    type = "success"
+) {
+
+    const container =
+        $("toastContainer");
+
+    const toast =
+        document.createElement("div");
+
+    toast.className =
+        "toast " + type;
+
+    toast.textContent =
+        message;
+
+    container.appendChild(toast);
+
+
+    setTimeout(() => {
+
+        toast.style.opacity = "0";
+
+        toast.style.transform =
+            "translateY(8px)";
+
+        setTimeout(() => {
+            toast.remove();
+        }, 200);
+
+    }, 3500);
+}
+
+
+/* ============================================================
+   RANDOM MONETAG URL
+   ============================================================ */
+
+function getRandomAdLink() {
+
+    const index =
+        Math.floor(
+            Math.random() *
+            MONETAG_AD_LINKS.length
+        );
+
+    return MONETAG_AD_LINKS[index];
+}
+
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
+
+$("loginForm")
+.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        clearAuthMessage();
+
+        const button =
+            $("loginButton");
+
+        const email =
+            $("loginEmail")
+            .value
+            .trim();
+
+        const password =
+            $("loginPassword")
+            .value;
+
+
+        button.disabled = true;
+
+        button.textContent =
+            "Logging in...";
+
+
+        try {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth
+                .signInWithPassword({
+                    email,
+                    password
+                });
+
+
+            if (error) {
+                throw error;
             }
+
+
+            currentUser =
+                data.user;
+
+
+            showToast(
+                "Login successful.",
+                "success"
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showAuthMessage(
+                error.message ||
+                "Login failed.",
+                "error"
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+                "Login";
         }
     }
+);
 
-    // ===== DAILY RESET =====
-    function checkDailyReset() {
-        const lastDay = localStorage.getItem('epk_lastday');
-        const today   = new Date().toDateString();
-        if (lastDay !== today) {
-            localStorage.setItem('epk_lastday', today);
-            todayEarns = 0;
-            clickedAds = {};
-            localStorage.setItem('epk_today',   '0');
-            localStorage.setItem('epk_clicked', '{}');
-        }
-    }
 
-    // ===== TIMER =====
-    function startRefreshTimer() {
-        const el = document.getElementById('refreshTimer');
-        if (!el) return;
-        function tick() {
-            const now      = new Date();
-            const midnight = new Date();
-            midnight.setHours(24, 0, 0, 0);
-            const diff = midnight - now;
-            const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
-            const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
-            const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
-            el.textContent = `${h}:${m}:${s}`;
-        }
-        tick();
-        setInterval(tick, 1000);
-    }
+/* ============================================================
+   SIGNUP
+   ============================================================ */
 
-    // ===== WITHDRAW =====
-    function updateAccountLabel() {
-        const method = document.getElementById('payMethod').value;
-        const label  = document.getElementById('accountLabel');
-        const input  = document.getElementById('accountInput');
-        const map = {
-            jazzcash:  { label: 'JazzCash Number',     ph: '0300-0000000' },
-            easypaisa: { label: 'Easypaisa Number',    ph: '0300-0000000' },
-            bank:      { label: 'IBAN Number',         ph: 'PK00XXXX0000000000000000' },
-            usdt:      { label: 'USDT Wallet (TRC20)', ph: 'TXxxxxxxxxxxxxxxxxxxxxxxxxxx' }
-        };
-        if (map[method]) {
-            label.textContent = map[method].label;
-            input.placeholder = map[method].ph;
-        } else {
-            label.textContent = 'Account Number';
-            input.placeholder = 'Select method first';
-        }
-    }
+$("signupForm")
+.addEventListener(
+    "submit",
+    async function(event) {
 
-    function submitWithdraw() {
-        const method  = document.getElementById('payMethod').value;
-        const account = document.getElementById('accountInput').value.trim();
-        const amount  = parseFloat(document.getElementById('withdrawAmt').value);
+        event.preventDefault();
 
-        if (!method)             { showToast('❌ Select payment method!'); return; }
-        if (!account)            { showToast('❌ Enter account number!'); return; }
-        if (!amount || amount < 50)  { showToast('❌ Minimum withdrawal is ₨10!'); return; }
-        if (amount > balance)    { showToast('❌ Insufficient balance!'); return; }
+        clearAuthMessage();
 
-        balance -= amount;
-        saveState();
-        document.getElementById('wdBalance').value = '₨' + balance.toFixed(2);
+        const button =
+            $("signupButton");
 
-        const tbody  = document.getElementById('wdHistory');
-        const date   = new Date().toLocaleDateString('en-PK');
-        const newRow = `
-            <tr>
-                <td><strong style="color:var(--success);">₨${amount.toFixed(2)}</strong></td>
-                <td>${method.charAt(0).toUpperCase()+method.slice(1)}</td>
-                <td>${date}</td>
-                <td><span class="badge badge-warning">⏳ Pending</span></td>
-            </tr>`;
-        if (tbody.querySelector('td[colspan]')) tbody.innerHTML = '';
-        tbody.insertAdjacentHTML('afterbegin', newRow);
 
-        document.getElementById('payMethod').value    = '';
-        document.getElementById('accountInput').value = '';
-        document.getElementById('withdrawAmt').value  = '';
+        const name =
+            $("signupName")
+            .value
+            .trim();
 
-        showToast('✅ Withdrawal submitted! Processing in 24hrs', 4000);
-    }
+        const phone =
+            $("signupPhone")
+            .value
+            .trim();
 
-    // ===== LOGIN =====
-    function doLogin() {
-        const email = document.getElementById('loginEmail').value.trim();
-        const pass  = document.getElementById('loginPass').value;
-        if (!email || !pass)      { showToast('❌ Fill all fields!'); return; }
-        if (!email.includes('@')) { showToast('❌ Invalid email!'); return; }
-        if (pass.length < 6)      { showToast('❌ Password too short!'); return; }
-        
-        currentUser = { email: email };
-        saveState();
-        showToast('✅ Login successful! Welcome back 💜');
-        setTimeout(() => showPage('earn'), 1500);
-    }
+        const email =
+            $("signupEmail")
+            .value
+            .trim();
 
-    // ===== REGISTER =====
-    function doRegister() {
-        const name  = document.getElementById('regName').value.trim();
-        const email = document.getElementById('regEmail').value.trim();
-        const phone = document.getElementById('regPhone').value.trim();
-        const pass  = document.getElementById('regPass').value;
-        const terms = document.getElementById('termsCheck').checked;
+        const password =
+            $("signupPassword")
+            .value;
 
-        if (!name || !email || !phone || !pass) { showToast('❌ Fill all fields!'); return; }
-        if (!email.includes('@'))               { showToast('❌ Invalid email!'); return; }
-        if (pass.length < 6)                    { showToast('❌ Min 6 char password!'); return; }
-        if (!terms)                             { showToast('❌ Accept Terms first!'); return; }
 
-        currentUser = { name: name, email: email, phone: phone };
-        
-        const verifyEmailEl = document.getElementById('verifyEmail');
-        if (verifyEmailEl) verifyEmailEl.textContent = email;
-        
-        showToast('📧 Verification code sent!');
-        showPage('verify');
-    }
+        if (password.length < 6) {
 
-    function verifySignup() {
-        const code = document.getElementById('verifyCode').value.trim();
-        if (code.length !== 6) {
-            showToast('❌ Enter valid 6-digit code');
+            showAuthMessage(
+                "Password must contain at least 6 characters.",
+                "error"
+            );
+
             return;
         }
-        balance += 5;
-        saveState();
-        showToast('🎉 Account created! ₨5 bonus added! 💜', 4000);
-        setTimeout(() => showPage('earn'), 1500);
+
+
+        button.disabled = true;
+
+        button.textContent =
+            "Creating account...";
+
+
+        try {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth
+                .signUp({
+
+                    email,
+
+                    password,
+
+                    options: {
+
+                        data: {
+                            name: name,
+                            phone: phone
+                        }
+
+                    }
+
+                });
+
+
+            if (error) {
+                throw error;
+            }
+
+
+            /*
+             * Depending on Supabase email-confirmation settings,
+             * data.session may be null.
+             */
+
+            if (!data.session) {
+
+                showAuthMessage(
+                    "Account created. Check your email to confirm your account, then log in.",
+                    "success"
+                );
+
+                switchAuth("login");
+
+            } else {
+
+                showToast(
+                    "Account created successfully.",
+                    "success"
+                );
+
+            }
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showAuthMessage(
+                error.message ||
+                "Could not create account.",
+                "error"
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+                "Create Account";
+        }
+
+    }
+);
+
+
+/* ============================================================
+   LOGOUT
+   ============================================================ */
+
+$("logoutButton")
+.addEventListener(
+    "click",
+    async function() {
+
+        intentionallyLoggingOut = true;
+
+        cancelAdTimer(
+            false
+        );
+
+
+        const {
+            error
+        } =
+            await supabaseClient.auth
+            .signOut();
+
+
+        if (error) {
+
+            console.error(error);
+
+            intentionallyLoggingOut =
+                false;
+
+            showToast(
+                error.message ||
+                "Logout failed.",
+                "error"
+            );
+
+            return;
+        }
+
+        showToast(
+            "Logged out.",
+            "success"
+        );
+
+    }
+);
+
+
+/* ============================================================
+   AUTH STATE
+   ============================================================ */
+
+supabaseClient.auth.onAuthStateChange(
+    async (
+        event,
+        session
+    ) => {
+
+        if (session && session.user) {
+
+            currentUser =
+                session.user;
+
+            await showDashboard();
+
+        } else {
+
+            currentUser = null;
+
+            currentProfile = null;
+
+            showAuthScreen();
+
+        }
+
+    }
+);
+
+
+/* ============================================================
+   SHOW AUTH
+   ============================================================ */
+
+function showAuthScreen() {
+
+    $("authScreen")
+        .classList.remove("hidden");
+
+    $("dashboardScreen")
+        .classList.add("hidden");
+}
+
+
+/* ============================================================
+   SHOW DASHBOARD
+   ============================================================ */
+
+async function showDashboard() {
+
+    $("authScreen")
+        .classList.add("hidden");
+
+    $("dashboardScreen")
+        .classList.remove("hidden");
+
+
+    await loadProfile();
+
+    await loadWithdrawalHistory();
+}
+
+
+/* ============================================================
+   LOAD PROFILE
+   ============================================================ */
+
+async function loadProfile() {
+
+    if (!currentUser) {
+        return;
     }
 
-    function openEarningTask(adId) {
-        showToast('ℹ️ This earning task is currently pending provider approval. No reward was credited.', 4000);
-    }
 
-    // ===== INIT =====
-    window.addEventListener('load', () => {
-        checkDailyReset();
-        updateEarnDisplay();
-        restoreAdButtons();
-        startRefreshTimer();
-    });
-</script>
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+        .from("profiles")
+        .select(
+            "id,name,phone,balance_pkr,total_ads_watched,created_at"
+        )
+        .eq(
+            "id",
+            currentUser.id
+        )
+        .maybeSingle();
 
-<script>
-/* =========================================================
-   Click&EarnPK — Supabase frontend
-   - Real Supabase Auth
-   - Real profile/balance data
-   - Task opens in a new tab
-   - 10-second verification countdown starts ONLY after
-     the user returns to Click&EarnPK
-   - Countdown pauses while this site is hidden
-   - Tasks become available again according to the backend
-     cooldown (1 minute in the matching Edge Function)
-   ========================================================= */
-(function () {
-  const SUPABASE_URL = "https://flbruzcmuhhxhakdvour.supabase.co";
-  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_zxLPB_25AgRGB-6GQ0isWg_g_7CXyib";
-
-  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: true
-    }
-  });
-
-  window.clickEarnSupabase = sb;
-
-  const TASK_URLS = {
-    1:'https://omg10.com/4/7343595',
-    2:'https://omg10.com/4/7349687',
-    3:'https://omg10.com/4/7349692',
-    4:'https://omg10.com/4/7349688',
-    5:'https://omg10.com/4/7393659',
-    6:'https://omg10.com/4/7351274',
-    7:'https://omg10.com/4/7349694',
-    8:'https://omg10.com/4/7349690',
-    9:'https://omg10.com/4/7349680',
-    10:'https://omg10.com/4/7346296',
-    11:'https://omg10.com/4/7346296',
-    12:'https://omg10.com/4/7349689',
-    13:'https://omg10.com/4/7345679',
-    14:'https://omg10.com/4/7382951',
-    15:'https://omg10.com/4/7393658'
-  };
-
-  const VERIFY_SECONDS = 10;
-  const COOLDOWN_SECONDS = 60;
-
-  let activeTask = null;
-  let completionId = null;
-  let taskSeconds = 0;
-  let taskTimer = null;
-  let taskWasHidden = false;
-  let profileCache = null;
-  const completedAtMap = new Map();
-
-  function toast(msg, ms = 3500) {
-    if (typeof showToast === 'function') showToast(msg, ms);
-  }
-
-  function setBalanceUI() {
-    const b = Number(profileCache?.balance || 0);
-    const earned = Number(profileCache?.total_earned || 0);
-    const clicks = Number(profileCache?.total_clicks || 0);
-
-    const bal = document.getElementById('balance');
-    const wd = document.getElementById('wdBalance');
-    const te = document.getElementById('todayEarn');
-    const tc = document.getElementById('totalClicks');
-
-    if (bal) bal.textContent = '₨' + b.toFixed(2);
-    if (wd) wd.value = '₨' + b.toFixed(2);
-    if (te) te.textContent = '₨' + earned.toFixed(2);
-    if (tc) tc.textContent = String(clicks);
-  }
-
-  async function getUser() {
-    const { data, error } = await sb.auth.getUser();
-    if (error) return null;
-    return data.user || null;
-  }
-
-  async function loadProfile() {
-    const user = await getUser();
-    if (!user) {
-      profileCache = null;
-      setBalanceUI();
-      return null;
-    }
-
-    const { data, error } = await sb
-      .from('profiles')
-      .select('id,name,phone,balance,total_earned,total_clicks,created_at')
-      .eq('id', user.id)
-      .maybeSingle();
 
     if (error) {
-      console.error('profile:', error);
-      toast('❌ Could not load your account.', 5000);
-      return null;
+
+        console.error(error);
+
+        showToast(
+            "Could not load your profile.",
+            "error"
+        );
+
+        return;
     }
 
-    profileCache = data || { balance:0, total_earned:0, total_clicks:0 };
 
-    if (typeof currentUser !== 'undefined') currentUser = user;
-    if (typeof balance !== 'undefined') balance = Number(profileCache.balance || 0);
-    if (typeof totalClick !== 'undefined') totalClick = Number(profileCache.total_clicks || 0);
+    if (!data) {
 
-    setBalanceUI();
-    return profileCache;
-  }
+        showToast(
+            "Profile is not ready yet. Please refresh.",
+            "error"
+        );
 
-  function taskButton(taskId) {
-    return document.getElementById('ad-' + taskId)?.querySelector('.visit-btn');
-  }
-
-  function setTaskButton(taskId, text, disabled = false) {
-    const btn = taskButton(taskId);
-    if (!btn) return;
-    btn.disabled = disabled;
-    btn.textContent = text;
-    btn.style.opacity = disabled ? '.75' : '';
-    btn.style.cursor = disabled ? 'not-allowed' : '';
-  }
-
-  function cooldownRemaining(taskId) {
-    const completedAt = completedAtMap.get(Number(taskId));
-    if (!completedAt) return 0;
-    return Math.max(0, COOLDOWN_SECONDS - Math.floor((Date.now() - completedAt) / 1000));
-  }
-
-  function markTaskDone(taskId, completedAt) {
-    const id = Number(taskId);
-    if (completedAt) completedAtMap.set(id, new Date(completedAt).getTime());
-    const remaining = cooldownRemaining(id);
-    if (remaining > 0) {
-      setTaskButton(id, `⏳ Available in ${remaining}s`, true);
-    } else {
-      setTaskButton(id, 'Open ➡️', false);
-    }
-  }
-
-  async function loadCompletedTasks() {
-    const user = await getUser();
-    if (!user) return;
-
-    const { data, error } = await sb
-      .from('task_completions')
-      .select('task_id,completed_at')
-      .eq('user_id', user.id)
-      .not('completed_at', 'is', null);
-
-    if (error) {
-      console.error('task completions:', error);
-      return;
+        return;
     }
 
-    completedAtMap.clear();
-    (data || []).forEach(row => {
-      const id = Number(row.task_id);
-      const old = completedAtMap.get(id) || 0;
-      const ts = new Date(row.completed_at).getTime();
-      if (ts > old) completedAtMap.set(id, ts);
-    });
 
-    for (let id = 1; id <= 15; id++) {
-      const remaining = cooldownRemaining(id);
-      if (remaining > 0) {
-        setTaskButton(id, `⏳ Available in ${remaining}s`, true);
-      } else {
-        setTaskButton(id, 'Open ➡️', false);
-      }
+    currentProfile =
+        data;
+
+
+    updateProfileUI();
+}
+
+
+/* ============================================================
+   PROFILE UI
+   ============================================================ */
+
+function updateProfileUI() {
+
+    if (!currentProfile) {
+        return;
     }
-  }
 
-  function stopTaskTimer() {
-    if (taskTimer) clearInterval(taskTimer);
-    taskTimer = null;
-  }
 
-  function updateTaskTimerUI() {
-    if (!activeTask) return;
-    const id = Number(activeTask);
-    const btn = taskButton(id);
-    if (!btn) return;
+    const name =
+        currentProfile.name ||
+        currentUser?.email?.split("@")[0] ||
+        "User";
 
-    if (document.visibilityState === 'visible' && taskWasHidden) {
-      const remaining = Math.max(0, VERIFY_SECONDS - taskSeconds);
-      btn.textContent = remaining > 0 ? `⏳ Verify ${remaining}s` : '⏳ Crediting...';
-    } else if (activeTask) {
-      btn.textContent = '↩️ Return here to verify';
+
+    $("userName")
+        .textContent = name;
+
+
+    $("welcomeName")
+        .textContent = name;
+
+
+    $("balanceValue")
+        .textContent =
+        "₨" +
+        Number(
+            currentProfile.balance_pkr || 0
+        ).toFixed(2);
+
+
+    $("adsWatchedValue")
+        .textContent =
+        Number(
+            currentProfile.total_ads_watched || 0
+        );
+}
+
+
+/* ============================================================
+   START AD
+   ============================================================ */
+
+$("watchAdButton")
+.addEventListener(
+    "click",
+    startAd
+);
+
+
+async function startAd() {
+
+    if (!currentUser) {
+
+        showToast(
+            "Please log in first.",
+            "error"
+        );
+
+        return;
     }
-  }
 
-  function startReturnTimer() {
-    if (!activeTask || !completionId || taskTimer) return;
-    if (!taskWasHidden || document.visibilityState !== 'visible') return;
 
-    taskTimer = setInterval(() => {
-      if (!activeTask || document.visibilityState !== 'visible') return;
-      taskSeconds += 1;
-      updateTaskTimerUI();
-      if (taskSeconds >= VERIFY_SECONDS) finishTask();
-    }, 1000);
+    if (timerRunning) {
+        return;
+    }
 
-    updateTaskTimerUI();
-  }
 
-  async function finishTask() {
-    stopTaskTimer();
-    if (!activeTask || !completionId) return;
+    /*
+     * Open a blank tab synchronously inside the click event.
+     * This gives browsers the best chance of treating it as a
+     * legitimate user-initiated popup.
+     */
 
-    const taskId = Number(activeTask);
-    const completion = completionId;
+    let adWindow = null;
 
     try {
-      toast('⏳ Verifying task...', 2500);
 
-      const { data, error } = await sb.functions.invoke('complete-task', {
-        body: {
-          task_id: taskId,
-          completion_id: completion,
-          visible_seconds: taskSeconds
-        }
-      });
+        adWindow =
+            window.open(
+                "about:blank",
+                "_blank"
+            );
 
-      if (error) throw error;
-      if (data?.error) throw new Error(data.error);
+    } catch (error) {
 
-      activeTask = null;
-      completionId = null;
-      taskSeconds = 0;
-      taskWasHidden = false;
+        console.error(error);
 
-      await loadProfile();
-      await loadCompletedTasks();
-
-      toast(`✅ Task completed. ₨${Number(data?.reward || 0).toFixed(2)} added.`, 4000);
-    } catch (e) {
-      console.error('complete-task:', e);
-      activeTask = null;
-      completionId = null;
-      taskSeconds = 0;
-      taskWasHidden = false;
-      setTaskButton(taskId, 'Open ➡️', false);
-      toast('❌ ' + (e.message || 'Task could not be verified.'), 5000);
-    }
-  }
-
-  document.addEventListener('visibilitychange', () => {
-    if (!activeTask) return;
-
-    if (document.visibilityState === 'hidden') {
-      taskWasHidden = true;
-      stopTaskTimer();
-      updateTaskTimerUI();
-      return;
     }
 
-    if (document.visibilityState === 'visible') {
-      if (taskWasHidden) {
-        startReturnTimer();
-      } else {
-        updateTaskTimerUI();
-      }
-    }
-  });
-
-  window.openEarningTask = async function (taskId) {
-    const id = Number(taskId);
-    const user = await getUser();
-
-    if (!user) {
-      toast('❌ Please login first.', 4000);
-      showPage('login');
-      return;
-    }
-
-    if (activeTask) {
-      toast('⏳ Finish your current task first.', 4000);
-      return;
-    }
-
-    const cooldown = cooldownRemaining(id);
-    if (cooldown > 0) {
-      toast(`⏳ This task is available again in ${cooldown}s.`, 4000);
-      markTaskDone(id, new Date(Date.now() - (COOLDOWN_SECONDS - cooldown) * 1000).toISOString());
-      return;
-    }
-
-    const url = TASK_URLS[id];
-    if (!url) {
-      toast('❌ Task URL not found.', 4000);
-      return;
-    }
-
-    // IMPORTANT: open the blank tab immediately inside the click event.
-    // This prevents most browser popup blockers from stopping the task.
-    const adWindow = window.open('about:blank', '_blank');
 
     if (!adWindow) {
-      toast('❌ Browser blocked the new tab. Allow pop-ups for this site and try again.', 6000);
-      return;
+
+        showToast(
+            "Your browser blocked the ad tab. Allow pop-ups for this site and try again.",
+            "error"
+        );
+
+        return;
     }
+
+
+    const button =
+        $("watchAdButton");
+
+    button.disabled = true;
+
+    button.textContent =
+        "Starting...";
+
 
     try {
-      adWindow.document.write(`
-        <!doctype html>
-        <html>
-        <head><title>Loading Task...</title></head>
-        <body style="margin:0;background:#111;color:#fff;font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;text-align:center;">
-          <div><h2>Loading task...</h2><p>Please wait...</p></div>
-        </body>
-        </html>
-      `);
-      adWindow.document.close();
 
-      toast('⏳ Starting task...', 3000);
+        /*
+         * Server creates the session timestamp.
+         */
 
-      const { data, error } = await sb.functions.invoke('start-task', {
-        body: { task_id: id }
-      });
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+            .rpc(
+                "start_ad_session"
+            );
 
-      if (error) throw error;
-      if (data?.error) throw new Error(data.error);
 
-      completionId = data?.completion_id || data?.id || null;
-      if (!completionId) throw new Error('The server did not return a completion ID.');
-
-      activeTask = id;
-      taskSeconds = 0;
-      taskWasHidden = false;
-
-      setTaskButton(id, '↩️ Return here after visiting', true);
-
-      // Now send the already-open tab to the advertiser.
-      adWindow.location.href = data.task_url || url;
-
-      toast('↩️ Visit the advertiser, then return to Click&EarnPK. The 10-second countdown starts ONLY after you return.', 7000);
-    } catch (e) {
-      console.error('start-task:', e);
-      try { adWindow.close(); } catch (_) {}
-      setTaskButton(id, 'Open ➡️', false);
-      toast('❌ ' + (e.message || 'Could not start this task.'), 6000);
-    }
-  };
-
-  window.submitWithdraw = async function () {
-    const method = document.getElementById('payMethod')?.value;
-    const account = document.getElementById('accountInput')?.value.trim();
-    const amount = Number(document.getElementById('withdrawAmt')?.value);
-    const user = await getUser();
-
-    if (!user) { toast('❌ Please login first.'); showPage('login'); return; }
-    if (!method) return toast('❌ Select payment method!');
-    if (!account) return toast('❌ Enter your payment account!');
-    if (!Number.isFinite(amount) || amount < 10) return toast('❌ Minimum withdrawal is ₨10!');
-    if (amount > Number(profileCache?.balance || 0)) return toast('❌ Insufficient balance!');
-
-    try {
-      toast('⏳ Submitting withdrawal...', 3000);
-
-      const { data, error } = await sb.functions.invoke('withdrawal', {
-        body: { method, account, amount }
-      });
-
-      if (error) throw error;
-      if (data?.error) throw new Error(data.error);
-
-      document.getElementById('payMethod').value = '';
-      document.getElementById('accountInput').value = '';
-      document.getElementById('withdrawAmt').value = '';
-
-      await loadProfile();
-      await loadWithdrawals();
-      toast('✅ Withdrawal request submitted.', 4500);
-    } catch (e) {
-      console.error('withdrawal:', e);
-      toast('❌ ' + (e.message || 'Withdrawal could not be submitted.'), 5000);
-    }
-  };
-
-  async function loadWithdrawals() {
-    const user = await getUser();
-    const tbody = document.getElementById('wdHistory');
-    if (!user || !tbody) return;
-
-    const { data, error } = await sb
-      .from('withdrawals')
-      .select('amount,method,status,created_at')
-      .eq('user_id', user.id)
-      .order('created_at', { ascending:false });
-
-    if (error) { console.error('withdrawals:', error); return; }
-
-    if (!data?.length) {
-      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:30px;">No withdrawals yet</td></tr>';
-      return;
-    }
-
-    tbody.innerHTML = data.map(w => {
-      const status = String(w.status || 'pending');
-      const badge = status === 'paid' ? 'badge-success' : status === 'rejected' ? 'badge-danger' : 'badge-warning';
-      const label = status.charAt(0).toUpperCase() + status.slice(1);
-      const date = new Date(w.created_at).toLocaleDateString('en-PK');
-      return `<tr>
-        <td><strong style="color:var(--success);">₨${Number(w.amount).toFixed(2)}</strong></td>
-        <td>${escapeHtml(w.method)}</td>
-        <td>${date}</td>
-        <td><span class="badge ${badge}">${label}</span></td>
-      </tr>`;
-    }).join('');
-  }
-
-  function escapeHtml(v) {
-    return String(v).replace(/[&<>'"]/g, c => ({
-      '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'
-    }[c]));
-  }
-
-  window.doLogin = async function () {
-    const email = document.getElementById('loginEmail').value.trim();
-    const pass = document.getElementById('loginPass').value;
-
-    if (!email || !pass) return toast('❌ Please fill in email and password!');
-
-    try {
-      toast('⏳ Logging in...', 2500);
-      const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
-
-      if (error) {
-        if (/not confirmed|email.*confirm/i.test(error.message)) {
-          return toast('📧 Please verify your email first.', 5000);
+        if (error) {
+            throw error;
         }
-        throw error;
-      }
 
-      currentUser = data.user;
-      await loadProfile();
-      await loadCompletedTasks();
-      await loadWithdrawals();
-      toast('✅ Login successful.', 3000);
-      setTimeout(() => showPage('earn'), 700);
-    } catch (e) {
-      console.error(e);
-      toast('❌ ' + (e.message || 'Login failed.'), 5000);
-    }
-  };
 
-  window.doRegister = async function () {
-    const name = document.getElementById('regName').value.trim();
-    const email = document.getElementById('regEmail').value.trim();
-    const phone = document.getElementById('regPhone').value.trim();
-    const pass = document.getElementById('regPass').value;
-    const terms = document.getElementById('termsCheck').checked;
-
-    if (!name || !email || !phone || !pass) return toast('❌ Fill all fields!');
-    if (pass.length < 6) return toast('❌ Password must be at least 6 characters!');
-    if (!terms) return toast('❌ Accept Terms first!');
-
-    try {
-      toast('⏳ Creating account...', 3000);
-      const redirect = window.location.href.split('#')[0];
-
-      const { error } = await sb.auth.signUp({
-        email,
-        password: pass,
-        options: {
-          data: { name, phone },
-          emailRedirectTo: redirect
+        if (!data) {
+            throw new Error(
+                "The server did not create an ad session."
+            );
         }
-      });
 
-      if (error) throw error;
 
-      const ve = document.getElementById('verifyEmail');
-      if (ve) ve.textContent = email;
+        currentSessionId =
+            data;
 
-      toast('📧 Verification email sent. Check your inbox.', 6000);
-      showPage('verify');
-    } catch (e) {
-      console.error(e);
-      toast('❌ ' + (e.message || 'Signup failed.'), 6000);
+
+        /*
+         * Select one supplied ad URL randomly.
+         */
+
+        const adUrl =
+            getRandomAdLink();
+
+
+        /*
+         * Navigate the already-opened tab.
+         */
+
+        adWindow.location.href =
+            adUrl;
+
+
+        /*
+         * Start local verification timer.
+         */
+
+        startVerificationTimer();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        try {
+            adWindow.close();
+        } catch (_) {}
+
+
+        currentSessionId =
+            null;
+
+
+        button.disabled = false;
+
+        button.textContent =
+            "Watch Ad & Earn ₨0.10";
+
+
+        showToast(
+            getFriendlyError(
+                error,
+                "Could not start the ad session."
+            ),
+            "error"
+        );
     }
-  };
+}
 
-  window.verifySignup = async function () {
-    const email = document.getElementById('regEmail')?.value.trim();
-    if (!email) return toast('❌ Enter your signup email first.');
+
+/* ============================================================
+   START VERIFICATION TIMER
+   ============================================================ */
+
+function startVerificationTimer() {
+
+    stopTimerOnly();
+
+
+    timerSecondsRemaining =
+        VERIFY_SECONDS;
+
+    timerRunning = true;
+
+
+    $("timerBox")
+        .classList.add("show");
+
+
+    $("watchAdButton")
+        .disabled = true;
+
+
+    updateTimerUI();
+
+
+    timerInterval =
+        setInterval(
+            async function() {
+
+                /*
+                 * Extra defensive check.
+                 */
+
+                if (
+                    document.hidden ||
+                    document.visibilityState !== "visible"
+                ) {
+
+                    cancelAdTimer(
+                        true
+                    );
+
+                    return;
+                }
+
+
+                timerSecondsRemaining--;
+
+                updateTimerUI();
+
+
+                if (
+                    timerSecondsRemaining <= 0
+                ) {
+
+                    stopTimerOnly();
+
+                    await claimReward();
+
+                }
+
+            },
+            1000
+        );
+}
+
+
+/* ============================================================
+   TIMER UI
+   ============================================================ */
+
+function updateTimerUI() {
+
+    $("timerNumber")
+        .textContent =
+        timerSecondsRemaining + "s";
+
+
+    const completed =
+        VERIFY_SECONDS -
+        timerSecondsRemaining;
+
+
+    const percentage =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                (completed /
+                    VERIFY_SECONDS) *
+                    100
+            )
+        );
+
+
+    $("progressBar")
+        .style.width =
+        percentage + "%";
+}
+
+
+/* ============================================================
+   STOP TIMER ONLY
+   ============================================================ */
+
+function stopTimerOnly() {
+
+    if (timerInterval) {
+
+        clearInterval(
+            timerInterval
+        );
+
+        timerInterval = null;
+    }
+
+    timerRunning = false;
+}
+
+
+/* ============================================================
+   CANCEL AD TIMER
+   ============================================================ */
+
+function cancelAdTimer(
+    showWarning = true
+) {
+
+    if (
+        !timerRunning &&
+        !currentSessionId
+    ) {
+        return;
+    }
+
+
+    stopTimerOnly();
+
+
+    currentSessionId =
+        null;
+
+
+    timerSecondsRemaining =
+        VERIFY_SECONDS;
+
+
+    $("timerBox")
+        .classList.remove("show");
+
+
+    $("progressBar")
+        .style.width = "0%";
+
+
+    $("timerNumber")
+        .textContent =
+        VERIFY_SECONDS + "s";
+
+
+    $("watchAdButton")
+        .disabled = false;
+
+
+    $("watchAdButton")
+        .textContent =
+        "Watch Ad & Earn ₨0.10";
+
+
+    if (showWarning) {
+
+        showToast(
+            "Timer cancelled! You must stay on this page for 20 seconds to claim your reward.",
+            "error"
+        );
+
+        /*
+         * The requested warning is also displayed using a
+         * browser alert.
+         */
+
+        alert(
+            "Timer cancelled! You must stay on this page for 20 seconds to claim your reward."
+        );
+    }
+}
+
+
+/* ============================================================
+   VISIBILITY CHANGE
+   ============================================================ */
+
+document.addEventListener(
+    "visibilitychange",
+    function() {
+
+        if (
+            timerRunning &&
+            document.hidden
+        ) {
+
+            cancelAdTimer(
+                true
+            );
+        }
+
+    }
+);
+
+
+/* ============================================================
+   BLUR
+   ============================================================ */
+
+window.addEventListener(
+    "blur",
+    function() {
+
+        /*
+         * Blur can fire for legitimate browser UI interactions,
+         * but this application treats blur as leaving the active
+         * page according to the requested rule.
+         */
+
+        if (timerRunning) {
+
+            cancelAdTimer(
+                true
+            );
+        }
+
+    }
+);
+
+
+/* ============================================================
+   FOCUS
+   ============================================================ */
+
+window.addEventListener(
+    "focus",
+    function() {
+
+        /*
+         * No timer is resumed after leaving.
+         *
+         * User must start a completely new session.
+         */
+
+    }
+);
+
+
+/* ============================================================
+   CLAIM REWARD
+   ============================================================ */
+
+async function claimReward() {
+
+    const sessionId =
+        currentSessionId;
+
+
+    currentSessionId =
+        null;
+
+
+    if (!sessionId) {
+
+        resetWatchButton();
+
+        return;
+    }
+
+
+    $("watchAdButton")
+        .disabled = true;
+
+    $("watchAdButton")
+        .textContent =
+        "Verifying...";
+
 
     try {
-      const { error } = await sb.auth.resend({
-        type: 'signup',
-        email,
-        options: { emailRedirectTo: window.location.href.split('#')[0] }
-      });
-      if (error) throw error;
-      toast('📧 A new verification email was sent.', 5000);
-    } catch (e) {
-      console.error(e);
-      toast('❌ ' + (e.message || 'Could not resend email.'), 5000);
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+            .rpc(
+                "claim_ad_reward",
+                {
+                    p_session_id:
+                        sessionId
+                }
+            );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (
+            !data ||
+            data.success !== true
+        ) {
+            throw new Error(
+                "Reward was not confirmed by the server."
+            );
+        }
+
+
+        /*
+         * Never calculate the new balance locally.
+         * Use the server-returned balance.
+         */
+
+        if (currentProfile) {
+
+            currentProfile.balance_pkr =
+                Number(
+                    data.balance_pkr
+                );
+
+            currentProfile.total_ads_watched =
+                Number(
+                    currentProfile.total_ads_watched || 0
+                ) + 1;
+
+            updateProfileUI();
+        }
+
+
+        $("timerBox")
+            .classList.remove("show");
+
+
+        $("progressBar")
+            .style.width = "0%";
+
+
+        showToast(
+            "Reward credited: ₨0.10",
+            "success"
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        $("timerBox")
+            .classList.remove("show");
+
+
+        showToast(
+            getFriendlyError(
+                error,
+                "Reward could not be credited."
+            ),
+            "error"
+        );
+
+    } finally {
+
+        resetWatchButton();
     }
-  };
+}
 
-  window.doLogout = async function () {
-    await sb.auth.signOut();
-    currentUser = null;
-    profileCache = null;
-    balance = 0;
-    totalClick = 0;
-    activeTask = null;
-    completionId = null;
-    stopTaskTimer();
-    setBalanceUI();
-    toast('✅ Logged out.', 2500);
-    showPage('home');
-  };
 
-  window.saveState = function () {};
-  window.checkDailyReset = function () {};
-  window.startRefreshTimer = function () {
-    const el = document.getElementById('refreshTimer');
-    if (el) el.textContent = '1-minute task cooldown';
-  };
-  window.restoreAdButtons = function () { loadCompletedTasks(); };
-  window.updateEarnDisplay = function () { setBalanceUI(); };
+/* ============================================================
+   RESET WATCH BUTTON
+   ============================================================ */
 
-  const forgot = document.getElementById('forgotPasswordLink');
-  if (forgot) forgot.onclick = async function () {
-    const email = document.getElementById('loginEmail').value.trim();
-    if (!email) return toast('❌ Enter your email first.');
+function resetWatchButton() {
+
+    timerRunning = false;
+
+    timerSecondsRemaining =
+        VERIFY_SECONDS;
+
+
+    $("watchAdButton")
+        .disabled = false;
+
+    $("watchAdButton")
+        .textContent =
+        "Watch Ad & Earn ₨0.10";
+
+
+    $("timerNumber")
+        .textContent =
+        VERIFY_SECONDS + "s";
+
+    $("progressBar")
+        .style.width = "0%";
+}
+
+
+/* ============================================================
+   WITHDRAWAL
+   ============================================================ */
+
+$("withdrawForm")
+.addEventListener(
+    "submit",
+    submitWithdrawal
+);
+
+
+async function submitWithdrawal(event) {
+
+    event.preventDefault();
+
+
+    if (!currentUser) {
+
+        showToast(
+            "Please log in first.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const method =
+        $("withdrawMethod")
+        .value
+        .trim();
+
+
+    const account =
+        $("withdrawAccount")
+        .value
+        .trim();
+
+
+    const amount =
+        Number(
+            $("withdrawAmount")
+            .value
+        );
+
+
+    /*
+     * Client-side validation.
+     *
+     * Database performs the same validation again.
+     */
+
+    if (!account) {
+
+        showToast(
+            "Enter your payment account number.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (
+        !Number.isFinite(amount) ||
+        amount < MIN_WITHDRAWAL
+    ) {
+
+        showToast(
+            "Minimum withdrawal is ₨5.00.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (
+        currentProfile &&
+        amount >
+        Number(
+            currentProfile.balance_pkr || 0
+        )
+    ) {
+
+        showToast(
+            "Insufficient balance.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const button =
+        $("withdrawButton");
+
+    button.disabled = true;
+
+    button.textContent =
+        "Submitting...";
+
 
     try {
-      const { error } = await sb.auth.resetPasswordForEmail(email, {
-        redirectTo: window.location.href.split('#')[0]
-      });
-      if (error) throw error;
-      toast('📧 Password reset email sent.', 5000);
-    } catch (e) {
-      toast('❌ ' + (e.message || 'Could not send reset email.'), 5000);
-    }
-  };
 
-  sb.auth.onAuthStateChange(async (_event, session) => {
-    currentUser = session?.user || null;
-    if (session?.user) {
-      await loadProfile();
-      await loadCompletedTasks();
-      await loadWithdrawals();
-    } else {
-      profileCache = null;
-      completedAtMap.clear();
-      setBalanceUI();
-    }
-  });
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+            .rpc(
+                "request_withdrawal",
+                {
+                    p_method:
+                        method,
 
-  window.addEventListener('load', async () => {
-    const user = await getUser();
-    if (user) {
-      currentUser = user;
-      await loadProfile();
-      await loadCompletedTasks();
-      await loadWithdrawals();
-    }
-    setBalanceUI();
-  });
+                    p_account:
+                        account,
 
-  // Refresh cooldown labels every second without starting any task timer.
-  setInterval(() => {
-    for (let id = 1; id <= 15; id++) {
-      if (activeTask === id) continue;
-      const remaining = cooldownRemaining(id);
-      if (remaining > 0) setTaskButton(id, `⏳ Available in ${remaining}s`, true);
-      else if (completedAtMap.has(id)) setTaskButton(id, 'Open ➡️', false);
+                    p_amount:
+                        amount
+                }
+            );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (
+            !data ||
+            data.success !== true
+        ) {
+
+            throw new Error(
+                "Withdrawal was not accepted."
+            );
+        }
+
+
+        /*
+         * Again, use server balance.
+         */
+
+        if (currentProfile) {
+
+            currentProfile.balance_pkr =
+                Number(
+                    data.balance_pkr
+                );
+
+            updateProfileUI();
+        }
+
+
+        $("withdrawForm")
+            .reset();
+
+
+        showToast(
+            "Withdrawal request submitted.",
+            "success"
+        );
+
+
+        await loadWithdrawalHistory();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showToast(
+            getFriendlyError(
+                error,
+                "Withdrawal failed."
+            ),
+            "error"
+        );
+
+    } finally {
+
+        button.disabled = false;
+
+        button.textContent =
+            "Request Withdrawal";
     }
-  }, 1000);
-})();
+}
+
+
+/* ============================================================
+   WITHDRAWAL HISTORY
+   ============================================================ */
+
+async function loadWithdrawalHistory() {
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+        .from("withdrawals")
+        .select(
+            "id,method,account,amount_pkr,status,created_at"
+        )
+        .eq(
+            "user_id",
+            currentUser.id
+        )
+        .order(
+            "created_at",
+            {
+                ascending: false
+            }
+        )
+        .limit(20);
+
+
+    if (error) {
+
+        console.error(error);
+
+        $("withdrawalList")
+            .innerHTML =
+            `
+            <div style="color:#aaa5b8;font-size:13px;">
+                Could not load withdrawal history.
+            </div>
+            `;
+
+        return;
+    }
+
+
+    renderWithdrawalHistory(
+        data || []
+    );
+}
+
+
+/* ============================================================
+   RENDER WITHDRAWAL HISTORY
+   ============================================================ */
+
+function renderWithdrawalHistory(
+    withdrawals
+) {
+
+    const container =
+        $("withdrawalList");
+
+
+    if (!withdrawals.length) {
+
+        container.innerHTML =
+            `
+            <div style="color:#aaa5b8;font-size:13px;">
+                No withdrawal requests yet.
+            </div>
+            `;
+
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    withdrawals.forEach(
+        withdrawal => {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "withdrawal-item";
+
+
+            const date =
+                new Date(
+                    withdrawal.created_at
+                );
+
+
+            const formattedDate =
+                date.toLocaleString(
+                    "en-PK",
+                    {
+                        dateStyle: "medium",
+                        timeStyle: "short"
+                    }
+                );
+
+
+            const account =
+                maskAccount(
+                    withdrawal.account
+                );
+
+
+            item.innerHTML = `
+                <div class="withdrawal-top">
+
+                    <span class="withdrawal-method">
+                        ${escapeHtml(
+                            withdrawal.method
+                        )}
+                    </span>
+
+                    <span class="withdrawal-amount">
+                        ₨${Number(
+                            withdrawal.amount_pkr
+                        ).toFixed(2)}
+                    </span>
+
+                </div>
+
+                <div class="withdrawal-bottom">
+
+                    <span>
+                        ${escapeHtml(account)}
+                    </span>
+
+                    <span class="status ${escapeHtml(
+                        withdrawal.status
+                    )}">
+                        ${escapeHtml(
+                            withdrawal.status
+                        )}
+                    </span>
+
+                </div>
+
+                <div
+                    style="
+                        color:#777285;
+                        font-size:11px;
+                        margin-top:7px;
+                    "
+                >
+                    ${escapeHtml(
+                        formattedDate
+                    )}
+                </div>
+            `;
+
+
+            container.appendChild(
+                item
+            );
+
+        }
+    );
+}
+
+
+/* ============================================================
+   MASK ACCOUNT
+   ============================================================ */
+
+function maskAccount(
+    account
+) {
+
+    const value =
+        String(account || "");
+
+
+    if (value.length <= 4) {
+        return "••••";
+    }
+
+
+    return (
+        "••••" +
+        value.slice(-4)
+    );
+}
+
+
+/* ============================================================
+   HTML ESCAPE
+   ============================================================ */
+
+function escapeHtml(
+    value
+) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+
+/* ============================================================
+   FRIENDLY SUPABASE ERRORS
+   ============================================================ */
+
+function getFriendlyError(
+    error,
+    fallback
+) {
+
+    const message =
+        String(
+            error?.message ||
+            error ||
+            ""
+        );
+
+
+    if (
+        message
+        .toLowerCase()
+        .includes(
+            "ad session has not reached"
+        )
+    ) {
+
+        return "The 20-second verification period has not completed.";
+    }
+
+
+    if (
+        message
+        .toLowerCase()
+        .includes(
+            "already been claimed"
+        )
+    ) {
+
+        return "This ad session has already been claimed.";
+    }
+
+
+    if (
+        message
+        .toLowerCase()
+        .includes(
+            "minimum withdrawal"
+        )
+    ) {
+
+        return "Minimum withdrawal is ₨5.00.";
+    }
+
+
+    if (
+        message
+        .toLowerCase()
+        .includes(
+            "insufficient balance"
+        )
+    ) {
+
+        return "Insufficient balance.";
+    }
+
+
+    if (
+        message
+        .toLowerCase()
+        .includes(
+            "not authenticated"
+        )
+    ) {
+
+        return "Your session has expired. Please log in again.";
+    }
+
+
+    return message ||
+        fallback;
+}
+
+
+/* ============================================================
+   INITIAL SESSION CHECK
+   ============================================================ */
+
+async function initializeApplication() {
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth
+            .getSession();
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (
+            data &&
+            data.session &&
+            data.session.user
+        ) {
+
+            currentUser =
+                data.session.user;
+
+            await showDashboard();
+
+        } else {
+
+            showAuthScreen();
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Initialization error:",
+            error
+        );
+
+        showAuthScreen();
+
+        showAuthMessage(
+            "Could not initialize the application. Please refresh the page.",
+            "error"
+        );
+    }
+}
+
+
+/* ============================================================
+   START APPLICATION
+   ============================================================ */
+
+initializeApplication();
+
 </script>
+
 </body>
 </html>
