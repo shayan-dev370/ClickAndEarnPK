@@ -1,424 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click&EarnPK</title>
-    <!-- Supabase JS Client Library -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-        :root {
-            --primary: #10b981;
-            --primary-dark: #059669;
-            --bg: #0f172a;
-            --card-bg: #1e293b;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #334155;
-            --danger: #ef4444;
-        }
-
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 480px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .header h1 {
-            margin: 0;
-            font-size: 2rem;
-        }
-
-        .header h1 span {
-            color: var(--primary);
-        }
-
-        .header p {
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        input, select, button {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background-color: var(--bg);
-            color: var(--text);
-            box-sizing: border-box;
-            font-size: 1rem;
-        }
-
-        button {
-            background-color: var(--primary);
-            color: white;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        button:hover {
-            background-color: var(--primary-dark);
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .stat-card {
-            background-color: var(--bg);
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-
-        .stat-card label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .stat-card div {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .timer-display {
-            font-size: 2rem;
-            font-weight: bold;
-            text-align: center;
-            margin: 12px 0;
-            color: var(--primary);
-        }
-
-        .message {
-            margin-top: 12px;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            display: none;
-        }
-
-        .message.error {
-            background-color: rgba(239, 68, 68, 0.2);
-            color: #fca5a5;
-            display: block;
-        }
-
-        .message.success {
-            background-color: rgba(16, 185, 129, 0.2);
-            color: #6ee7b7;
-            display: block;
-        }
-
-        hr {
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 20px 0;
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            margin-top: 12px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rozgar - Earn Money Online</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-slate-900 text-white min-h-screen font-sans">
 
-    <div class="container">
-        <!-- App Title Header -->
-        <div class="header">
-            <h1>Click<span>&amp;EarnPK</span></h1>
-            <p>Earn rewards and request withdrawals.</p>
+  <!-- Header / Navbar -->
+  <nav class="bg-slate-800 border-b border-slate-700 p-4 sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold text-emerald-400">Rozgar <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded">PKR</span></h1>
+      <div id="nav-user" class="hidden flex items-center gap-4">
+        <span class="text-sm font-medium">Balance: <span id="user-balance" class="text-emerald-400 font-bold">PKR 0.00</span></span>
+        <button onclick="logout()" class="text-xs bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded text-white font-semibold">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-3xl mx-auto p-4 mt-4">
+
+    <!-- AUTH SECTION (Signup / Login) -->
+    <div id="auth-box" class="max-w-md mx-auto bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl">
+      <div class="flex border-b border-slate-700 mb-6">
+        <button id="tab-login-btn" onclick="switchTab('login')" class="flex-1 py-2 font-semibold text-emerald-400 border-b-2 border-emerald-400">Login</button>
+        <button id="tab-signup-btn" onclick="switchTab('signup')" class="flex-1 py-2 font-semibold text-slate-400">Sign Up</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Email</label>
+          <input type="email" id="login-email" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm focus:outline-none focus:border-emerald-500">
         </div>
-
-        <!-- Auth View (Shown when logged out) -->
-        <div id="authView" class="card">
-            <h2>Account Access</h2>
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="you@example.com" required />
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="••••••••" required />
-            </div>
-            
-            <button id="btnLogin">Log In</button>
-            <button id="btnSignUp" class="btn-secondary">Create Account</button>
-            
-            <div id="authMessage" class="message"></div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Password</label>
+          <input type="password" id="login-password" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm focus:outline-none focus:border-emerald-500">
         </div>
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 py-2.5 rounded font-bold text-sm transition">Login to Dashboard</button>
+      </form>
 
-        <!-- Main Dashboard (Shown when logged in) -->
-        <div id="dashboardView" class="card" style="display: none;">
-            <p>Logged in as: <b id="userEmail"></b></p>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <label>Balance</label>
-                    <div id="balanceDisplay">0.00 PKR</div>
-                </div>
-                <div class="stat-card">
-                    <label>Ads Watched</label>
-                    <div id="adsWatchedDisplay">0</div>
-                </div>
-            </div>
-
-            <hr />
-
-            <!-- Watch Ad Section -->
-            <h2>Watch Ad &amp; Earn 0.1 PKR</h2>
-            <div class="timer-display" id="timerDisplay">20s</div>
-            <button id="btnWatchAd">Start Watching Ad</button>
-            <div id="adMessage" class="message"></div>
-
-            <hr />
-
-            <!-- Withdrawal Section -->
-            <h2>Withdraw Earnings (Min: 5 PKR)</h2>
-            <div class="form-group">
-                <label for="paymentMethod">Payment Method</label>
-                <select id="paymentMethod">
-                    <option value="Easypaisa">Easypaisa</option>
-                    <option value="JazzCash">JazzCash</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="accountDetails">Account Number / Phone</label>
-                <input type="text" id="accountDetails" placeholder="03XXXXXXXXX" />
-            </div>
-            <div class="form-group">
-                <label for="withdrawAmount">Amount (PKR)</label>
-                <input type="number" id="withdrawAmount" placeholder="5.00" min="5.00" step="0.5" />
-            </div>
-
-            <button id="btnWithdraw">Request Withdrawal</button>
-            <div id="withdrawMessage" class="message"></div>
-
-            <button id="btnLogout" class="btn-secondary">Log Out</button>
+      <!-- Signup Form -->
+      <form id="signup-form" onsubmit="handleSignup(event)" class="space-y-4 hidden">
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Full Name</label>
+          <input type="text" id="signup-name" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm focus:outline-none focus:border-emerald-500">
         </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Phone Number (Easypaisa/JazzCash)</label>
+          <input type="text" id="signup-phone" placeholder="03001234567" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm focus:outline-none focus:border-emerald-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Email</label>
+          <input type="email" id="signup-email" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm focus:outline-none focus:border-emerald-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Password</label>
+          <input type="password" id="signup-password" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm focus:outline-none focus:border-emerald-500">
+        </div>
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 py-2.5 rounded font-bold text-sm transition">Create Account</button>
+      </form>
     </div>
 
-    <script>
-        // ------------------------------------------------------------------
-        // REPLACE THESE WITH YOUR SUPABASE PROJECT CREDENTIALS
-        // ------------------------------------------------------------------
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+    <!-- MAIN DASHBOARD -->
+    <div id="dashboard" class="hidden space-y-6">
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      <!-- Status Alert Box -->
+      <div id="alert-box" class="hidden p-4 rounded-lg text-sm font-semibold border"></div>
 
-        // State Variables
-        let currentAdSessionId = null;
-        let adCountdownTimer = null;
+      <!-- Navigation Tabs -->
+      <div class="flex border-b border-slate-700 mb-4">
+        <button id="dash-tasks-btn" onclick="switchDashboardTab('tasks')" class="flex-1 py-2.5 font-bold text-emerald-400 border-b-2 border-emerald-400">Available Tasks (16)</button>
+        <button id="dash-withdraw-btn" onclick="switchDashboardTab('withdraw')" class="flex-1 py-2.5 font-bold text-slate-400">Withdraw Funds</button>
+      </div>
 
-        // DOM Elements
-        const authView = document.getElementById('authView');
-        const dashboardView = document.getElementById('dashboardView');
-        const userEmail = document.getElementById('userEmail');
-        const balanceDisplay = document.getElementById('balanceDisplay');
-        const adsWatchedDisplay = document.getElementById('adsWatchedDisplay');
-        const timerDisplay = document.getElementById('timerDisplay');
-        const btnWatchAd = document.getElementById('btnWatchAd');
+      <!-- TASKS TAB -->
+      <div id="tasks-section" class="space-y-4">
+        <p class="text-xs text-slate-400 bg-slate-800 p-3 rounded-lg border border-slate-700">
+          ⚠️ <strong class="text-slate-200">Rules:</strong> Click a task to open the ad link. Stay on the opened ad tab for at least <span class="text-emerald-400 font-bold">30 seconds</span>. Returning early will immediately cancel your reward! Each task has a 2-minute cooldown.
+        </p>
 
-        // Helper: Show Message
-        function showMsg(elementId, text, isError = false) {
-            const el = document.getElementById(elementId);
-            el.textContent = text;
-            el.className = `message ${isError ? 'error' : 'success'}`;
+        <div id="tasks-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Task cards generated dynamically by JS -->
+        </div>
+      </div>
+
+      <!-- WITHDRAWAL TAB -->
+      <div id="withdraw-section" class="hidden bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl space-y-4 max-w-md mx-auto">
+        <h3 class="text-base font-bold text-slate-200">Request Withdrawal (Pakistani Local)</h3>
+        <p class="text-xs text-slate-400">Minimum withdrawal amount is <span class="text-emerald-400 font-bold">PKR 10.00</span>.</p>
+        
+        <form onsubmit="handleWithdrawal(event)" class="space-y-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Amount (Min PKR 10)</label>
+            <input type="number" id="withdraw-amount" min="10" step="0.1" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm text-white">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Payment Method</label>
+            <select id="withdraw-method" class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm text-slate-200">
+              <option value="Easypaisa">Easypaisa</option>
+              <option value="JazzCash">JazzCash</option>
+              <option value="Nayapay">Nayapay</option>
+              <option value="Bank">Bank Transfer</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Account Number / IBAN</label>
+            <input type="text" id="withdraw-account" placeholder="03001234567" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm text-white">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Account Title / Name</label>
+            <input type="text" id="withdraw-name" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm text-white">
+          </div>
+          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 py-2.5 rounded font-bold text-sm transition">Submit Withdrawal Request</button>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // PRE-CONNECTED SUPABASE CREDENTIALS
+    const SUPABASE_URL = "https://flbruzcmuhhxhakdvour.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_zxLPB_25AgRGB-6GQ0isWg_g_7CXyib";
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // 16 MONETAG DIRECT LINKS
+    const MONETAG_LINKS = [
+      "https://omg10.com/4/7349692", "https://omg10.com/4/7349688",
+      "https://omg10.com/4/7393659", "https://omg10.com/4/7343595",
+      "https://omg10.com/4/7349687", "https://omg10.com/4/7351274",
+      "https://omg10.com/4/7349694", "https://omg10.com/4/7349690",
+      "https://omg10.com/4/7349680", "https://omg10.com/4/11831163",
+      "https://omg10.com/4/7393664", "https://omg10.com/4/7346296",
+      "https://omg10.com/4/7349689", "https://omg10.com/4/7345679",
+      "https://omg10.com/4/7382951", "https://omg10.com/4/7393658"
+    ];
+
+    let currentUser = null;
+    let userProfile = null;
+    let activeTaskId = null;
+    let taskStartTime = null;
+    let isTaskRunning = false;
+    let taskCooldowns = {};
+
+    window.onload = async () => {
+      renderTasksGrid();
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        currentUser = session.user;
+        await loadUserProfile();
+        showDashboard();
+      }
+    };
+
+    function renderTasksGrid() {
+      const grid = document.getElementById('tasks-grid');
+      grid.innerHTML = '';
+
+      MONETAG_LINKS.forEach((link, index) => {
+        const taskId = index + 1;
+        const isCooldown = taskCooldowns[taskId] && Date.now() < taskCooldowns[taskId];
+
+        grid.innerHTML += `
+          <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow flex flex-col justify-between space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-slate-200">Ad Task #${taskId}</span>
+              <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold">+PKR 0.10</span>
+            </div>
+            <button id="task-btn-${taskId}" onclick="startTask(${taskId}, '${link}')" 
+              ${isCooldown ? 'disabled' : ''}
+              class="w-full ${isCooldown ? 'bg-slate-700 text-slate-400 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-500 text-white'} py-2 rounded-lg font-bold text-xs transition">
+              ${isCooldown ? 'In Cooldown' : 'Open Ad & Earn (30s)'}
+            </button>
+          </div>
+        `;
+      });
+    }
+
+    function switchTab(tab) {
+      if (tab === 'login') {
+        document.getElementById('login-form').classList.remove('hidden');
+        document.getElementById('signup-form').classList.add('hidden');
+        document.getElementById('tab-login-btn').className = "flex-1 py-2 font-semibold text-emerald-400 border-b-2 border-emerald-400";
+        document.getElementById('tab-signup-btn').className = "flex-1 py-2 font-semibold text-slate-400";
+      } else {
+        document.getElementById('login-form').classList.add('hidden');
+        document.getElementById('signup-form').classList.remove('hidden');
+        document.getElementById('tab-signup-btn').className = "flex-1 py-2 font-semibold text-emerald-400 border-b-2 border-emerald-400";
+        document.getElementById('tab-login-btn').className = "flex-1 py-2 font-semibold text-slate-400";
+      }
+    }
+
+    function switchDashboardTab(tab) {
+      if (tab === 'tasks') {
+        document.getElementById('tasks-section').classList.remove('hidden');
+        document.getElementById('withdraw-section').classList.add('hidden');
+        document.getElementById('dash-tasks-btn').className = "flex-1 py-2.5 font-bold text-emerald-400 border-b-2 border-emerald-400";
+        document.getElementById('dash-withdraw-btn').className = "flex-1 py-2.5 font-bold text-slate-400";
+      } else {
+        document.getElementById('tasks-section').classList.add('hidden');
+        document.getElementById('withdraw-section').classList.remove('hidden');
+        document.getElementById('dash-withdraw-btn').className = "flex-1 py-2.5 font-bold text-emerald-400 border-b-2 border-emerald-400";
+        document.getElementById('dash-tasks-btn').className = "flex-1 py-2.5 font-bold text-slate-400";
+      }
+    }
+
+    async function handleSignup(e) {
+      e.preventDefault();
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      const name = document.getElementById('signup-name').value;
+      const phone = document.getElementById('signup-phone').value;
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { full_name: name, phone_number: phone } }
+      });
+
+      if (error) {
+        showAlert(error.message, 'error');
+      } else {
+        showAlert("Account created successfully!", 'success');
+        currentUser = data.user;
+        await loadUserProfile();
+        showDashboard();
+      }
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        showAlert(error.message, 'error');
+      } else {
+        currentUser = data.user;
+        await loadUserProfile();
+        showDashboard();
+      }
+    }
+
+    async function logout() {
+      await supabase.auth.signOut();
+      location.reload();
+    }
+
+    async function loadUserProfile() {
+      const { data } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', currentUser.id)
+        .single();
+
+      if (data) {
+        userProfile = data;
+        document.getElementById('user-balance').innerText = `PKR ${parseFloat(data.balance).toFixed(2)}`;
+      }
+    }
+
+    function showDashboard() {
+      document.getElementById('auth-box').classList.add('hidden');
+      document.getElementById('dashboard').classList.remove('hidden');
+      document.getElementById('nav-user').classList.remove('hidden');
+    }
+
+    // STRICT AD TIMER LOGIC
+    function startTask(taskId, link) {
+      if (taskCooldowns[taskId] && Date.now() < taskCooldowns[taskId]) {
+        showAlert(`Task #${taskId} is in cooldown. Please wait!`, "error");
+        return;
+      }
+
+      window.open(link, '_blank');
+      activeTaskId = taskId;
+      taskStartTime = Date.now();
+      isTaskRunning = true;
+
+      showAlert(`Ad Task #${taskId} opened. Stay on that ad tab for 30 seconds!`, "info");
+    }
+
+    // TAB FOCUS CHANGE TRACKER
+    document.addEventListener("visibilitychange", async () => {
+      if (document.visibilityState === "visible" && isTaskRunning) {
+        const elapsedTime = (Date.now() - taskStartTime) / 1000;
+        isTaskRunning = false;
+
+        if (elapsedTime < 30) {
+          showAlert(`FAILED: Task #${activeTaskId} cancelled! You returned after only ${Math.floor(elapsedTime)}s. Stay on ad tab for 30s.`, "error");
+        } else {
+          await rewardUser(activeTaskId);
         }
+        activeTaskId = null;
+      }
+    });
 
-        function clearMsg(elementId) {
-            const el = document.getElementById(elementId);
-            el.style.display = 'none';
-        }
+    async function rewardUser(taskId) {
+      const newBalance = parseFloat(userProfile.balance) + 0.10;
 
-        // --- AUTHENTICATION ---
-        document.getElementById('btnSignUp').addEventListener('click', async () => {
-            clearMsg('authMessage');
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+      const { error } = await supabase
+        .from('profiles')
+        .update({ balance: newBalance })
+        .eq('id', currentUser.id);
 
-            const { data, error } = await supabase.auth.signUp({ email, password });
-            if (error) {
-                showMsg('authMessage', error.message, true);
-            } else {
-                showMsg('authMessage', 'Account created successfully! Check email or log in.');
-            }
+      if (error) {
+        showAlert("Error updating reward balance.", "error");
+      } else {
+        showAlert(`SUCCESS! PKR 0.10 awarded for Task #${taskId}.`, "success");
+        userProfile.balance = newBalance;
+        document.getElementById('user-balance').innerText = `PKR ${newBalance.toFixed(2)}`;
+        
+        // Start 2-Minute Cooldown for this specific task
+        taskCooldowns[taskId] = Date.now() + 120 * 1000;
+        renderTasksGrid();
+
+        setTimeout(() => {
+          renderTasksGrid();
+        }, 120000);
+      }
+    }
+
+    // WITHDRAWAL HANDLER
+    async function handleWithdrawal(e) {
+      e.preventDefault();
+      const amount = parseFloat(document.getElementById('withdraw-amount').value);
+      const method = document.getElementById('withdraw-method').value;
+      const account = document.getElementById('withdraw-account').value;
+      const name = document.getElementById('withdraw-name').value;
+
+      if (amount < 10) {
+        showAlert("Minimum withdrawal amount is PKR 10!", "error");
+        return;
+      }
+
+      if (amount > userProfile.balance) {
+        showAlert("Insufficient balance for this withdrawal!", "error");
+        return;
+      }
+
+      const newBalance = userProfile.balance - amount;
+
+      const { error: withdrawError } = await supabase
+        .from('withdrawals')
+        .insert({
+          user_id: currentUser.id,
+          amount,
+          payment_method: method,
+          account_number: account,
+          account_name: name
         });
 
-        document.getElementById('btnLogin').addEventListener('click', async () => {
-            clearMsg('authMessage');
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+      if (withdrawError) {
+        showAlert(withdrawError.message, "error");
+        return;
+      }
 
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-            if (error) {
-                showMsg('authMessage', error.message, true);
-            } else {
-                checkUser();
-            }
-        });
+      await supabase.from('profiles').update({ balance: newBalance }).eq('id', currentUser.id);
+      
+      userProfile.balance = newBalance;
+      document.getElementById('user-balance').innerText = `PKR ${newBalance.toFixed(2)}`;
+      showAlert("Withdrawal request submitted! It will be reviewed manually.", "success");
+    }
 
-        document.getElementById('btnLogout').addEventListener('click', async () => {
-            await supabase.auth.signOut();
-            checkUser();
-        });
-
-        // --- DASHBOARD & PROFILE DATA ---
-        async function fetchUserProfile(userId) {
-            const { data, error } = await supabase
-                .from('profiles')
-                .select('*')
-                .eq('user_id', userId)
-                .single();
-
-            if (data) {
-                balanceDisplay.textContent = `${Number(data.balance_pkr).toFixed(2)} PKR`;
-                adsWatchedDisplay.textContent = data.total_ads_watched;
-            }
-        }
-
-        async function checkUser() {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session) {
-                authView.style.display = 'none';
-                dashboardView.style.display = 'block';
-                userEmail.textContent = session.user.email;
-                fetchUserProfile(session.user.id);
-            } else {
-                authView.style.display = 'block';
-                dashboardView.style.display = 'none';
-            }
-        }
-
-        // --- AD WATCH LOGIC ---
-        btnWatchAd.addEventListener('click', async () => {
-            clearMsg('adMessage');
-            btnWatchAd.disabled = true;
-
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session) return;
-
-            // 1. Create Ad Session Record
-            const { data, error } = await supabase
-                .from('ad_sessions')
-                .insert([{ user_id: session.user.id }])
-                .select()
-                .single();
-
-            if (error) {
-                showMsg('adMessage', 'Failed to start ad session.', true);
-                btnWatchAd.disabled = false;
-                return;
-            }
-
-            currentAdSessionId = data.id;
-            let timeLeft = 20;
-            timerDisplay.textContent = `${timeLeft}s`;
-
-            // 2. Start Countdown Timer
-            adCountdownTimer = setInterval(async () => {
-                timeLeft--;
-                timerDisplay.textContent = `${timeLeft}s`;
-
-                if (timeLeft <= 0) {
-                    clearInterval(adCountdownTimer);
-                    // 3. Claim Reward RPC Call
-                    const { data: rpcData, error: rpcError } = await supabase.rpc('claim_ad_reward', {
-                        p_session_id: currentAdSessionId
-                    });
-
-                    if (rpcError) {
-                        showMsg('adMessage', rpcError.message, true);
-                    } else {
-                        showMsg('adMessage', '0.10 PKR credited to your balance!');
-                        fetchUserProfile(session.user.id);
-                    }
-                    btnWatchAd.disabled = false;
-                }
-            }, 1000);
-        });
-
-        // --- WITHDRAWAL LOGIC ---
-        document.getElementById('btnWithdraw').addEventListener('click', async () => {
-            clearMsg('withdrawMessage');
-            const method = document.getElementById('paymentMethod').value;
-            const account = document.getElementById('accountDetails').value;
-            const amount = parseFloat(document.getElementById('withdrawAmount').value);
-
-            if (!account) {
-                showMsg('withdrawMessage', 'Please enter your account details.', true);
-                return;
-            }
-
-            if (isNaN(amount) || amount < 5.0) {
-                showMsg('withdrawMessage', 'Minimum withdrawal amount is 5.00 PKR.', true);
-                return;
-            }
-
-            const { data, error } = await supabase.rpc('request_withdrawal', {
-                p_method: method,
-                p_account: account,
-                p_amount: amount
-            });
-
-            if (error) {
-                showMsg('withdrawMessage', error.message, true);
-            } else {
-                showMsg('withdrawMessage', 'Withdrawal requested successfully!');
-                const { data: { session } } = await supabase.auth.getSession();
-                fetchUserProfile(session.user.id);
-            }
-        });
-
-        // Initial check on page load
-        checkUser();
-    </script>
+    function showAlert(msg, type) {
+      const box = document.getElementById('alert-box');
+      box.classList.remove('hidden', 'bg-red-500/20', 'border-red-500', 'text-red-300', 'bg-emerald-500/20', 'border-emerald-500', 'text-emerald-300', 'bg-blue-500/20', 'border-blue-500', 'text-blue-300');
+      
+      if (type === 'error') {
+        box.classList.add('bg-red-500/20', 'border-red-500', 'text-red-300');
+      } else if (type === 'success') {
+        box.classList.add('bg-emerald-500/20', 'border-emerald-500', 'text-emerald-300');
+      } else {
+        box.classList.add('bg-blue-500/20', 'border-blue-500', 'text-blue-300');
+      }
+      
+      box.innerText = msg;
+    }
+  </script>
 </body>
 </html>
