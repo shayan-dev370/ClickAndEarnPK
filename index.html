@@ -10,61 +10,29 @@
 
 <meta
     name="description"
-    content="Click&EarnPK - Watch eligible advertisements and earn rewards."
+    content="Click&EarnPK - Earn rewards and request withdrawals."
 >
 
-<!-- =========================================================
-     MONETAG VERIFICATION META TAG
-     
-     Your message did not contain the actual meta-tag value.
-     Therefore no fabricated verification tag is inserted here.
-     
-     If Monetag gives you something like:
-     <meta name="..." content="...">
-     
-     place that exact tag here.
-     ========================================================= -->
+<!-- ==========================================================
+     MONETAG VERIFICATION TAG
+
+     No actual Monetag verification tag was supplied in the
+     request, so none is fabricated here.
+
+     Paste the exact tag supplied by Monetag here.
+     ========================================================== -->
 
 <title>Click&EarnPK — Earn & Withdraw</title>
 
 <style>
-/* =========================================================
-   RESET
-   ========================================================= */
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    min-height: 100vh;
-    background: #0f0e17;
-    color: #f5f3ff;
-    font-family:
-        Inter,
-        ui-sans-serif,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-}
-
-
-/* =========================================================
-   VARIABLES
-   ========================================================= */
+/* ==========================================================
+   ROOT
+   ========================================================== */
 
 :root {
     --bg: #0f0e17;
     --card: #16151f;
-    --card-2: #1c1a27;
+    --card-hover: #1b1925;
 
     --primary: #7c3aed;
     --primary-hover: #6d28d9;
@@ -83,9 +51,34 @@ body {
 }
 
 
-/* =========================================================
-   GENERAL
-   ========================================================= */
+/* ==========================================================
+   RESET
+   ========================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
 
 button,
 input,
@@ -102,27 +95,33 @@ button {
 }
 
 
-/* =========================================================
-   AUTH SCREEN
-   ========================================================= */
+/* ==========================================================
+   AUTH
+   ========================================================== */
 
-.auth-wrapper {
+.auth-screen {
     min-height: 100vh;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     padding: 24px;
 }
 
 .auth-card {
     width: 100%;
-    max-width: 440px;
+    max-width: 430px;
+
     background: var(--card);
+
     border: 1px solid var(--border);
     border-radius: 22px;
+
     padding: 32px;
+
     box-shadow:
-        0 20px 60px rgba(0,0,0,0.35);
+        0 25px 70px rgba(0,0,0,0.35);
 }
 
 .brand {
@@ -132,8 +131,8 @@ button {
 
 .brand h1 {
     font-size: 30px;
-    font-weight: 800;
-    letter-spacing: -0.8px;
+    font-weight: 850;
+    letter-spacing: -1px;
 }
 
 .brand h1 span {
@@ -142,26 +141,37 @@ button {
 
 .brand p {
     color: var(--muted);
-    margin-top: 8px;
     font-size: 14px;
+    margin-top: 7px;
 }
 
 .auth-tabs {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 6px;
-    background: #0f0e17;
+
+    gap: 5px;
+
     padding: 5px;
+
+    background: #0b0a10;
+
     border-radius: 12px;
+
     margin-bottom: 24px;
 }
 
 .auth-tab {
     border: 0;
-    color: var(--muted);
+
     background: transparent;
+
+    color: var(--muted);
+
     padding: 11px;
+
     border-radius: 9px;
+
+    font-weight: 600;
 }
 
 .auth-tab.active {
@@ -175,116 +185,147 @@ button {
 
 .form-group label {
     display: block;
-    color: #d7d2e2;
+
+    color: #d9d4e5;
+
     font-size: 13px;
+
     margin-bottom: 7px;
 }
 
 .form-control {
     width: 100%;
-    border: 1px solid var(--border);
-    outline: none;
+
     background: #0f0e17;
+
     color: white;
+
+    border: 1px solid var(--border);
+
+    outline: none;
+
     border-radius: 11px;
+
     padding: 13px 14px;
+
     transition: 0.2s;
 }
 
 .form-control:focus {
     border-color: var(--primary);
+
     box-shadow:
         0 0 0 3px rgba(124,58,237,0.15);
 }
 
-.primary-btn {
+.primary-button {
     width: 100%;
+
     border: 0;
+
     background: var(--primary);
+
     color: white;
-    padding: 13px 18px;
+
     border-radius: 11px;
-    font-weight: 700;
+
+    padding: 13px 18px;
+
+    font-weight: 750;
+
     transition: 0.2s;
 }
 
-.primary-btn:hover:not(:disabled) {
+.primary-button:hover:not(:disabled) {
     background: var(--primary-hover);
+
     transform: translateY(-1px);
 }
 
-.primary-btn:disabled {
+.primary-button:disabled {
     opacity: 0.5;
+
     cursor: not-allowed;
 }
 
-.secondary-btn {
-    border: 1px solid var(--border);
-    background: var(--card-2);
-    color: white;
-    padding: 10px 15px;
-    border-radius: 10px;
-}
-
-.message {
-    margin-top: 14px;
-    border-radius: 10px;
-    padding: 11px 13px;
-    font-size: 13px;
+.auth-message {
     display: none;
+
+    margin-top: 15px;
+
+    padding: 11px 13px;
+
+    border-radius: 10px;
+
+    font-size: 13px;
 }
 
-.message.show {
+.auth-message.show {
     display: block;
 }
 
-.message.error {
-    background: rgba(239,68,68,0.12);
-    border: 1px solid rgba(239,68,68,0.2);
+.auth-message.error {
     color: #fca5a5;
+
+    background: rgba(239,68,68,0.1);
+
+    border: 1px solid rgba(239,68,68,0.2);
 }
 
-.message.success {
-    background: rgba(34,197,94,0.12);
-    border: 1px solid rgba(34,197,94,0.2);
+.auth-message.success {
     color: #86efac;
+
+    background: rgba(34,197,94,0.1);
+
+    border: 1px solid rgba(34,197,94,0.2);
 }
 
 
-/* =========================================================
-   DASHBOARD
-   ========================================================= */
+/* ==========================================================
+   HEADER
+   ========================================================== */
 
 .dashboard {
     min-height: 100vh;
 }
 
-.topbar {
+.header {
     position: sticky;
-    top: 0;
-    z-index: 20;
 
-    background: rgba(15,14,23,0.88);
-    backdrop-filter: blur(15px);
+    top: 0;
+
+    z-index: 50;
+
+    background:
+        rgba(15,14,23,0.9);
+
+    backdrop-filter: blur(16px);
 
     border-bottom: 1px solid var(--border);
 }
 
-.topbar-inner {
+.header-inner {
+    width: 100%;
+
     max-width: 1100px;
-    margin: auto;
+
     min-height: 70px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    margin: auto;
 
     padding: 0 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
 }
 
 .logo {
     font-size: 20px;
-    font-weight: 800;
+
+    font-weight: 850;
 }
 
 .logo span {
@@ -293,32 +334,42 @@ button {
 
 .user-area {
     display: flex;
+
     align-items: center;
+
     gap: 12px;
 }
 
 .user-name {
     color: #ddd8e9;
+
     font-size: 14px;
 }
 
-.logout-btn {
-    border: 1px solid var(--border);
+.logout-button {
     background: var(--card);
+
+    border: 1px solid var(--border);
+
     color: white;
+
     border-radius: 9px;
+
     padding: 9px 13px;
 }
 
 
-/* =========================================================
-   MAIN
-   ========================================================= */
+/* ==========================================================
+   CONTENT
+   ========================================================== */
 
 .container {
     width: 100%;
+
     max-width: 1100px;
+
     margin: auto;
+
     padding: 30px 22px 60px;
 }
 
@@ -328,185 +379,282 @@ button {
 
 .welcome h2 {
     font-size: 28px;
-    margin-bottom: 7px;
+
+    margin-bottom: 6px;
 }
 
 .welcome p {
     color: var(--muted);
+
+    font-size: 14px;
 }
 
 
-/* =========================================================
+/* ==========================================================
    STATS
-   ========================================================= */
+   ========================================================== */
 
 .stats {
     display: grid;
+
     grid-template-columns:
-        repeat(3, minmax(0, 1fr));
+        repeat(3, minmax(0,1fr));
 
     gap: 15px;
+
     margin-bottom: 20px;
 }
 
 .stat-card {
     background: var(--card);
+
     border: 1px solid var(--border);
+
     border-radius: var(--radius);
+
     padding: 20px;
 }
 
 .stat-label {
     color: var(--muted);
+
     font-size: 13px;
+
     margin-bottom: 8px;
 }
 
 .stat-value {
     font-size: 25px;
-    font-weight: 800;
+
+    font-weight: 850;
 }
 
 
-/* =========================================================
+/* ==========================================================
    AD CARD
-   ========================================================= */
+   ========================================================== */
 
 .ad-card {
     background:
         linear-gradient(
             135deg,
             rgba(124,58,237,0.16),
-            rgba(22,21,31,1) 55%
+            rgba(22,21,31,1) 58%
         );
 
     border: 1px solid rgba(124,58,237,0.25);
+
     border-radius: var(--radius);
+
     padding: 28px;
-    margin-bottom: 20px;
-}
 
-.ad-card h3 {
-    font-size: 22px;
-    margin-bottom: 8px;
-}
-
-.ad-card-description {
-    color: var(--muted);
-    line-height: 1.6;
-    font-size: 14px;
     margin-bottom: 20px;
 }
 
 .reward-badge {
     display: inline-flex;
-    align-items: center;
-    gap: 6px;
 
-    background: rgba(124,58,237,0.15);
+    background:
+        rgba(124,58,237,0.15);
+
+    border:
+        1px solid rgba(124,58,237,0.25);
+
     color: #c4b5fd;
 
-    border: 1px solid rgba(124,58,237,0.25);
     border-radius: 999px;
 
     padding: 7px 12px;
+
     font-size: 13px;
-    margin-bottom: 17px;
+
+    margin-bottom: 15px;
 }
 
-.watch-btn {
+.ad-card h3 {
+    font-size: 22px;
+
+    margin-bottom: 8px;
+}
+
+.ad-description {
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+}
+
+.watch-button {
     width: 100%;
-    max-width: 420px;
+
+    max-width: 430px;
 
     border: 0;
+
     background: var(--primary);
+
     color: white;
 
-    padding: 15px 20px;
     border-radius: 12px;
 
-    font-weight: 800;
+    padding: 15px 20px;
+
     font-size: 15px;
+
+    font-weight: 800;
 
     transition: 0.2s;
 }
 
-.watch-btn:hover:not(:disabled) {
+.watch-button:hover:not(:disabled) {
     background: var(--primary-hover);
+
     transform: translateY(-1px);
 }
 
-.watch-btn:disabled {
-    opacity: 0.55;
+.watch-button:disabled {
+    opacity: 0.5;
+
     cursor: not-allowed;
 }
 
 
-/* =========================================================
+/* ==========================================================
    TIMER
-   ========================================================= */
+   ========================================================== */
 
 .timer-box {
-    margin-top: 18px;
-    max-width: 420px;
+    display: none;
 
-    background: rgba(0,0,0,0.2);
-    border: 1px solid var(--border);
+    max-width: 430px;
 
-    border-radius: 12px;
+    margin-top: 17px;
+
     padding: 17px;
 
-    display: none;
+    border-radius: 12px;
+
+    background: rgba(0,0,0,0.22);
+
+    border: 1px solid var(--border);
 }
 
 .timer-box.show {
     display: block;
 }
 
-.timer-title {
+.timer-label {
     color: var(--muted);
+
     font-size: 12px;
-    margin-bottom: 5px;
+
+    margin-bottom: 4px;
 }
 
 .timer-number {
-    font-size: 31px;
-    font-weight: 800;
+    font-size: 32px;
+
+    font-weight: 850;
 }
 
 .progress-track {
     height: 7px;
-    background: #292633;
-    border-radius: 999px;
+
+    margin-top: 12px;
+
     overflow: hidden;
-    margin-top: 13px;
+
+    background: #292633;
+
+    border-radius: 999px;
 }
 
 .progress-bar {
-    height: 100%;
     width: 0%;
+
+    height: 100%;
+
     background: var(--primary-light);
-    transition: width 0.2s linear;
+
+    transition:
+        width 0.2s linear;
 }
 
 
-/* =========================================================
-   WITHDRAWAL
-   ========================================================= */
+/* ==========================================================
+   ERROR BANNER
+   ========================================================== */
 
-.grid-two {
+.top-error {
+    position: fixed;
+
+    top: 82px;
+
+    left: 50%;
+
+    z-index: 100;
+
+    width: calc(100% - 30px);
+
+    max-width: 600px;
+
+    transform:
+        translate(-50%, -20px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    padding: 13px 17px;
+
+    border-radius: 11px;
+
+    background:
+        rgba(127,29,29,0.96);
+
+    border:
+        1px solid rgba(248,113,113,0.4);
+
+    color: #fecaca;
+
+    font-size: 13px;
+
+    text-align: center;
+
+    transition: 0.25s;
+}
+
+.top-error.show {
+    opacity: 1;
+
+    transform:
+        translate(-50%, 0);
+}
+
+
+/* ==========================================================
+   TWO COLUMN
+   ========================================================== */
+
+.two-column {
     display: grid;
+
     grid-template-columns:
-        minmax(0, 1fr)
-        minmax(0, 1fr);
+        repeat(2,minmax(0,1fr));
 
     gap: 20px;
 }
 
 .card {
     background: var(--card);
+
     border: 1px solid var(--border);
+
     border-radius: var(--radius);
+
     padding: 24px;
 }
 
@@ -516,57 +664,75 @@ button {
 
 .card-description {
     color: var(--muted);
+
     font-size: 13px;
+
     line-height: 1.5;
+
     margin-bottom: 20px;
 }
 
-.withdrawal-note {
+.small-note {
     color: var(--muted);
+
     font-size: 12px;
+
+    line-height: 1.5;
+
     margin-top: 12px;
 }
 
 
-/* =========================================================
+/* ==========================================================
    WITHDRAWAL HISTORY
-   ========================================================= */
+   ========================================================== */
 
-.withdrawal-list {
+.history-list {
     display: flex;
+
     flex-direction: column;
+
     gap: 10px;
 }
 
-.withdrawal-item {
-    background: var(--card-2);
+.history-item {
+    background: var(--card-hover);
+
     border: 1px solid var(--border);
+
     border-radius: 11px;
+
     padding: 13px;
 }
 
-.withdrawal-top {
+.history-top {
     display: flex;
+
     justify-content: space-between;
+
     gap: 10px;
 }
 
-.withdrawal-method {
+.history-method {
     font-weight: 700;
 }
 
-.withdrawal-amount {
+.history-amount {
     font-weight: 800;
 }
 
-.withdrawal-bottom {
+.history-bottom {
     display: flex;
+
     justify-content: space-between;
+
     gap: 10px;
-    margin-top: 7px;
 
     color: var(--muted);
+
     font-size: 12px;
+
+    margin-top: 7px;
 }
 
 .status {
@@ -590,60 +756,77 @@ button {
 }
 
 
-/* =========================================================
+/* ==========================================================
    TOAST
-   ========================================================= */
+   ========================================================== */
 
 .toast-container {
     position: fixed;
+
     right: 18px;
+
     bottom: 18px;
-    z-index: 100;
+
+    z-index: 200;
+
     display: flex;
+
     flex-direction: column;
-    gap: 10px;
+
+    gap: 9px;
 }
 
 .toast {
-    max-width: 340px;
+    max-width: 350px;
+
+    padding: 13px 15px;
 
     background: #201e2b;
+
     border: 1px solid var(--border);
 
     border-radius: 12px;
-    padding: 13px 15px;
 
-    box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.35);
 
     font-size: 13px;
 
-    animation: toastIn 0.2s ease;
+    animation:
+        toastIn 0.2s ease;
 }
 
 .toast.success {
-    border-color: rgba(34,197,94,0.3);
+    border-color:
+        rgba(34,197,94,0.3);
 }
 
 .toast.error {
-    border-color: rgba(239,68,68,0.3);
+    border-color:
+        rgba(239,68,68,0.3);
 }
 
 @keyframes toastIn {
+
     from {
-        transform: translateY(10px);
         opacity: 0;
+
+        transform:
+            translateY(10px);
     }
 
     to {
-        transform: translateY(0);
         opacity: 1;
+
+        transform:
+            translateY(0);
     }
 }
 
 
-/* =========================================================
+/* ==========================================================
    MOBILE
-   ========================================================= */
+   ========================================================== */
 
 @media (max-width: 760px) {
 
@@ -651,20 +834,21 @@ button {
         grid-template-columns: 1fr;
     }
 
-    .grid-two {
+    .two-column {
         grid-template-columns: 1fr;
     }
 
-    .topbar-inner {
+    .container {
+        padding:
+            23px 15px 45px;
+    }
+
+    .header-inner {
         padding: 0 15px;
     }
 
     .user-name {
         display: none;
-    }
-
-    .container {
-        padding: 23px 15px 45px;
     }
 
     .welcome h2 {
@@ -686,17 +870,38 @@ button {
 <body>
 
 
-<!-- =========================================================
-     AUTH SCREEN
-     ========================================================= -->
+<!-- ==========================================================
+     TOP ERROR BANNER
+     ========================================================== -->
 
-<section id="authScreen" class="auth-wrapper">
+<div
+    id="topError"
+    class="top-error"
+    role="alert"
+></div>
+
+
+<!-- ==========================================================
+     AUTH SCREEN
+     ========================================================== -->
+
+<section
+    id="authScreen"
+    class="auth-screen"
+>
 
     <div class="auth-card">
 
         <div class="brand">
-            <h1>Click<span>&EarnPK</span></h1>
-            <p>Earn rewards and request withdrawals.</p>
+
+            <h1>
+                Click<span>&amp;EarnPK</span>
+            </h1>
+
+            <p>
+                Earn rewards and request withdrawals.
+            </p>
+
         </div>
 
 
@@ -706,7 +911,6 @@ button {
                 id="loginTab"
                 class="auth-tab active"
                 type="button"
-                onclick="switchAuth('login')"
             >
                 Login
             </button>
@@ -715,7 +919,6 @@ button {
                 id="signupTab"
                 class="auth-tab"
                 type="button"
-                onclick="switchAuth('signup')"
             >
                 Sign Up
             </button>
@@ -763,7 +966,7 @@ button {
 
             <button
                 id="loginButton"
-                class="primary-btn"
+                class="primary-button"
                 type="submit"
             >
                 Login
@@ -772,9 +975,12 @@ button {
         </form>
 
 
-        <!-- SIGNUP -->
+        <!-- SIGN UP -->
 
-        <form id="signupForm" class="hidden">
+        <form
+            id="signupForm"
+            class="hidden"
+        >
 
             <div class="form-group">
 
@@ -849,7 +1055,7 @@ button {
 
             <button
                 id="signupButton"
-                class="primary-btn"
+                class="primary-button"
                 type="submit"
             >
                 Create Account
@@ -860,7 +1066,7 @@ button {
 
         <div
             id="authMessage"
-            class="message"
+            class="auth-message"
         ></div>
 
     </div>
@@ -868,22 +1074,21 @@ button {
 </section>
 
 
-
-<!-- =========================================================
+<!-- ==========================================================
      DASHBOARD
-     ========================================================= -->
+     ========================================================== -->
 
 <section
     id="dashboardScreen"
     class="dashboard hidden"
 >
 
-    <header class="topbar">
+    <header class="header">
 
-        <div class="topbar-inner">
+        <div class="header-inner">
 
             <div class="logo">
-                Click<span>&EarnPK</span>
+                Click<span>&amp;EarnPK</span>
             </div>
 
             <div class="user-area">
@@ -897,7 +1102,7 @@ button {
 
                 <button
                     id="logoutButton"
-                    class="logout-btn"
+                    class="logout-button"
                     type="button"
                 >
                     Logout
@@ -912,7 +1117,8 @@ button {
 
     <main class="container">
 
-        <div class="welcome">
+
+        <section class="welcome">
 
             <h2>
                 Welcome,
@@ -925,10 +1131,12 @@ button {
                 Complete eligible tasks and build your balance.
             </p>
 
-        </div>
+        </section>
 
 
-        <!-- STATS -->
+        <!-- ==================================================
+             STATS
+             ================================================== -->
 
         <section class="stats">
 
@@ -951,7 +1159,7 @@ button {
             <div class="stat-card">
 
                 <div class="stat-label">
-                    Ads Watched
+                    Total Ads Watched
                 </div>
 
                 <div
@@ -967,7 +1175,7 @@ button {
             <div class="stat-card">
 
                 <div class="stat-label">
-                    Reward / Ad
+                    Reward Per Ad
                 </div>
 
                 <div class="stat-value">
@@ -979,7 +1187,9 @@ button {
         </section>
 
 
-        <!-- AD -->
+        <!-- ==================================================
+             AD
+             ================================================== -->
 
         <section class="ad-card">
 
@@ -988,20 +1198,20 @@ button {
             </div>
 
             <h3>
-                Watch Ad & Earn
+                Watch Ad &amp; Earn
             </h3>
 
-            <p class="ad-card-description">
-                Click the button to open the eligible advertiser
-                page. Keep this Click&amp;EarnPK page active for
-                the complete 20-second verification period.
-                Leaving the page cancels the session.
+            <p class="ad-description">
+                Click Watch Ad to open the advertiser in a new
+                tab. Keep this page active during the 20-second
+                verification period. Leaving this page cancels
+                the session and no reward is credited.
             </p>
 
 
             <button
-                id="watchAdButton"
-                class="watch-btn"
+                id="watchButton"
+                class="watch-button"
                 type="button"
             >
                 Watch Ad &amp; Earn ₨0.10
@@ -1013,8 +1223,8 @@ button {
                 class="timer-box"
             >
 
-                <div class="timer-title">
-                    Verification timer
+                <div class="timer-label">
+                    Verification time remaining
                 </div>
 
                 <div
@@ -1038,12 +1248,12 @@ button {
         </section>
 
 
-        <!-- WITHDRAW + HISTORY -->
+        <!-- ==================================================
+             WITHDRAWAL + HISTORY
+             ================================================== -->
 
-        <section class="grid-two">
+        <section class="two-column">
 
-
-            <!-- WITHDRAW -->
 
             <div class="card">
 
@@ -1104,6 +1314,24 @@ button {
 
                     <div class="form-group">
 
+                        <label for="withdrawName">
+                            Account Name
+                        </label>
+
+                        <input
+                            id="withdrawName"
+                            class="form-control"
+                            type="text"
+                            maxlength="100"
+                            placeholder="Account holder name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
                         <label for="withdrawAmount">
                             Amount (PKR)
                         </label>
@@ -1123,7 +1351,7 @@ button {
 
                     <button
                         id="withdrawButton"
-                        class="primary-btn"
+                        class="primary-button"
                         type="submit"
                     >
                         Request Withdrawal
@@ -1132,15 +1360,13 @@ button {
                 </form>
 
 
-                <p class="withdrawal-note">
-                    Requests are processed manually and initially
-                    appear as pending.
+                <p class="small-note">
+                    Withdrawal requests initially appear as
+                    pending until processed.
                 </p>
 
             </div>
 
-
-            <!-- HISTORY -->
 
             <div class="card">
 
@@ -1152,13 +1378,21 @@ button {
                     Your recent withdrawal requests.
                 </p>
 
+
                 <div
-                    id="withdrawalList"
-                    class="withdrawal-list"
+                    id="historyList"
+                    class="history-list"
                 >
-                    <div style="color:#aaa5b8;font-size:13px;">
+
+                    <div
+                        style="
+                            color:#aaa5b8;
+                            font-size:13px;
+                        "
+                    >
                         Loading...
                     </div>
+
                 </div>
 
             </div>
@@ -1170,10 +1404,9 @@ button {
 </section>
 
 
-
-<!-- =========================================================
-     TOAST CONTAINER
-     ========================================================= -->
+<!-- ==========================================================
+     TOAST
+     ========================================================== -->
 
 <div
     id="toastContainer"
@@ -1181,19 +1414,22 @@ button {
 ></div>
 
 
+<!-- ==========================================================
+     SUPABASE JS V2
+     ========================================================== -->
 
-<!-- =========================================================
-     SUPABASE SDK
-     ========================================================= -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
 
 
 <script>
-/* ============================================================
-   CLICK&EARNPK
-   FRONTEND CONFIGURATION
-   ============================================================ */
+"use strict";
+
+
+/* ==========================================================
+   CONFIGURATION
+   ========================================================== */
 
 const SUPABASE_URL =
     "https://flbruzcmuhhxhakdvour.supabase.co";
@@ -1202,15 +1438,7 @@ const SUPABASE_ANON_KEY =
     "sb_publishable_zxLPB_25AgRGB-6GQ0isWg_g_7CXyib";
 
 
-/*
- * Monetag links supplied for this project.
- *
- * IMPORTANT:
- * Only use these for incentivized/PTC traffic if your
- * Monetag account/campaign explicitly permits it.
- */
-
-const MONETAG_AD_LINKS = [
+const MONETAG_LINKS = [
     "https://omg10.com/4/7349692",
     "https://omg10.com/4/7349688",
     "https://omg10.com/4/7393659",
@@ -1224,7 +1452,7 @@ const MONETAG_AD_LINKS = [
     "https://omg10.com/4/7393664",
     "https://omg10.com/4/7346296",
     "https://omg10.com/4/7349689",
-    "https://omg10.com/4/7345679",
+    "https://omg10.com/4/7354679",
     "https://omg10.com/4/7382951",
     "https://omg10.com/4/7393658"
 ];
@@ -1237,25 +1465,25 @@ const VERIFY_SECONDS = 20;
 const MIN_WITHDRAWAL = 5.00;
 
 
-/* ============================================================
+/* ==========================================================
    SUPABASE CLIENT
-   ============================================================ */
+   ========================================================== */
 
 const {
     createClient
 } = window.supabase;
 
 
-const supabaseClient =
+const supabase =
     createClient(
         SUPABASE_URL,
         SUPABASE_ANON_KEY
     );
 
 
-/* ============================================================
-   APPLICATION STATE
-   ============================================================ */
+/* ==========================================================
+   STATE
+   ========================================================== */
 
 let currentUser = null;
 
@@ -1265,86 +1493,159 @@ let currentSessionId = null;
 
 let timerInterval = null;
 
-let timerSecondsRemaining = VERIFY_SECONDS;
-
 let timerRunning = false;
 
-let intentionallyLoggingOut = false;
+let secondsRemaining =
+    VERIFY_SECONDS;
 
 
-/* ============================================================
-   DOM HELPERS
-   ============================================================ */
+/* ==========================================================
+   DOM
+   ========================================================== */
 
-const $ = (id) =>
+const $ = id =>
     document.getElementById(id);
 
 
-/* ============================================================
-   AUTH UI
-   ============================================================ */
+/* ==========================================================
+   AUTH TABS
+   ========================================================== */
+
+$("loginTab")
+.addEventListener(
+    "click",
+    () => switchAuth("login")
+);
+
+
+$("signupTab")
+.addEventListener(
+    "click",
+    () => switchAuth("signup")
+);
+
 
 function switchAuth(mode) {
-
-    const loginTab = $("loginTab");
-    const signupTab = $("signupTab");
-
-    const loginForm = $("loginForm");
-    const signupForm = $("signupForm");
 
     clearAuthMessage();
 
 
     if (mode === "signup") {
 
-        loginTab.classList.remove("active");
-        signupTab.classList.add("active");
+        $("loginTab")
+            .classList
+            .remove("active");
 
-        loginForm.classList.add("hidden");
-        signupForm.classList.remove("hidden");
+        $("signupTab")
+            .classList
+            .add("active");
+
+
+        $("loginForm")
+            .classList
+            .add("hidden");
+
+        $("signupForm")
+            .classList
+            .remove("hidden");
 
     } else {
 
-        signupTab.classList.remove("active");
-        loginTab.classList.add("active");
+        $("signupTab")
+            .classList
+            .remove("active");
 
-        signupForm.classList.add("hidden");
-        loginForm.classList.remove("hidden");
+        $("loginTab")
+            .classList
+            .add("active");
+
+
+        $("signupForm")
+            .classList
+            .add("hidden");
+
+        $("loginForm")
+            .classList
+            .remove("hidden");
     }
 }
 
 
-/* ============================================================
-   AUTH MESSAGE
-   ============================================================ */
+/* ==========================================================
+   AUTH MESSAGES
+   ========================================================== */
 
 function showAuthMessage(
     message,
     type = "error"
 ) {
 
-    const box = $("authMessage");
+    const box =
+        $("authMessage");
 
-    box.textContent = message;
+    box.textContent =
+        message;
 
     box.className =
-        "message show " + type;
+        "auth-message show " +
+        type;
 }
 
 
 function clearAuthMessage() {
 
-    const box = $("authMessage");
+    const box =
+        $("authMessage");
 
     box.textContent = "";
 
-    box.className = "message";
+    box.className =
+        "auth-message";
 }
 
 
-/* ============================================================
+/* ==========================================================
+   TOP ERROR
+   ========================================================== */
+
+let topErrorTimeout = null;
+
+
+function showTopError(
+    message
+) {
+
+    const box =
+        $("topError");
+
+    box.textContent =
+        message;
+
+    box.classList
+        .add("show");
+
+
+    clearTimeout(
+        topErrorTimeout
+    );
+
+
+    topErrorTimeout =
+        setTimeout(
+            () => {
+
+                box.classList
+                    .remove("show");
+
+            },
+            5000
+        );
+}
+
+
+/* ==========================================================
    TOAST
-   ============================================================ */
+   ========================================================== */
 
 function showToast(
     message,
@@ -1354,69 +1655,68 @@ function showToast(
     const container =
         $("toastContainer");
 
+
     const toast =
         document.createElement("div");
+
 
     toast.className =
         "toast " + type;
 
+
     toast.textContent =
         message;
 
-    container.appendChild(toast);
+
+    container.appendChild(
+        toast
+    );
 
 
-    setTimeout(() => {
+    setTimeout(
+        () => {
 
-        toast.style.opacity = "0";
+            toast.style.opacity =
+                "0";
 
-        toast.style.transform =
-            "translateY(8px)";
+            toast.style.transform =
+                "translateY(8px)";
 
-        setTimeout(() => {
-            toast.remove();
-        }, 200);
 
-    }, 3500);
+            setTimeout(
+                () => toast.remove(),
+                200
+            );
+
+        },
+        3500
+    );
 }
 
 
-/* ============================================================
-   RANDOM MONETAG URL
-   ============================================================ */
-
-function getRandomAdLink() {
-
-    const index =
-        Math.floor(
-            Math.random() *
-            MONETAG_AD_LINKS.length
-        );
-
-    return MONETAG_AD_LINKS[index];
-}
-
-
-/* ============================================================
+/* ==========================================================
    LOGIN
-   ============================================================ */
+   ========================================================== */
 
 $("loginForm")
 .addEventListener(
     "submit",
-    async function(event) {
+    async event => {
 
         event.preventDefault();
 
         clearAuthMessage();
 
+
         const button =
             $("loginButton");
+
 
         const email =
             $("loginEmail")
             .value
             .trim();
+
 
         const password =
             $("loginPassword")
@@ -1435,7 +1735,8 @@ $("loginForm")
                 data,
                 error
             } =
-                await supabaseClient.auth
+                await supabase
+                .auth
                 .signInWithPassword({
                     email,
                     password
@@ -1461,6 +1762,7 @@ $("loginForm")
 
             console.error(error);
 
+
             showAuthMessage(
                 error.message ||
                 "Login failed.",
@@ -1474,22 +1776,24 @@ $("loginForm")
             button.textContent =
                 "Login";
         }
+
     }
 );
 
 
-/* ============================================================
-   SIGNUP
-   ============================================================ */
+/* ==========================================================
+   SIGN UP
+   ========================================================== */
 
 $("signupForm")
 .addEventListener(
     "submit",
-    async function(event) {
+    async event => {
 
         event.preventDefault();
 
         clearAuthMessage();
+
 
         const button =
             $("signupButton");
@@ -1500,22 +1804,27 @@ $("signupForm")
             .value
             .trim();
 
+
         const phone =
             $("signupPhone")
             .value
             .trim();
+
 
         const email =
             $("signupEmail")
             .value
             .trim();
 
+
         const password =
             $("signupPassword")
             .value;
 
 
-        if (password.length < 6) {
+        if (
+            password.length < 6
+        ) {
 
             showAuthMessage(
                 "Password must contain at least 6 characters.",
@@ -1538,7 +1847,8 @@ $("signupForm")
                 data,
                 error
             } =
-                await supabaseClient.auth
+                await supabase
+                .auth
                 .signUp({
 
                     email,
@@ -1548,8 +1858,8 @@ $("signupForm")
                     options: {
 
                         data: {
-                            name: name,
-                            phone: phone
+                            name,
+                            phone
                         }
 
                     }
@@ -1562,15 +1872,10 @@ $("signupForm")
             }
 
 
-            /*
-             * Depending on Supabase email-confirmation settings,
-             * data.session may be null.
-             */
-
             if (!data.session) {
 
                 showAuthMessage(
-                    "Account created. Check your email to confirm your account, then log in.",
+                    "Account created. Check your email to confirm the account, then log in.",
                     "success"
                 );
 
@@ -1579,16 +1884,16 @@ $("signupForm")
             } else {
 
                 showToast(
-                    "Account created successfully.",
+                    "Account created.",
                     "success"
                 );
-
             }
 
 
         } catch (error) {
 
             console.error(error);
+
 
             showAuthMessage(
                 error.message ||
@@ -1608,18 +1913,16 @@ $("signupForm")
 );
 
 
-/* ============================================================
+/* ==========================================================
    LOGOUT
-   ============================================================ */
+   ========================================================== */
 
 $("logoutButton")
 .addEventListener(
     "click",
-    async function() {
+    async () => {
 
-        intentionallyLoggingOut = true;
-
-        cancelAdTimer(
+        cancelAdSession(
             false
         );
 
@@ -1627,16 +1930,12 @@ $("logoutButton")
         const {
             error
         } =
-            await supabaseClient.auth
+            await supabase
+            .auth
             .signOut();
 
 
         if (error) {
-
-            console.error(error);
-
-            intentionallyLoggingOut =
-                false;
 
             showToast(
                 error.message ||
@@ -1647,31 +1946,38 @@ $("logoutButton")
             return;
         }
 
-        showToast(
-            "Logged out.",
-            "success"
-        );
+
+        currentUser = null;
+
+        currentProfile = null;
+
+        currentSessionId = null;
 
     }
 );
 
 
-/* ============================================================
+/* ==========================================================
    AUTH STATE
-   ============================================================ */
+   ========================================================== */
 
-supabaseClient.auth.onAuthStateChange(
+supabase
+.auth
+.onAuthStateChange(
     async (
         event,
         session
     ) => {
 
-        if (session && session.user) {
+        if (
+            session &&
+            session.user
+        ) {
 
             currentUser =
                 session.user;
 
-            await showDashboard();
+            await openDashboard();
 
         } else {
 
@@ -1679,39 +1985,44 @@ supabaseClient.auth.onAuthStateChange(
 
             currentProfile = null;
 
-            showAuthScreen();
-
+            showAuth();
         }
 
     }
 );
 
 
-/* ============================================================
+/* ==========================================================
    SHOW AUTH
-   ============================================================ */
+   ========================================================== */
 
-function showAuthScreen() {
+function showAuth() {
 
     $("authScreen")
-        .classList.remove("hidden");
+        .classList
+        .remove("hidden");
+
 
     $("dashboardScreen")
-        .classList.add("hidden");
+        .classList
+        .add("hidden");
 }
 
 
-/* ============================================================
-   SHOW DASHBOARD
-   ============================================================ */
+/* ==========================================================
+   OPEN DASHBOARD
+   ========================================================== */
 
-async function showDashboard() {
+async function openDashboard() {
 
     $("authScreen")
-        .classList.add("hidden");
+        .classList
+        .add("hidden");
+
 
     $("dashboardScreen")
-        .classList.remove("hidden");
+        .classList
+        .remove("hidden");
 
 
     await loadProfile();
@@ -1720,9 +2031,9 @@ async function showDashboard() {
 }
 
 
-/* ============================================================
+/* ==========================================================
    LOAD PROFILE
-   ============================================================ */
+   ========================================================== */
 
 async function loadProfile() {
 
@@ -1735,7 +2046,7 @@ async function loadProfile() {
         data,
         error
     } =
-        await supabaseClient
+        await supabase
         .from("profiles")
         .select(
             "id,name,phone,balance_pkr,total_ads_watched,created_at"
@@ -1752,7 +2063,7 @@ async function loadProfile() {
         console.error(error);
 
         showToast(
-            "Could not load your profile.",
+            "Could not load profile.",
             "error"
         );
 
@@ -1763,7 +2074,7 @@ async function loadProfile() {
     if (!data) {
 
         showToast(
-            "Profile is not ready yet. Please refresh.",
+            "Profile has not been created yet. Please refresh.",
             "error"
         );
 
@@ -1779,9 +2090,9 @@ async function loadProfile() {
 }
 
 
-/* ============================================================
-   PROFILE UI
-   ============================================================ */
+/* ==========================================================
+   UPDATE PROFILE UI
+   ========================================================== */
 
 function updateProfileUI() {
 
@@ -1792,16 +2103,19 @@ function updateProfileUI() {
 
     const name =
         currentProfile.name ||
-        currentUser?.email?.split("@")[0] ||
+        currentUser?.email
+            ?.split("@")[0] ||
         "User";
 
 
     $("userName")
-        .textContent = name;
+        .textContent =
+        name;
 
 
     $("welcomeName")
-        .textContent = name;
+        .textContent =
+        name;
 
 
     $("balanceValue")
@@ -1820,11 +2134,28 @@ function updateProfileUI() {
 }
 
 
-/* ============================================================
-   START AD
-   ============================================================ */
+/* ==========================================================
+   RANDOM AD LINK
+   ========================================================== */
 
-$("watchAdButton")
+function getRandomAdLink() {
+
+    const index =
+        Math.floor(
+            Math.random() *
+            MONETAG_LINKS.length
+        );
+
+
+    return MONETAG_LINKS[index];
+}
+
+
+/* ==========================================================
+   WATCH AD
+   ========================================================== */
+
+$("watchButton")
 .addEventListener(
     "click",
     startAd
@@ -1850,12 +2181,13 @@ async function startAd() {
 
 
     /*
-     * Open a blank tab synchronously inside the click event.
-     * This gives browsers the best chance of treating it as a
-     * legitimate user-initiated popup.
+     * Open popup synchronously as part of the user's click.
+     * This avoids waiting for an asynchronous RPC before
+     * opening the tab.
      */
 
     let adWindow = null;
+
 
     try {
 
@@ -1868,15 +2200,13 @@ async function startAd() {
     } catch (error) {
 
         console.error(error);
-
     }
 
 
     if (!adWindow) {
 
-        showToast(
-            "Your browser blocked the ad tab. Allow pop-ups for this site and try again.",
-            "error"
+        showTopError(
+            "Your browser blocked the advertisement tab. Allow pop-ups for this site and try again."
         );
 
         return;
@@ -1884,7 +2214,8 @@ async function startAd() {
 
 
     const button =
-        $("watchAdButton");
+        $("watchButton");
+
 
     button.disabled = true;
 
@@ -1895,14 +2226,19 @@ async function startAd() {
     try {
 
         /*
-         * Server creates the session timestamp.
+         * IMPORTANT:
+         *
+         * Do not insert directly into ad_sessions from the
+         * browser.
+         *
+         * start_ad_session() creates the server timestamp.
          */
 
         const {
-            data,
+            data: sessionId,
             error
         } =
-            await supabaseClient
+            await supabase
             .rpc(
                 "start_ad_session"
             );
@@ -1913,7 +2249,8 @@ async function startAd() {
         }
 
 
-        if (!data) {
+        if (!sessionId) {
+
             throw new Error(
                 "The server did not create an ad session."
             );
@@ -1921,11 +2258,11 @@ async function startAd() {
 
 
         currentSessionId =
-            data;
+            sessionId;
 
 
         /*
-         * Select one supplied ad URL randomly.
+         * Random supplied Monetag URL.
          */
 
         const adUrl =
@@ -1933,7 +2270,7 @@ async function startAd() {
 
 
         /*
-         * Navigate the already-opened tab.
+         * Navigate popup.
          */
 
         adWindow.location.href =
@@ -1941,10 +2278,10 @@ async function startAd() {
 
 
         /*
-         * Start local verification timer.
+         * Start verification.
          */
 
-        startVerificationTimer();
+        startTimer();
 
 
     } catch (error) {
@@ -1961,63 +2298,69 @@ async function startAd() {
             null;
 
 
-        button.disabled = false;
+        button.disabled =
+            false;
+
 
         button.textContent =
             "Watch Ad & Earn ₨0.10";
 
 
-        showToast(
-            getFriendlyError(
+        showTopError(
+            getErrorMessage(
                 error,
-                "Could not start the ad session."
-            ),
-            "error"
+                "Could not start advertisement."
+            )
         );
     }
 }
 
 
-/* ============================================================
-   START VERIFICATION TIMER
-   ============================================================ */
+/* ==========================================================
+   TIMER
+   ========================================================== */
 
-function startVerificationTimer() {
+function startTimer() {
 
-    stopTimerOnly();
+    stopTimer();
 
 
-    timerSecondsRemaining =
+    timerRunning =
+        true;
+
+
+    secondsRemaining =
         VERIFY_SECONDS;
-
-    timerRunning = true;
 
 
     $("timerBox")
-        .classList.add("show");
+        .classList
+        .add("show");
 
 
-    $("watchAdButton")
+    $("watchButton")
         .disabled = true;
 
 
-    updateTimerUI();
+    updateTimer();
 
 
     timerInterval =
         setInterval(
-            async function() {
+            async () => {
 
                 /*
-                 * Extra defensive check.
+                 * Defense in depth:
+                 * If page is hidden, immediately cancel.
                  */
 
                 if (
                     document.hidden ||
-                    document.visibilityState !== "visible"
+                    document.visibilityState !==
+                        "visible"
                 ) {
 
-                    cancelAdTimer(
+                    cancelAdSession(
                         true
                     );
 
@@ -2025,19 +2368,18 @@ function startVerificationTimer() {
                 }
 
 
-                timerSecondsRemaining--;
+                secondsRemaining--;
 
-                updateTimerUI();
+                updateTimer();
 
 
                 if (
-                    timerSecondsRemaining <= 0
+                    secondsRemaining <= 0
                 ) {
 
-                    stopTimerOnly();
+                    stopTimer();
 
                     await claimReward();
-
                 }
 
             },
@@ -2046,20 +2388,20 @@ function startVerificationTimer() {
 }
 
 
-/* ============================================================
-   TIMER UI
-   ============================================================ */
+/* ==========================================================
+   UPDATE TIMER
+   ========================================================== */
 
-function updateTimerUI() {
+function updateTimer() {
 
     $("timerNumber")
         .textContent =
-        timerSecondsRemaining + "s";
+        secondsRemaining + "s";
 
 
     const completed =
         VERIFY_SECONDS -
-        timerSecondsRemaining;
+        secondsRemaining;
 
 
     const percentage =
@@ -2067,24 +2409,25 @@ function updateTimerUI() {
             0,
             Math.min(
                 100,
-                (completed /
-                    VERIFY_SECONDS) *
-                    100
+                completed /
+                VERIFY_SECONDS *
+                100
             )
         );
 
 
     $("progressBar")
-        .style.width =
+        .style
+        .width =
         percentage + "%";
 }
 
 
-/* ============================================================
-   STOP TIMER ONLY
-   ============================================================ */
+/* ==========================================================
+   STOP TIMER
+   ========================================================== */
 
-function stopTimerOnly() {
+function stopTimer() {
 
     if (timerInterval) {
 
@@ -2092,18 +2435,21 @@ function stopTimerOnly() {
             timerInterval
         );
 
-        timerInterval = null;
+        timerInterval =
+            null;
     }
 
-    timerRunning = false;
+
+    timerRunning =
+        false;
 }
 
 
-/* ============================================================
-   CANCEL AD TIMER
-   ============================================================ */
+/* ==========================================================
+   CANCEL SESSION
+   ========================================================== */
 
-function cancelAdTimer(
+function cancelAdSession(
     showWarning = true
 ) {
 
@@ -2115,23 +2461,29 @@ function cancelAdTimer(
     }
 
 
-    stopTimerOnly();
+    stopTimer();
 
+
+    /*
+     * Most importantly:
+     *
+     * currentSessionId is discarded.
+     *
+     * Therefore claim_ad_reward() will never be called for
+     * this session by the normal application flow.
+     */
 
     currentSessionId =
         null;
 
 
-    timerSecondsRemaining =
+    secondsRemaining =
         VERIFY_SECONDS;
 
 
     $("timerBox")
-        .classList.remove("show");
-
-
-    $("progressBar")
-        .style.width = "0%";
+        .classList
+        .remove("show");
 
 
     $("timerNumber")
@@ -2139,48 +2491,43 @@ function cancelAdTimer(
         VERIFY_SECONDS + "s";
 
 
-    $("watchAdButton")
+    $("progressBar")
+        .style
+        .width = "0%";
+
+
+    $("watchButton")
         .disabled = false;
 
 
-    $("watchAdButton")
+    $("watchButton")
         .textContent =
         "Watch Ad & Earn ₨0.10";
 
 
     if (showWarning) {
 
-        showToast(
-            "Timer cancelled! You must stay on this page for 20 seconds to claim your reward.",
-            "error"
-        );
-
-        /*
-         * The requested warning is also displayed using a
-         * browser alert.
-         */
-
-        alert(
-            "Timer cancelled! You must stay on this page for 20 seconds to claim your reward."
+        showTopError(
+            "Please don't leave the advertisement tab"
         );
     }
 }
 
 
-/* ============================================================
+/* ==========================================================
    VISIBILITY CHANGE
-   ============================================================ */
+   ========================================================== */
 
 document.addEventListener(
     "visibilitychange",
-    function() {
+    () => {
 
         if (
             timerRunning &&
             document.hidden
         ) {
 
-            cancelAdTimer(
+            cancelAdSession(
                 true
             );
         }
@@ -2189,23 +2536,17 @@ document.addEventListener(
 );
 
 
-/* ============================================================
-   BLUR
-   ============================================================ */
+/* ==========================================================
+   WINDOW BLUR
+   ========================================================== */
 
 window.addEventListener(
     "blur",
-    function() {
-
-        /*
-         * Blur can fire for legitimate browser UI interactions,
-         * but this application treats blur as leaving the active
-         * page according to the requested rule.
-         */
+    () => {
 
         if (timerRunning) {
 
-            cancelAdTimer(
+            cancelAdSession(
                 true
             );
         }
@@ -2214,27 +2555,9 @@ window.addEventListener(
 );
 
 
-/* ============================================================
-   FOCUS
-   ============================================================ */
-
-window.addEventListener(
-    "focus",
-    function() {
-
-        /*
-         * No timer is resumed after leaving.
-         *
-         * User must start a completely new session.
-         */
-
-    }
-);
-
-
-/* ============================================================
+/* ==========================================================
    CLAIM REWARD
-   ============================================================ */
+   ========================================================== */
 
 async function claimReward() {
 
@@ -2254,10 +2577,11 @@ async function claimReward() {
     }
 
 
-    $("watchAdButton")
+    $("watchButton")
         .disabled = true;
 
-    $("watchAdButton")
+
+    $("watchButton")
         .textContent =
         "Verifying...";
 
@@ -2268,7 +2592,7 @@ async function claimReward() {
             data,
             error
         } =
-            await supabaseClient
+            await supabase
             .rpc(
                 "claim_ad_reward",
                 {
@@ -2287,15 +2611,17 @@ async function claimReward() {
             !data ||
             data.success !== true
         ) {
+
             throw new Error(
-                "Reward was not confirmed by the server."
+                "The server did not confirm the reward."
             );
         }
 
 
         /*
-         * Never calculate the new balance locally.
-         * Use the server-returned balance.
+         * Do not calculate balance locally.
+         *
+         * PostgreSQL supplies the authoritative balance.
          */
 
         if (currentProfile) {
@@ -2305,25 +2631,30 @@ async function claimReward() {
                     data.balance_pkr
                 );
 
+
             currentProfile.total_ads_watched =
                 Number(
                     currentProfile.total_ads_watched || 0
                 ) + 1;
+
 
             updateProfileUI();
         }
 
 
         $("timerBox")
-            .classList.remove("show");
+            .classList
+            .remove("show");
 
 
         $("progressBar")
-            .style.width = "0%";
+            .style
+            .width =
+            "0%";
 
 
         showToast(
-            "Reward credited: ₨0.10",
+            "₨0.10 reward credited.",
             "success"
         );
 
@@ -2334,15 +2665,15 @@ async function claimReward() {
 
 
         $("timerBox")
-            .classList.remove("show");
+            .classList
+            .remove("show");
 
 
-        showToast(
-            getFriendlyError(
+        showTopError(
+            getErrorMessage(
                 error,
                 "Reward could not be credited."
-            ),
-            "error"
+            )
         );
 
     } finally {
@@ -2352,38 +2683,44 @@ async function claimReward() {
 }
 
 
-/* ============================================================
+/* ==========================================================
    RESET WATCH BUTTON
-   ============================================================ */
+   ========================================================== */
 
 function resetWatchButton() {
 
-    timerRunning = false;
+    timerRunning =
+        false;
 
-    timerSecondsRemaining =
+
+    secondsRemaining =
         VERIFY_SECONDS;
 
 
-    $("watchAdButton")
+    $("watchButton")
         .disabled = false;
 
-    $("watchAdButton")
+
+    $("watchButton")
         .textContent =
         "Watch Ad & Earn ₨0.10";
 
 
     $("timerNumber")
         .textContent =
-        VERIFY_SECONDS + "s";
+        "20s";
+
 
     $("progressBar")
-        .style.width = "0%";
+        .style
+        .width =
+        "0%";
 }
 
 
-/* ============================================================
+/* ==========================================================
    WITHDRAWAL
-   ============================================================ */
+   ========================================================== */
 
 $("withdrawForm")
 .addEventListener(
@@ -2414,8 +2751,14 @@ async function submitWithdrawal(event) {
         .trim();
 
 
-    const account =
+    const accountNumber =
         $("withdrawAccount")
+        .value
+        .trim();
+
+
+    const accountName =
+        $("withdrawName")
         .value
         .trim();
 
@@ -2427,16 +2770,21 @@ async function submitWithdrawal(event) {
         );
 
 
-    /*
-     * Client-side validation.
-     *
-     * Database performs the same validation again.
-     */
-
-    if (!account) {
+    if (!accountNumber) {
 
         showToast(
-            "Enter your payment account number.",
+            "Enter the payment account number.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (!accountName) {
+
+        showToast(
+            "Enter the account holder name.",
             "error"
         );
 
@@ -2475,8 +2823,25 @@ async function submitWithdrawal(event) {
     }
 
 
+    /*
+     * The existing database RPC accepts one account string.
+     *
+     * We store both account number and account name in that
+     * field in a structured format.
+     *
+     * Example:
+     * 03001234567 | Muhammad Ali
+     */
+
+    const account =
+        accountNumber +
+        " | " +
+        accountName;
+
+
     const button =
         $("withdrawButton");
+
 
     button.disabled = true;
 
@@ -2490,7 +2855,7 @@ async function submitWithdrawal(event) {
             data,
             error
         } =
-            await supabaseClient
+            await supabase
             .rpc(
                 "request_withdrawal",
                 {
@@ -2517,13 +2882,13 @@ async function submitWithdrawal(event) {
         ) {
 
             throw new Error(
-                "Withdrawal was not accepted."
+                "Withdrawal request was not accepted."
             );
         }
 
 
         /*
-         * Again, use server balance.
+         * Server-authoritative balance.
          */
 
         if (currentProfile) {
@@ -2532,6 +2897,7 @@ async function submitWithdrawal(event) {
                 Number(
                     data.balance_pkr
                 );
+
 
             updateProfileUI();
         }
@@ -2542,7 +2908,7 @@ async function submitWithdrawal(event) {
 
 
         showToast(
-            "Withdrawal request submitted.",
+            "Withdrawal request submitted successfully.",
             "success"
         );
 
@@ -2554,8 +2920,9 @@ async function submitWithdrawal(event) {
 
         console.error(error);
 
+
         showToast(
-            getFriendlyError(
+            getErrorMessage(
                 error,
                 "Withdrawal failed."
             ),
@@ -2572,9 +2939,9 @@ async function submitWithdrawal(event) {
 }
 
 
-/* ============================================================
+/* ==========================================================
    WITHDRAWAL HISTORY
-   ============================================================ */
+   ========================================================== */
 
 async function loadWithdrawalHistory() {
 
@@ -2587,7 +2954,7 @@ async function loadWithdrawalHistory() {
         data,
         error
     } =
-        await supabaseClient
+        await supabase
         .from("withdrawals")
         .select(
             "id,method,account,amount_pkr,status,created_at"
@@ -2609,10 +2976,16 @@ async function loadWithdrawalHistory() {
 
         console.error(error);
 
-        $("withdrawalList")
+
+        $("historyList")
             .innerHTML =
             `
-            <div style="color:#aaa5b8;font-size:13px;">
+            <div
+                style="
+                    color:#aaa5b8;
+                    font-size:13px;
+                "
+            >
                 Could not load withdrawal history.
             </div>
             `;
@@ -2621,29 +2994,34 @@ async function loadWithdrawalHistory() {
     }
 
 
-    renderWithdrawalHistory(
+    renderHistory(
         data || []
     );
 }
 
 
-/* ============================================================
-   RENDER WITHDRAWAL HISTORY
-   ============================================================ */
+/* ==========================================================
+   RENDER HISTORY
+   ========================================================== */
 
-function renderWithdrawalHistory(
-    withdrawals
+function renderHistory(
+    rows
 ) {
 
     const container =
-        $("withdrawalList");
+        $("historyList");
 
 
-    if (!withdrawals.length) {
+    if (!rows.length) {
 
         container.innerHTML =
             `
-            <div style="color:#aaa5b8;font-size:13px;">
+            <div
+                style="
+                    color:#aaa5b8;
+                    font-size:13px;
+                "
+            >
                 No withdrawal requests yet.
             </div>
             `;
@@ -2655,19 +3033,22 @@ function renderWithdrawalHistory(
     container.innerHTML = "";
 
 
-    withdrawals.forEach(
-        withdrawal => {
+    rows.forEach(
+        row => {
 
             const item =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             item.className =
-                "withdrawal-item";
+                "history-item";
 
 
             const date =
                 new Date(
-                    withdrawal.created_at
+                    row.created_at
                 );
 
 
@@ -2675,46 +3056,50 @@ function renderWithdrawalHistory(
                 date.toLocaleString(
                     "en-PK",
                     {
-                        dateStyle: "medium",
-                        timeStyle: "short"
+                        dateStyle:
+                            "medium",
+
+                        timeStyle:
+                            "short"
                     }
                 );
 
 
-            const account =
-                maskAccount(
-                    withdrawal.account
-                );
-
-
             item.innerHTML = `
-                <div class="withdrawal-top">
 
-                    <span class="withdrawal-method">
+                <div class="history-top">
+
+                    <span class="history-method">
                         ${escapeHtml(
-                            withdrawal.method
+                            row.method
                         )}
                     </span>
 
-                    <span class="withdrawal-amount">
+                    <span class="history-amount">
                         ₨${Number(
-                            withdrawal.amount_pkr
+                            row.amount_pkr
                         ).toFixed(2)}
                     </span>
 
                 </div>
 
-                <div class="withdrawal-bottom">
+                <div class="history-bottom">
 
                     <span>
-                        ${escapeHtml(account)}
+                        ${escapeHtml(
+                            maskAccount(
+                                row.account
+                            )
+                        )}
                     </span>
 
-                    <span class="status ${escapeHtml(
-                        withdrawal.status
-                    )}">
+                    <span
+                        class="status ${escapeHtml(
+                            row.status
+                        )}"
+                    >
                         ${escapeHtml(
-                            withdrawal.status
+                            row.status
                         )}
                     </span>
 
@@ -2722,30 +3107,30 @@ function renderWithdrawalHistory(
 
                 <div
                     style="
+                        margin-top:7px;
                         color:#777285;
                         font-size:11px;
-                        margin-top:7px;
                     "
                 >
                     ${escapeHtml(
                         formattedDate
                     )}
                 </div>
+
             `;
 
 
             container.appendChild(
                 item
             );
-
         }
     );
 }
 
 
-/* ============================================================
+/* ==========================================================
    MASK ACCOUNT
-   ============================================================ */
+   ========================================================== */
 
 function maskAccount(
     account
@@ -2755,7 +3140,9 @@ function maskAccount(
         String(account || "");
 
 
-    if (value.length <= 4) {
+    if (
+        value.length <= 4
+    ) {
         return "••••";
     }
 
@@ -2767,28 +3154,43 @@ function maskAccount(
 }
 
 
-/* ============================================================
+/* ==========================================================
    HTML ESCAPE
-   ============================================================ */
+   ========================================================== */
 
 function escapeHtml(
     value
 ) {
 
     return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 }
 
 
-/* ============================================================
-   FRIENDLY SUPABASE ERRORS
-   ============================================================ */
+/* ==========================================================
+   ERROR NORMALIZATION
+   ========================================================== */
 
-function getFriendlyError(
+function getErrorMessage(
     error,
     fallback
 ) {
@@ -2801,10 +3203,22 @@ function getFriendlyError(
         );
 
 
+    const lower =
+        message.toLowerCase();
+
+
     if (
-        message
-        .toLowerCase()
-        .includes(
+        lower.includes(
+            "not authenticated"
+        )
+    ) {
+
+        return "Your login session has expired. Please log in again.";
+    }
+
+
+    if (
+        lower.includes(
             "ad session has not reached"
         )
     ) {
@@ -2814,21 +3228,17 @@ function getFriendlyError(
 
 
     if (
-        message
-        .toLowerCase()
-        .includes(
+        lower.includes(
             "already been claimed"
         )
     ) {
 
-        return "This ad session has already been claimed.";
+        return "This advertisement session has already been claimed.";
     }
 
 
     if (
-        message
-        .toLowerCase()
-        .includes(
+        lower.includes(
             "minimum withdrawal"
         )
     ) {
@@ -2838,9 +3248,7 @@ function getFriendlyError(
 
 
     if (
-        message
-        .toLowerCase()
-        .includes(
+        lower.includes(
             "insufficient balance"
         )
     ) {
@@ -2849,28 +3257,16 @@ function getFriendlyError(
     }
 
 
-    if (
-        message
-        .toLowerCase()
-        .includes(
-            "not authenticated"
-        )
-    ) {
-
-        return "Your session has expired. Please log in again.";
-    }
-
-
     return message ||
         fallback;
 }
 
 
-/* ============================================================
-   INITIAL SESSION CHECK
-   ============================================================ */
+/* ==========================================================
+   INITIAL SESSION
+   ========================================================== */
 
-async function initializeApplication() {
+async function initialize() {
 
     try {
 
@@ -2878,7 +3274,8 @@ async function initializeApplication() {
             data,
             error
         } =
-            await supabaseClient.auth
+            await supabase
+            .auth
             .getSession();
 
 
@@ -2888,44 +3285,39 @@ async function initializeApplication() {
 
 
         if (
-            data &&
-            data.session &&
-            data.session.user
+            data?.session?.user
         ) {
 
             currentUser =
                 data.session.user;
 
-            await showDashboard();
+            await openDashboard();
 
         } else {
 
-            showAuthScreen();
+            showAuth();
         }
 
 
     } catch (error) {
 
-        console.error(
-            "Initialization error:",
-            error
-        );
+        console.error(error);
 
-        showAuthScreen();
+        showAuth();
 
         showAuthMessage(
-            "Could not initialize the application. Please refresh the page.",
+            "Unable to initialize the application. Please refresh.",
             "error"
         );
     }
 }
 
 
-/* ============================================================
-   START APPLICATION
-   ============================================================ */
+/* ==========================================================
+   START
+   ========================================================== */
 
-initializeApplication();
+initialize();
 
 </script>
 
