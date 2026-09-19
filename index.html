@@ -628,7 +628,8 @@
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -643,8 +644,9 @@
             <li><a onclick="showPage('home')"     id="nav-home"     class="active">Home</a></li>
             <li><a onclick="showPage('earn')"     id="nav-earn">Earn</a></li>
             <li><a onclick="showPage('withdraw')" id="nav-withdraw">Withdraw</a></li>
+            <li><a onclick="showPage('owner')"    id="nav-owner">Owner Console</a></li>
         </ul>
-        <div class="nav-buttons" id="navButtons">
+        <div class="nav-buttons">
             <button class="btn btn-outline" onclick="showPage('login')">Login</button>
             <button class="btn btn-primary" onclick="showPage('register')">Join Free</button>
         </div>
@@ -659,6 +661,7 @@
     <a onclick="showPage('home');closeMobile()">🏠 Home</a>
     <a onclick="showPage('earn');closeMobile()">💰 Earn</a>
     <a onclick="showPage('withdraw');closeMobile()">💳 Withdraw</a>
+    <a onclick="showPage('owner');closeMobile()">🔐 Owner Console</a>
     <a onclick="showPage('login');closeMobile()">🔐 Login</a>
     <a onclick="showPage('register');closeMobile()">✨ Join Free</a>
 </div>
@@ -673,7 +676,7 @@
         <div class="hero-content">
             <div class="hero-badge">🚀 Pakistan • Rewards Platform</div>
             <h1>Earn <span class="gradient-text">Real Money</span><br>From Your Clicks</h1>
-            <p>Create an account, view available earning tasks and track your balance.<br>Earn ₨0.1 per completed task and request withdrawals from ₨10.</p>
+            <p>Create an account, view available earning tasks and track your balance.<br>Get ₨0.1 per click & withdraw via JazzCash, Easypaisa!</p>
             <div class="hero-buttons">
                 <button class="btn btn-primary btn-lg" onclick="showPage('register')">🚀 Start Earning Free</button>
             </div>
@@ -715,7 +718,7 @@
                 <div class="step">
                     <div class="step-number">2</div>
                     <h3>Click Ads</h3>
-                    <p style="color:var(--text-muted);font-size:14px;margin-top:10px;">Complete eligible tasks & earn ₨0.1 each</p>
+                    <p style="color:var(--text-muted);font-size:14px;margin-top:10px;">Visit ad links & earn ₨0.1 per click</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
@@ -737,7 +740,7 @@
                 <div class="card">
                     <div class="card-icon">💰</div>
                     <h3>Instant Earning</h3>
-                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Earn ₨0.1 for each eligible task completed and verified by the platform.</p>
+                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Earn ₨0.1 on every single click. Balance updates instantly in real-time.</p>
                 </div>
                 <div class="card">
                     <div class="card-icon">📱</div>
@@ -757,7 +760,7 @@
                 <div class="card">
                     <div class="card-icon">🔄</div>
                     <h3>Daily New Ads</h3>
-                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">Available tasks are shown in your account. There is no daily reset.</p>
+                    <p style="color:var(--text-muted);margin-top:10px;font-size:14px;line-height:1.7;">New ads refresh every 24 hours so you can earn every single day.</p>
                 </div>
                 <div class="card">
                     <div class="card-icon">🇵🇰</div>
@@ -773,7 +776,7 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">💵 Earning Examples</span>
-                <h2 class="section-title">Earning Examples</h2>
+                <h2 class="section-title">Example Daily Activity</h2>
             </div>
             <div class="grid-3">
                 <div class="card" style="text-align:center;">
@@ -783,7 +786,7 @@
                     <p style="color:var(--text-muted);font-size:13px;">example</p>
                     <hr style="border-color:var(--border);margin:18px 0;">
                     <ul style="text-align:left;color:var(--text-muted);font-size:13px;list-style:none;line-height:2.2;">
-                        <li>✅ Available tasks</li>
+                        <li>✅ 50 eligible tasks/day</li>
                         <li>✅ Standard access</li>
                         <li>✅ JazzCash withdrawal</li>
                     </ul>
@@ -796,7 +799,7 @@
                     <p style="color:var(--text-muted);font-size:13px;">example</p>
                     <hr style="border-color:var(--border);margin:18px 0;">
                     <ul style="text-align:left;color:var(--text-muted);font-size:13px;list-style:none;line-height:2.2;">
-                        <li>✅ Available tasks</li>
+                        <li>✅ 200 eligible tasks/day</li>
                         <li>✅ Available tasks</li>
                         <li>✅ Support access</li>
                     </ul>
@@ -804,11 +807,11 @@
                 <div class="card" style="text-align:center;">
                     <div style="font-size:40px;margin-bottom:15px;">💎</div>
                     <h3>Pro</h3>
-                    <div style="font-size:40px;font-weight:900;color:var(--accent);margin:15px 0;">₨50+</div>
+                    <div style="font-size:40px;font-weight:900;color:var(--accent);margin:15px 0;">₨10+</div>
                     <p style="color:var(--text-muted);font-size:13px;">example</p>
                     <hr style="border-color:var(--border);margin:18px 0;">
                     <ul style="text-align:left;color:var(--text-muted);font-size:13px;list-style:none;line-height:2.2;">
-                        <li>✅ Available tasks</li>
+                        <li>✅ 500+ eligible tasks/day</li>
                         <li>✅ Additional tasks</li>
                         <li>✅ Manual review</li>
                     </ul>
@@ -837,7 +840,7 @@
     <section class="section" style="background:var(--bg-card);text-align:center;">
         <div class="container">
             <h2 class="section-title">Ready to Start <span class="gradient-text">Earning?</span></h2>
-            <p style="color:var(--text-muted);font-size:17px;margin:20px 0;">Built for Pakistani users</p>
+            <p style="color:var(--text-muted);font-size:17px;margin:20px 0;">Join 50,000+ Pakistanis already earning on Click&EarnPK</p>
             <button class="btn btn-primary btn-lg" onclick="showPage('register')">🚀 Create Free Account</button>
         </div>
     </section>
@@ -877,10 +880,607 @@
 <!-- ==================== OWNER PANEL ==================== -->
 <div class="page" id="page-owner">
     <div class="page-header">
-        <span class="section-tag">🔐 Admin</span>
-        <h1 class="section-title">Admin <span class="gradient-text">Access</span></h1>
-        <p style="color:var(--text-muted);font-size:16px;">Administrative data is handled in Supabase and is not exposed on the public website.</p>
+        <span class="section-tag">🔐 Owner Console</span>
+        <h1 class="section-title">Owner <span class="gradient-text">Dashboard</span></h1>
+        <p style="color:var(--text-muted);font-size:16px;">UI for reviewing withdrawal requests. Production access must be protected server-side.</p>
     </div>
+    <section style="padding:0 20px 80px;">
+        <div class="container grid-3">
+            <div class="stat-box"><div class="number" id="ownerUsers">0</div><div style="color:var(--text-muted);font-size:13px;">Registered users</div></div>
+            <div class="stat-box"><div class="number" id="ownerPending">0</div><div style="color:var(--text-muted);font-size:13px;">Pending withdrawals</div></div>
+            <div class="stat-box"><div class="number" id="ownerPaid">0</div><div style="color:var(--text-muted);font-size:13px;">Marked paid</div></div>
+        </div>
+        <div class="card" style="margin-top:25px;">
+            <h3>Withdrawal queue</h3>
+            <p class="muted" style="margin-top:8px;">The final version should store these requests in a secure database and notify the owner. This static demo cannot securely receive multi-user requests.</p>
+            <div class="notice" style="margin-top:15px;background:rgba(124,58,237,0.1);border:1px solid var(--border);border-radius:10px;padding:15px;font-size:13px;color:var(--text-muted);">Recommended production stack: Supabase Auth + PostgreSQL/Row Level Security + an email provider for OTP + a server-side API for reward validation and admin notifications.</div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo" onclick="showPage('home')" style="margin-bottom:8px;">
+                    <div class="logo-icon">💜</div>
+                    <span class="logo-text">Click&EarnPK</span>
+                </div>
+                <p>A simple rewards dashboard for Pakistani users.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a onclick="showPage('earn')">Earn Money</a></li>
+                    <li><a onclick="showPage('withdraw')">Withdraw</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Account</h4>
+                <ul>
+                    <li><a onclick="showPage('login')">Login</a></li>
+                    <li><a onclick="showPage('register')">Register</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Click&EarnPK | Independent project</p>
+        </div>
+    </footer>
+</div>
+
+<!-- ==================== VERIFY PAGE ==================== -->
+<div class="page" id="page-verify">
+    <div class="page-header">
+        <span class="section-tag">📧 Email Verification</span>
+        <h1 class="section-title">Verify your <span class="gradient-text">Gmail</span></h1>
+        <p style="color:var(--text-muted);font-size:16px;">A production version will send a 6-digit code to <strong id="verifyEmail"></strong>.</p>
+    </div>
+    <section style="padding:0 20px 80px;">
+        <div class="form-box">
+            <div class="form-group">
+                <label>6-digit verification code</label>
+                <input id="verifyCode" inputmode="numeric" maxlength="6" placeholder="000000">
+            </div>
+            <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;" onclick="verifySignup()">Verify & Create Account</button>
+            <p style="color:var(--text-muted);font-size:12px;line-height:1.6;margin-top:15px;">A verification link has been sent to your email. Confirm your email, then return here and log in.</p>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo" onclick="showPage('home')" style="margin-bottom:8px;">
+                    <div class="logo-icon">💜</div>
+                    <span class="logo-text">Click&EarnPK</span>
+                </div>
+                <p>A simple rewards dashboard for Pakistani users.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a onclick="showPage('earn')">Earn Money</a></li>
+                    <li><a onclick="showPage('withdraw')">Withdraw</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Account</h4>
+                <ul>
+                    <li><a onclick="showPage('login')">Login</a></li>
+                    <li><a onclick="showPage('register')">Register</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Click&EarnPK | Independent project</p>
+        </div>
+    </footer>
+</div>
+
+<!-- ==================== EARN PAGE ==================== -->
+<div class="page" id="page-earn">
+
+    <div class="page-header">
+        <span class="section-tag">💰 Earning Center</span>
+        <h1 class="section-title" style="margin-top:15px;">Click Ads & <span class="gradient-text">Earn Money</span></h1>
+        <p style="color:var(--text-muted);font-size:16px;">Complete eligible earning tasks and track your balance</p>
+    </div>
+
+    <section style="padding:0 20px 80px;">
+        <div class="container">
+
+            <!-- BALANCE BAR -->
+            <div class="balance-bar">
+                <div style="display:flex;gap:35px;flex-wrap:wrap;">
+                    <div>
+                        <div class="balance-label">Total Earned</div>
+                        <div class="balance-value" id="todayEarn" style="color:var(--success);">₨0.00</div>
+                    </div>
+                    <div>
+                        <div class="balance-label">Total Clicks</div>
+                        <div class="balance-value" id="totalClicks" style="color:var(--accent);">0</div>
+                    </div>
+                    <div>
+                        <div class="balance-label">Available Balance</div>
+                        <div class="balance-value" id="balance" style="background:var(--gradient2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">₨0.00</div>
+                    </div>
+                </div>
+                <button class="btn btn-success" onclick="showPage('withdraw')">💳 Withdraw Now</button>
+            </div>
+
+            <!-- TIMER -->
+            <div style="background:rgba(124,58,237,0.1);border:1px solid var(--border);border-radius:12px;padding:14px 20px;text-align:center;margin-bottom:28px;">
+                <p style="color:var(--text-muted);font-size:14px;">
+                    🔄 Earning tasks
+                    &nbsp;|&nbsp; No daily earning limit
+                </p>
+            </div>
+
+            <!-- ADS TITLE -->
+            <h2 style="margin-bottom:20px;font-size:20px;">
+                🔥 Available Ads
+                <span style="color:var(--text-muted);font-size:13px;font-weight:400;margin-left:8px;">(15 available slots)</span>
+            </h2>
+
+            <!-- ===== ALL 15 ADS WITH YOUR MONETAG LINKS ===== -->
+            <div style="display:flex;flex-direction:column;gap:14px;">
+
+                <!-- AD 1 -->
+                <div class="earn-card" id="ad-1">
+                    <div style="font-size:36px;flex-shrink:0;">🎓</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Free Online Courses Pakistan</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Learn Graphic Design, IT & more for free!</div>
+                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
+                            <div class="progress-fill" style="width:72%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;flex-shrink:0;">
+                        <div class="earn-amount">+₨0.1</div>
+                        <div class="earn-label">per click</div>
+                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
+                            onclick="openEarningTask(1)">Open ➡️</button>
+                    </div>
+                </div>
+
+                <!-- AD 2 -->
+                <div class="earn-card" id="ad-2">
+                    <div style="font-size:36px;flex-shrink:0;">💼</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Latest Jobs in Pakistan 2024</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Government & Private Jobs - Apply Now!</div>
+                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
+                            <div class="progress-fill" style="width:85%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;flex-shrink:0;">
+                        <div class="earn-amount">+₨0.1</div>
+                        <div class="earn-label">per click</div>
+                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
+                            onclick="openEarningTask(2)">Open ➡️</button>
+                    </div>
+                </div>
+
+                <!-- AD 3 -->
+                <div class="earn-card" id="ad-3">
+                    <div style="font-size:36px;flex-shrink:0;">🛍️</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Online Shopping Deals - Daraz</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Best discounts & flash sales today only!</div>
+                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
+                            <div class="progress-fill" style="width:60%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;flex-shrink:0;">
+                        <div class="earn-amount">+₨0.1</div>
+                        <div class="earn-label">per click</div>
+                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
+                            onclick="openEarningTask(3)">Open ➡️</button>
+                    </div>
+                </div>
+
+                <!-- AD 4 -->
+                <div class="earn-card" id="ad-4">
+                    <div style="font-size:36px;flex-shrink:0;">📱</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Best Earning Apps Pakistan</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Top mobile apps to earn money online 2024</div>
+                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
+                            <div class="progress-fill" style="width:45%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;flex-shrink:0;">
+                        <div class="earn-amount">+₨0.1</div>
+                        <div class="earn-label">per click</div>
+                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
+                            onclick="openEarningTask(4)">Open ➡️</button>
+                    </div>
+                </div>
+
+                <!-- AD 5 -->
+                <div class="earn-card" id="ad-5">
+                    <div style="font-size:36px;flex-shrink:0;">🏠</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Real Estate Pakistan</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Best property deals in Lahore, Karachi & Islamabad</div>
+                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
+                            <div class="progress-fill" style="width:90%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;flex-shrink:0;">
+                        <div class="earn-amount">+₨0.1</div>
+                        <div class="earn-label">per click</div>
+                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
+                            onclick="openEarningTask(5)">Open ➡️</button>
+                    </div>
+                </div>
+
+                <!-- AD 6 -->
+                <div class="earn-card" id="ad-6">
+                    <div style="font-size:36px;flex-shrink:0;">🏏</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Pakistan Cricket Live Updates</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Latest scores, news & PSL 2024 highlights</div>
+                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
+                            <div class="progress-fill" style="width:55%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;flex-shrink:0;">
+                        <div class="earn-amount">+₨0.1</div>
+                        <div class="earn-label">per click</div>
+                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
+                            onclick="openEarningTask(6)">Open ➡️</button>
+                    </div>
+                </div>
+
+                <!-- AD 7 -->
+                <div class="earn-card" id="ad-7">
+                    <div style="font-size:36px;flex-shrink:0;">💊</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Health Tips & Desi Totkay</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Natural remedies & health advice for Pakistanis</div>
+                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
+                            <div class="progress-fill" style="width:38%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;flex-shrink:0;">
+                        <div class="earn-amount">+₨0.1</div>
+                        <div class="earn-label">per click</div>
+                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
+                            onclick="openEarningTask(7)">Open ➡️</button>
+                    </div>
+                </div>
+
+                <!-- AD 8 -->
+                <div class="earn-card" id="ad-8">
+                    <div style="font-size:36px;flex-shrink:0;">🎮</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Free Fire & PUBG Tips 2024</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Gaming tricks, hacks & pro strategies</div>
+                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
+                            <div class="progress-fill" style="width:78%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;flex-shrink:0;">
+                        <div class="earn-amount">+₨0.1</div>
+                        <div class="earn-label">per click</div>
+                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
+                            onclick="openEarningTask(8)">Open ➡️</button>
+                    </div>
+                </div>
+
+                <!-- AD 9 -->
+                <div class="earn-card" id="ad-9">
+                    <div style="font-size:36px;flex-shrink:0;">🍽️</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Pakistani Recipes & Food</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Best desi recipes, biryani, karahi & more!</div>
+                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
+                            <div class="progress-fill" style="width:65%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;flex-shrink:0;">
+                        <div class="earn-amount">+₨0.1</div>
+                        <div class="earn-label">per click</div>
+                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
+                            onclick="openEarningTask(9)">Open ➡️</button>
+                    </div>
+                </div>
+
+                <!-- AD 10 -->
+                <div class="earn-card" id="ad-10">
+                    <div style="font-size:36px;flex-shrink:0;">💻</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Freelancing Guide Pakistan</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Earn dollars from Fiverr & Upwork - Complete guide</div>
+                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
+                            <div class="progress-fill" style="width:82%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;flex-shrink:0;">
+                        <div class="earn-amount">+₨0.1</div>
+                        <div class="earn-label">per click</div>
+                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
+                            onclick="openEarningTask(10)">Open ➡️</button>
+                    </div>
+                </div>
+
+                <!-- AD 11 -->
+                <div class="earn-card" id="ad-11">
+                    <div style="font-size:36px;flex-shrink:0;">📺</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Pakistani Drama & Entertainment</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Latest dramas, movies & shows online free</div>
+                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
+                            <div class="progress-fill" style="width:50%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;flex-shrink:0;">
+                        <div class="earn-amount">+₨0.1</div>
+                        <div class="earn-label">per click</div>
+                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
+                            onclick="openEarningTask(11)">Open ➡️</button>
+                    </div>
+                </div>
+
+                <!-- AD 12 -->
+                <div class="earn-card" id="ad-12">
+                    <div style="font-size:36px;flex-shrink:0;">🚗</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Cars & Bikes Pakistan</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Latest car prices, reviews & buying guide</div>
+                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
+                            <div class="progress-fill" style="width:43%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;flex-shrink:0;">
+                        <div class="earn-amount">+₨0.1</div>
+                        <div class="earn-label">per click</div>
+                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
+                            onclick="openEarningTask(12)">Open ➡️</button>
+                    </div>
+                </div>
+
+                <!-- AD 13 -->
+                <div class="earn-card" id="ad-13">
+                    <div style="font-size:36px;flex-shrink:0;">📰</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Pakistan News Today</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Breaking news, politics & current affairs</div>
+                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
+                            <div class="progress-fill" style="width:95%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;flex-shrink:0;">
+                        <div class="earn-amount">+₨0.1</div>
+                        <div class="earn-label">per click</div>
+                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
+                            onclick="openEarningTask(13)">Open ➡️</button>
+                    </div>
+                </div>
+
+                <!-- AD 14 -->
+                <div class="earn-card" id="ad-14">
+                    <div style="font-size:36px;flex-shrink:0;">🎵</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Pakistani Music & Songs</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Latest Coke Studio, OSTs & trending songs</div>
+                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
+                            <div class="progress-fill" style="width:68%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;flex-shrink:0;">
+                        <div class="earn-amount">+₨0.1</div>
+                        <div class="earn-label">per click</div>
+                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
+                            onclick="openEarningTask(14)">Open ➡️</button>
+                    </div>
+                </div>
+
+                <!-- AD 15 -->
+                <div class="earn-card" id="ad-15">
+                    <div style="font-size:36px;flex-shrink:0;">📚</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:700;font-size:16px;margin-bottom:4px;">Study Material & Past Papers</div>
+                        <div style="color:var(--text-muted);font-size:13px;">Matric, FSc, CSS & university past papers free</div>
+                        <div class="progress-bar" style="width:min(200px,100%);margin-top:10px;">
+                            <div class="progress-fill" style="width:77%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;flex-shrink:0;">
+                        <div class="earn-amount">+₨0.1</div>
+                        <div class="earn-label">per click</div>
+                        <button class="btn btn-primary visit-btn" style="margin-top:10px;padding:8px 16px;font-size:13px;"
+                            onclick="openEarningTask(15)">Open ➡️</button>
+                    </div>
+                </div>
+
+            </div><!-- end ad list -->
+
+            <!-- MAX EARN TODAY -->
+            <div style="margin-top:25px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:12px;padding:16px 22px;text-align:center;">
+                <p style="color:var(--success);font-size:14px;font-weight:600;">
+                    💰 Click all 15 ads today = earn <strong>₨1.50</strong> per day = <strong>₨45/month</strong> guaranteed!
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo" onclick="showPage('home')" style="margin-bottom:8px;">
+                    <div class="logo-icon">💜</div>
+                    <span class="logo-text">Click&EarnPK</span>
+                </div>
+                <p>Pakistan's trusted online earning platform.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a onclick="showPage('earn')">Earn Money</a></li>
+                    <li><a onclick="showPage('withdraw')">Withdraw</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Account</h4>
+                <ul>
+                    <li><a onclick="showPage('login')">Login</a></li>
+                    <li><a onclick="showPage('register')">Register</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Click&EarnPK | Made with 💜 for Pakistan</p>
+        </div>
+    </footer>
+</div>
+
+<!-- ==================== WITHDRAW PAGE ==================== -->
+<div class="page" id="page-withdraw">
+
+    <div class="page-header">
+        <span class="section-tag">💳 Withdraw</span>
+        <h1 class="section-title" style="margin-top:15px;">Get Your <span class="gradient-text">Money Out!</span></h1>
+        <p style="color:var(--text-muted);font-size:16px;">Fast & secure withdrawal via Pakistani payment methods</p>
+    </div>
+
+    <section style="padding:0 20px 80px;">
+        <div class="container">
+            <div class="grid-2">
+
+                <!-- FORM -->
+                <div class="form-box" style="max-width:100%;height:fit-content;">
+                    <h3 style="margin-bottom:8px;font-size:20px;">💸 Request Withdrawal</h3>
+                    <p style="color:var(--text-muted);font-size:13px;margin-bottom:25px;">Minimum: ₨10 | Processed in 24 hours</p>
+
+                    <div class="form-group">
+                        <label>Available Balance</label>
+                        <input type="text" id="wdBalance" value="₨0.00" readonly style="color:var(--success);font-weight:700;font-size:18px;">
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <select id="payMethod" onchange="updateAccountLabel()">
+                            <option value="">-- Select Method --</option>
+                            <option value="jazzcash">📱 JazzCash</option>
+                            <option value="easypaisa">📱 Easypaisa</option>
+                            <option value="bank" disabled>🏦 Bank Transfer — Coming Soon</option>
+                            <option value="usdt">💎 USDT (TRC20)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label id="accountLabel">Account Number</label>
+                        <input type="text" id="accountInput" placeholder="Select method first">
+                    </div>
+                    <div class="form-group">
+                        <label>Amount (PKR)</label>
+                        <input type="number" id="withdrawAmt" placeholder="Minimum ₨10" min="50">
+                    </div>
+                    <button class="btn btn-success" style="width:100%;justify-content:center;padding:15px;font-size:16px;" onclick="submitWithdraw()">
+                        💸 Request Withdrawal
+                    </button>
+                    <p style="color:var(--text-muted);font-size:12px;text-align:center;margin-top:15px;">⚡ Processed within 24 hours</p>
+                </div>
+
+                <!-- RIGHT -->
+                <div>
+                    <div class="card" style="margin-bottom:25px;">
+                        <h3 style="margin-bottom:20px;font-size:18px;">📋 Payment Methods</h3>
+                        <div class="pay-card">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <span style="font-size:24px;">📱</span>
+                                <div>
+                                    <div style="font-weight:600;font-size:14px;">JazzCash</div>
+                                    <div style="color:var(--text-muted);font-size:12px;">Min: ₨10</div>
+                                </div>
+                            </div>
+                            <span class="badge badge-success">⚡ Fast</span>
+                        </div>
+                        <div class="pay-card">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <span style="font-size:24px;">📱</span>
+                                <div>
+                                    <div style="font-weight:600;font-size:14px;">Easypaisa</div>
+                                    <div style="color:var(--text-muted);font-size:12px;">Min: ₨10</div>
+                                </div>
+                            </div>
+                            <span class="badge badge-success">⚡ Fast</span>
+                        </div>
+                        <div class="pay-card">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <span style="font-size:24px;">🏦</span>
+                                <div>
+                                    <div style="font-weight:600;font-size:14px;">Bank Transfer</div>
+                                    <div style="color:var(--text-muted);font-size:12px;">Min: ₨10</div>
+                                </div>
+                            </div>
+                            <span class="badge badge-warning">1-2 Days</span>
+                        </div>
+                        <div class="pay-card" style="margin-bottom:0;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <span style="font-size:24px;">💎</span>
+                                <div>
+                                    <div style="font-weight:600;font-size:14px;">USDT TRC20</div>
+                                    <div style="color:var(--text-muted);font-size:12px;">Min: ₨200</div>
+                                </div>
+                            </div>
+                            <span class="badge badge-success">⚡ Instant</span>
+                        </div>
+                    </div>
+
+                    <div class="table-box">
+                        <div style="padding:18px 22px;border-bottom:1px solid var(--border);">
+                            <h3 style="font-size:16px;">📜 Withdrawal History</h3>
+                        </div>
+                        <div style="overflow-x:auto;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Amount</th>
+                                        <th>Method</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="wdHistory">
+                                    <tr>
+                                        <td colspan="4" style="text-align:center;color:var(--text-muted);padding:30px;">No withdrawals yet</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo" onclick="showPage('home')" style="margin-bottom:8px;">
+                    <div class="logo-icon">💜</div>
+                    <span class="logo-text">Click&EarnPK</span>
+                </div>
+                <p>Pakistan's trusted online earning platform.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a onclick="showPage('earn')">Earn Money</a></li>
+                    <li><a onclick="showPage('withdraw')">Withdraw</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Account</h4>
+                <ul>
+                    <li><a onclick="showPage('login')">Login</a></li>
+                    <li><a onclick="showPage('register')">Register</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Click&EarnPK | Made with 💜 for Pakistan</p>
+        </div>
+    </footer>
 </div>
 
 <!-- ==================== LOGIN PAGE ==================== -->
@@ -904,7 +1504,7 @@
                 <label style="display:flex;align-items:center;gap:8px;color:var(--text-muted);font-size:13px;cursor:pointer;">
                     <input type="checkbox" style="accent-color:var(--primary);"> Remember me
                 </label>
-                <a style="color:var(--accent);font-size:13px;cursor:pointer;" onclick="resetPassword()">Forgot Password?</a>
+                <a id="forgotPasswordLink" style="color:var(--accent);font-size:13px;cursor:pointer;">Forgot Password?</a>
             </div>
             <button class="btn btn-primary" style="width:100%;justify-content:center;padding:15px;font-size:16px;" onclick="doLogin()">
                 🚀 Login to Account
@@ -925,6 +1525,9 @@
                 <div style="font-size:52px;margin-bottom:12px;">🚀</div>
                 <h2 style="font-size:26px;font-weight:800;">Create Account</h2>
                 <p style="color:var(--text-muted);font-size:14px;margin-top:8px;">Join Click&EarnPK and start making money today!</p>
+                <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:8px;padding:8px 15px;margin-top:12px;font-size:13px;color:var(--success);">
+                    🎁 Welcome Bonus: ₨5 on registration!
+                </div>
             </div>
             <div class="form-group">
                 <label>👤 Full Name</label>
@@ -964,40 +1567,27 @@
     <span id="toastMsg">✅ Done!</span>
 </div>
 
-<!-- ==================== JAVASCRIPT / SUPABASE V2 ==================== -->
+<!-- ==================== JAVASCRIPT ==================== -->
 <script>
-    // ==================== SUPABASE CONFIG ====================
-    const SUPABASE_URL = "https://flbruzcmuhhxhakdvour.supabase.co";
-    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_zxLPB_25AgRGB-6GQ0isWg_g_7CXyib";
-    const supabaseClient = window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-    );
+    let currentUser = JSON.parse(localStorage.getItem('epk_user')) || null;
 
-    const TASK_REWARD = 0.10;
-    const MIN_WITHDRAWAL = 10;
-    const TASK_SECONDS = 10;
+    // ===== STATE =====
+    let balance    = parseFloat(localStorage.getItem('epk_balance'))  || 0;
+    let totalClick = parseInt(localStorage.getItem('epk_clicks'))     || 0;
+    let todayEarns = parseFloat(localStorage.getItem('epk_today'))    || 0;
+    let clickedAds = JSON.parse(localStorage.getItem('epk_clicked'))  || {};
 
-    let currentUser = null;
-    let balance = 0;
-    let totalClick = 0;
-        let completedTasks = {};
-    let activeTask = null;
-    let launchingTaskId = null;
-    let taskWasHidden = false;
-    let timerInterval = null;
-    let remainingSeconds = TASK_SECONDS;
-
+    // ===== MONETAG LINKS MAP =====
     const adLinks = {
-        1: 'https://omg10.com/4/7343595',
-        2: 'https://omg10.com/4/7349687',
-        3: 'https://omg10.com/4/7349692',
-        4: 'https://omg10.com/4/7349688',
-        5: 'https://omg10.com/4/7393659',
-        6: 'https://omg10.com/4/7351274',
-        7: 'https://omg10.com/4/7349694',
-        8: 'https://omg10.com/4/7349690',
-        9: 'https://omg10.com/4/7349680',
+        1:  'https://omg10.com/4/7343595',
+        2:  'https://omg10.com/4/7349687',
+        3:  'https://omg10.com/4/7349692',
+        4:  'https://omg10.com/4/7349688',
+        5:  'https://omg10.com/4/7393659',
+        6:  'https://omg10.com/4/7351274',
+        7:  'https://omg10.com/4/7349694',
+        8:  'https://omg10.com/4/7349690',
+        9:  'https://omg10.com/4/7349680',
         10: 'https://omg10.com/4/7346296',
         11: 'https://omg10.com/4/7346296',
         12: 'https://omg10.com/4/7349689',
@@ -1006,25 +1596,24 @@
         15: 'https://omg10.com/4/7393658'
     };
 
+    // ===== PAGE ROUTER =====
     function showPage(name) {
-        if ((name === 'earn' || name === 'withdraw') && !currentUser) {
-            showToast('❌ Please log in first.');
-            showPage('login');
-            return;
+        if ((name === 'earn' || name === 'withdraw') && !currentUser) { 
+            showToast('❌ Please login to access this page');
+            showPage('login'); 
+            return; 
         }
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         const targetPage = document.getElementById('page-' + name);
         if (targetPage) targetPage.classList.add('active');
-
+        
         document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
         const navEl = document.getElementById('nav-' + name);
         if (navEl) navEl.classList.add('active');
-
+        
         window.scrollTo({ top: 0, behavior: 'smooth' });
         if (name === 'withdraw') {
-            const wd = document.getElementById('wdBalance');
-            if (wd) wd.value = '₨' + balance.toFixed(2);
-            loadWithdrawalHistory();
+            document.getElementById('wdBalance').value = '₨' + balance.toFixed(2);
         }
         if (name === 'earn') {
             updateEarnDisplay();
@@ -1032,6 +1621,7 @@
         }
     }
 
+    // ===== MOBILE MENU =====
     function toggleMenu() {
         document.getElementById('hamburger').classList.toggle('active');
         document.getElementById('mobileNav').classList.toggle('open');
@@ -1041,6 +1631,7 @@
         document.getElementById('mobileNav').classList.remove('open');
     }
 
+    // ===== TOAST =====
     function showToast(msg, duration = 3000) {
         const t = document.getElementById('toast');
         document.getElementById('toastMsg').textContent = msg;
@@ -1048,106 +1639,84 @@
         setTimeout(() => t.classList.remove('show'), duration);
     }
 
-    function updateEarnDisplay() {
-        const tc = document.getElementById('totalClicks');
-        const bal = document.getElementById('balance');
-                if (tc) tc.textContent = totalClick;
-        if (bal) bal.textContent = '₨' + balance.toFixed(2);
+    // ===== SAVE =====
+    function saveState() {
+        localStorage.setItem('epk_balance',  balance);
+        localStorage.setItem('epk_clicks',   totalClick);
+        localStorage.setItem('epk_today',    todayEarns);
+        localStorage.setItem('epk_clicked',  JSON.stringify(clickedAds));
+        if (currentUser) {
+            localStorage.setItem('epk_user', JSON.stringify(currentUser));
+        }
     }
 
+    // ===== UPDATE DISPLAY =====
+    function updateEarnDisplay() {
+        const tc  = document.getElementById('totalClicks');
+        const bal = document.getElementById('balance');
+        const te  = document.getElementById('todayEarn');
+        if (tc)  tc.textContent  = totalClick;
+        if (bal) bal.textContent = '₨' + balance.toFixed(2);
+        if (te)  te.textContent  = '₨' + todayEarns.toFixed(2);
+    }
+
+    // ===== RESTORE BUTTONS =====
     function restoreAdButtons() {
         for (let i = 1; i <= 15; i++) {
-            const card = document.getElementById('ad-' + i);
-            const btn = card?.querySelector('.visit-btn');
-            if (!btn) continue;
-            if (completedTasks['ad_' + i]) {
-                btn.textContent = '✅ Completed';
-                btn.disabled = true;
-                btn.style.background = 'linear-gradient(135deg,#059669,#10b981)';
-                card.classList.add('ad-done');
-            } else if (!activeTask || activeTask.id !== i) {
-                btn.textContent = 'Open ➡️';
-                btn.disabled = false;
-                btn.style.background = '';
-                card.classList.remove('ad-done');
+            if (clickedAds['ad_' + i]) {
+                const card = document.getElementById('ad-' + i);
+                const btn  = card?.querySelector('.visit-btn');
+                if (btn) {
+                    btn.textContent = '✅ Done';
+                    btn.style.background = 'linear-gradient(135deg,#059669,#10b981)';
+                    btn.disabled = true;
+                }
+                card?.classList.add('ad-done');
             }
         }
     }
 
-    async function loadProfile() {
-        if (!currentUser) return;
-        const { data, error } = await supabaseClient
-            .from('profiles')
-            .select('balance,total_earned,total_clicks')
-            .eq('id', currentUser.id)
-            .single();
-        if (error) {
-            console.error(error);
-            showToast('❌ Could not load your account.', 5000);
-            return;
+    // ===== DAILY RESET =====
+    function checkDailyReset() {
+        const lastDay = localStorage.getItem('epk_lastday');
+        const today   = new Date().toDateString();
+        if (lastDay !== today) {
+            localStorage.setItem('epk_lastday', today);
+            todayEarns = 0;
+            clickedAds = {};
+            localStorage.setItem('epk_today',   '0');
+            localStorage.setItem('epk_clicked', '{}');
         }
-        balance = Number(data.balance || 0);
-        totalClick = Number(data.total_clicks || 0);
-        updateEarnDisplay();
     }
 
-    async function loadCompletedTasks() {
-        if (!currentUser) return;
-        const { data, error } = await supabaseClient
-            .from('task_completions')
-            .select('task_id,completed_at')
-            .eq('user_id', currentUser.id);
-        if (error) {
-            console.error(error);
-            return;
+    // ===== TIMER =====
+    function startRefreshTimer() {
+        const el = document.getElementById('refreshTimer');
+        if (!el) return;
+        function tick() {
+            const now      = new Date();
+            const midnight = new Date();
+            midnight.setHours(24, 0, 0, 0);
+            const diff = midnight - now;
+            const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
+            const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+            const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+            el.textContent = `${h}:${m}:${s}`;
         }
-        completedTasks = {};
-        (data || []).forEach(row => completedTasks['ad_' + row.task_id] = true);
-        restoreAdButtons();
+        tick();
+        setInterval(tick, 1000);
     }
 
-    async function loadWithdrawalHistory() {
-        if (!currentUser) return;
-        const tbody = document.getElementById('wdHistory');
-        if (!tbody) return;
-        const { data, error } = await supabaseClient
-            .from('withdrawals')
-            .select('amount,method,status,created_at')
-            .eq('user_id', currentUser.id)
-            .order('created_at', { ascending: false });
-        if (error) {
-            console.error(error);
-            return;
-        }
-        if (!data || !data.length) {
-            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:30px;">No withdrawals yet</td></tr>';
-            return;
-        }
-        tbody.innerHTML = data.map(row => {
-            const status = String(row.status || 'pending');
-            const badge = status === 'paid' ? 'badge-success' : status === 'rejected' ? 'badge-danger' : 'badge-warning';
-            return `<tr>
-                <td><strong style="color:var(--success);">₨${Number(row.amount).toFixed(2)}</strong></td>
-                <td>${escapeHtml(row.method)}</td>
-                <td>${new Date(row.created_at).toLocaleDateString('en-PK')}</td>
-                <td><span class="badge ${badge}">${escapeHtml(status.charAt(0).toUpperCase()+status.slice(1))}</span></td>
-            </tr>`;
-        }).join('');
-    }
-
-    function escapeHtml(value) {
-        return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-    }
-
+    // ===== WITHDRAW =====
     function updateAccountLabel() {
         const method = document.getElementById('payMethod').value;
-        const label = document.getElementById('accountLabel');
-        const input = document.getElementById('accountInput');
+        const label  = document.getElementById('accountLabel');
+        const input  = document.getElementById('accountInput');
         const map = {
-            jazzcash: { label: 'JazzCash Number', ph: '03XX-XXXXXXX' },
-            easypaisa: { label: 'Easypaisa Number', ph: '03XX-XXXXXXX' },
-            bank: { label: 'IBAN Number', ph: 'PK00XXXX0000000000000000' },
-            usdt: { label: 'USDT Wallet (TRC20)', ph: 'TXxxxxxxxxxxxxxxxxxxxxxxxxxx' }
+            jazzcash:  { label: 'JazzCash Number',     ph: '0300-0000000' },
+            easypaisa: { label: 'Easypaisa Number',    ph: '0300-0000000' },
+            bank:      { label: 'IBAN Number',         ph: 'PK00XXXX0000000000000000' },
+            usdt:      { label: 'USDT Wallet (TRC20)', ph: 'TXxxxxxxxxxxxxxxxxxxxxxxxxxx' }
         };
         if (map[method]) {
             label.textContent = map[method].label;
@@ -1158,311 +1727,427 @@
         }
     }
 
-    async function submitWithdraw() {
-        if (!currentUser) { showPage('login'); return; }
-        const method = document.getElementById('payMethod').value;
+    function submitWithdraw() {
+        const method  = document.getElementById('payMethod').value;
         const account = document.getElementById('accountInput').value.trim();
-        const amount = parseFloat(document.getElementById('withdrawAmt').value);
+        const amount  = parseFloat(document.getElementById('withdrawAmt').value);
 
-        if (!method) return showToast('❌ Select a payment method!');
-        if (!account) return showToast('❌ Enter your payment account!');
-        if (!amount || amount < MIN_WITHDRAWAL) return showToast('❌ Minimum withdrawal is ₨10!');
-        if (amount > balance) return showToast('❌ Insufficient balance!');
+        if (!method)             { showToast('❌ Select payment method!'); return; }
+        if (!account)            { showToast('❌ Enter account number!'); return; }
+        if (!amount || amount < 50)  { showToast('❌ Minimum withdrawal is ₨10!'); return; }
+        if (amount > balance)    { showToast('❌ Insufficient balance!'); return; }
 
-        try {
-            showToast('⏳ Submitting withdrawal...', 4000);
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (!session) { showPage('login'); return; }
+        balance -= amount;
+        saveState();
+        document.getElementById('wdBalance').value = '₨' + balance.toFixed(2);
 
-            const response = await fetch(`${SUPABASE_URL}/functions/v1/withdrawal`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${session.access_token}`,
-                    'apikey': SUPABASE_PUBLISHABLE_KEY
-                },
-                body: JSON.stringify({ method, account, amount })
-            });
-            const result = await response.json().catch(() => ({}));
-            if (!response.ok) throw new Error(result.error || 'Withdrawal request failed.');
+        const tbody  = document.getElementById('wdHistory');
+        const date   = new Date().toLocaleDateString('en-PK');
+        const newRow = `
+            <tr>
+                <td><strong style="color:var(--success);">₨${amount.toFixed(2)}</strong></td>
+                <td>${method.charAt(0).toUpperCase()+method.slice(1)}</td>
+                <td>${date}</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>`;
+        if (tbody.querySelector('td[colspan]')) tbody.innerHTML = '';
+        tbody.insertAdjacentHTML('afterbegin', newRow);
 
-            document.getElementById('payMethod').value = '';
-            document.getElementById('accountInput').value = '';
-            document.getElementById('withdrawAmt').value = '';
-            await loadProfile();
-            await loadWithdrawalHistory();
-            document.getElementById('wdBalance').value = '₨' + balance.toFixed(2);
-            showToast('✅ Withdrawal request submitted.', 4000);
-        } catch (err) {
-            console.error(err);
-            showToast('❌ ' + err.message, 5000);
-        }
+        document.getElementById('payMethod').value    = '';
+        document.getElementById('accountInput').value = '';
+        document.getElementById('withdrawAmt').value  = '';
+
+        showToast('✅ Withdrawal submitted! Processing in 24hrs', 4000);
     }
 
-    async function resetPassword() {
+    // ===== LOGIN =====
+    function doLogin() {
         const email = document.getElementById('loginEmail').value.trim();
-        if (!email || !email.includes('@')) {
-            return showToast('❌ Enter your account email first.', 4000);
-        }
-        try {
-            showToast('⏳ Sending password reset email...', 4000);
-            const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-                redirectTo: window.location.origin + window.location.pathname
-            });
-            if (error) throw error;
-            showToast('📧 Password reset email sent.', 5000);
-        } catch (err) {
-            console.error(err);
-            showToast('❌ ' + err.message, 5000);
-        }
+        const pass  = document.getElementById('loginPass').value;
+        if (!email || !pass)      { showToast('❌ Fill all fields!'); return; }
+        if (!email.includes('@')) { showToast('❌ Invalid email!'); return; }
+        if (pass.length < 6)      { showToast('❌ Password too short!'); return; }
+        
+        currentUser = { email: email };
+        saveState();
+        showToast('✅ Login successful! Welcome back 💜');
+        setTimeout(() => showPage('earn'), 1500);
     }
 
-    async function doLogin() {
-        const email = document.getElementById('loginEmail').value.trim();
-        const pass = document.getElementById('loginPass').value;
-        if (!email || !pass) return showToast('❌ Please fill in email and password!');
-        if (!email.includes('@')) return showToast('❌ Please enter a valid email!');
-        if (pass.length < 6) return showToast('❌ Password must be at least 6 characters!');
-
-        try {
-            showToast('⏳ Logging in...', 4000);
-            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
-            if (error) {
-                if (error.message.toLowerCase().includes('email not confirmed')) {
-                    showToast('📧 Please confirm your email first.', 5000);
-                } else {
-                    showToast('❌ ' + error.message, 5000);
-                }
-                return;
-            }
-            currentUser = data.user;
-            updateNavAuth();
-            await loadProfile();
-            await loadCompletedTasks();
-            showToast('✅ Login successful.', 3000);
-            setTimeout(() => showPage('earn'), 700);
-        } catch (err) {
-            console.error(err);
-            showToast('❌ Login failed. Please try again.', 5000);
-        }
-    }
-
-    async function doRegister() {
-        const name = document.getElementById('regName').value.trim();
+    // ===== REGISTER =====
+    function doRegister() {
+        const name  = document.getElementById('regName').value.trim();
         const email = document.getElementById('regEmail').value.trim();
         const phone = document.getElementById('regPhone').value.trim();
-        const pass = document.getElementById('regPass').value;
+        const pass  = document.getElementById('regPass').value;
         const terms = document.getElementById('termsCheck').checked;
 
-        if (!name || !email || !phone || !pass) return showToast('❌ Please fill all fields!');
-        if (!email.includes('@')) return showToast('❌ Invalid email!');
-        if (pass.length < 6) return showToast('❌ Password must be at least 6 characters!');
-        if (!terms) return showToast('❌ Accept the Terms first!');
+        if (!name || !email || !phone || !pass) { showToast('❌ Fill all fields!'); return; }
+        if (!email.includes('@'))               { showToast('❌ Invalid email!'); return; }
+        if (pass.length < 6)                    { showToast('❌ Min 6 char password!'); return; }
+        if (!terms)                             { showToast('❌ Accept Terms first!'); return; }
 
-        try {
-            showToast('⏳ Creating account...', 4000);
-            const { data, error } = await supabaseClient.auth.signUp({
-                email,
-                password: pass,
-                options: {
-                    data: { name, phone },
-                    emailRedirectTo: window.location.origin + window.location.pathname
-                }
-            });
-            if (error) {
-                showToast('❌ ' + error.message, 5000);
-                return;
-            }
-
-            const verifyEmailEl = document.getElementById('verifyEmail');
-            if (verifyEmailEl) verifyEmailEl.textContent = email;
-            document.getElementById('regPass').value = '';
-            showPage('verify');
-            showToast('📧 Confirmation email sent.', 5000);
-        } catch (err) {
-            console.error(err);
-            showToast('❌ Registration failed. Please try again.', 5000);
-        }
+        currentUser = { name: name, email: email, phone: phone };
+        
+        const verifyEmailEl = document.getElementById('verifyEmail');
+        if (verifyEmailEl) verifyEmailEl.textContent = email;
+        
+        showToast('📧 Verification code sent!');
+        showPage('verify');
     }
 
-    function updateNavAuth() {
-        const box = document.getElementById('navButtons');
-        if (!box) return;
-        if (currentUser) {
-            box.innerHTML = `<button class="btn btn-outline" onclick="showPage('earn')">Account</button><button class="btn btn-primary" onclick="signOut()">Logout</button>`;
-        } else {
-            box.innerHTML = `<button class="btn btn-outline" onclick="showPage('login')">Login</button><button class="btn btn-primary" onclick="showPage('register')">Join Free</button>`;
-        }
-    }
-
-    async function signOut() {
-        await supabaseClient.auth.signOut();
-        currentUser = null;
-        updateNavAuth();
-        balance = 0;
-        totalClick = 0;
-        completedTasks = {};
-        stopTaskTimer();
-        showToast('✅ Logged out.', 2500);
-        showPage('home');
-    }
-
-    async function startEarningTask(taskId) {
-        if (!currentUser) { showPage('login'); return; }
-        if (completedTasks['ad_' + taskId]) {
-            showToast('✅ This task is already completed.');
+    function verifySignup() {
+        const code = document.getElementById('verifyCode').value.trim();
+        if (code.length !== 6) {
+            showToast('❌ Enter valid 6-digit code');
             return;
         }
-        if (activeTask) {
-            showToast('⏳ Finish the current verification first.');
-            return;
-        }
-
-        const url = adLinks[taskId];
-        if (!url) return showToast('❌ Task link unavailable.');
-
-        // Open the provider page immediately from the user's click so popup blockers are less likely to block it.
-        launchingTaskId = taskId;
-        taskWasHidden = false;
-        window.open(url, '_blank', 'noopener,noreferrer');
-
-        try {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (!session) { showPage('login'); return; }
-
-            const response = await fetch(`${SUPABASE_URL}/functions/v1/start-task`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${session.access_token}`,
-                    'apikey': SUPABASE_PUBLISHABLE_KEY
-                },
-                body: JSON.stringify({ task_id: taskId })
-            });
-            const result = await response.json().catch(() => ({}));
-            if (!response.ok) throw new Error(result.error || 'Could not start task.');
-
-            activeTask = { id: taskId, completionId: result.completion_id || null, returned: false };
-            launchingTaskId = null;
-            remainingSeconds = TASK_SECONDS;
-            // If the new tab caused this page to become hidden, mark it immediately.
-            if (document.visibilityState === 'hidden') taskWasHidden = true;
-            updateTaskButton(taskId, taskWasHidden ? '↩ Return to site…' : 'Waiting for return…', true);
-            if (document.visibilityState === 'visible') {
-                // A popup may have opened without changing visibility. In that case the user must
-                // leave/return before the verification timer can begin.
-                showToast('↩ Opened. Return to Click&EarnPK after visiting the task.', 5000);
-            } else {
-                showToast('↩ Return to Click&EarnPK. The 10-second verification starts when this page is visible again.', 5000);
-            }
-        } catch (err) {
-            console.error(err);
-            activeTask = null;
-            launchingTaskId = null;
-            taskWasHidden = false;
-            showToast('❌ ' + err.message, 5000);
-        }
-    }
-
-    function updateTaskButton(taskId, text, disabled) {
-        const card = document.getElementById('ad-' + taskId);
-        const btn = card?.querySelector('.visit-btn');
-        if (!btn) return;
-        btn.textContent = text;
-        btn.disabled = !!disabled;
-    }
-
-    function beginVisibleTimer() {
-        if (!activeTask || document.visibilityState !== 'visible' || timerInterval) return;
-        // The timer starts only after returning from the external task page.
-        if (!taskWasHidden && !activeTask.returned) return;
-        activeTask.returned = true;
-        taskWasHidden = false;
-        updateTaskButton(activeTask.id, `Verify ${remainingSeconds}s`, true);
-        timerInterval = setInterval(async () => {
-            if (!activeTask || document.visibilityState !== 'visible') return;
-            remainingSeconds -= 1;
-            updateTaskButton(activeTask.id, `Verify ${Math.max(remainingSeconds,0)}s`, true);
-            if (remainingSeconds <= 0) {
-                stopTaskTimer();
-                await completeActiveTask();
-            }
-        }, 1000);
-    }
-
-    function stopTaskTimer() {
-        if (timerInterval) clearInterval(timerInterval);
-        timerInterval = null;
-    }
-
-    async function completeActiveTask() {
-        if (!activeTask || document.visibilityState !== 'visible') return;
-        const taskId = activeTask.id;
-        try {
-            showToast('⏳ Verifying task...', 4000);
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (!session) throw new Error('Your session expired. Please log in again.');
-            const response = await fetch(`${SUPABASE_URL}/functions/v1/complete-task`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${session.access_token}`,
-                    'apikey': SUPABASE_PUBLISHABLE_KEY
-                },
-                body: JSON.stringify({ task_id: taskId, completion_id: activeTask.completionId })
-            });
-            const result = await response.json().catch(() => ({}));
-            if (!response.ok) throw new Error(result.error || 'Task verification failed.');
-            completedTasks['ad_' + taskId] = true;
-            activeTask = null;
-            taskWasHidden = false;
-            launchingTaskId = null;
-            await loadProfile();
-            restoreAdButtons();
-            showToast(`✅ Task completed. ₨${TASK_REWARD.toFixed(2)} added.`, 4000);
-        } catch (err) {
-            console.error(err);
-            activeTask = null;
-            taskWasHidden = false;
-            launchingTaskId = null;
-            restoreAdButtons();
-            showToast('❌ ' + err.message, 5000);
-        }
+        balance += 5;
+        saveState();
+        showToast('🎉 Account created! ₨5 bonus added! 💜', 4000);
+        setTimeout(() => showPage('earn'), 1500);
     }
 
     function openEarningTask(adId) {
-        startEarningTask(adId);
+        showToast('ℹ️ This earning task is currently pending provider approval. No reward was credited.', 4000);
     }
 
-    document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible') {
-            if (activeTask && taskWasHidden) beginVisibleTimer();
-        } else {
-            // The verification timer stops immediately while Click&EarnPK is hidden.
-            if (launchingTaskId || activeTask) taskWasHidden = true;
-            stopTaskTimer();
-        }
-    });
-
-    window.addEventListener('load', async () => {
-        const { data } = await supabaseClient.auth.getSession();
-        currentUser = data.session?.user || null;
-        supabaseClient.auth.onAuthStateChange(async (_event, session) => {
-            currentUser = session?.user || null;
-            updateNavAuth();
-            if (currentUser) {
-                await loadProfile();
-                await loadCompletedTasks();
-            }
-        });
-        updateNavAuth();
-        if (currentUser) {
-            await loadProfile();
-            await loadCompletedTasks();
-        }
+    // ===== INIT =====
+    window.addEventListener('load', () => {
+        checkDailyReset();
         updateEarnDisplay();
+        restoreAdButtons();
+        startRefreshTimer();
     });
 </script>
 
+<script>
+/* =========================================================
+   Click&EarnPK — Supabase production frontend layer
+   Backend functions expected:
+     start-task
+     complete-task
+     withdrawal
+   ========================================================= */
+(function () {
+  const SUPABASE_URL = "https://flbruzcmuhhxhakdvour.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_zxLPB_25AgRGB-6GQ0isWg_g_7CXyib";
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+  });
+  window.clickEarnSupabase = sb;
+
+  const TASK_URLS = {
+    1:'https://omg10.com/4/7343595', 2:'https://omg10.com/4/7349687', 3:'https://omg10.com/4/7349692',
+    4:'https://omg10.com/4/7349688', 5:'https://omg10.com/4/7393659', 6:'https://omg10.com/4/7351274',
+    7:'https://omg10.com/4/7349694', 8:'https://omg10.com/4/7349690', 9:'https://omg10.com/4/7349680',
+    10:'https://omg10.com/4/7346296', 11:'https://omg10.com/4/7346296', 12:'https://omg10.com/4/7349689',
+    13:'https://omg10.com/4/7345679', 14:'https://omg10.com/4/7382951', 15:'https://omg10.com/4/7393658'
+  };
+
+  let activeTask = null;
+  let taskSeconds = 0;
+  let taskTimer = null;
+  let completionId = null;
+  let profileCache = null;
+
+  function toast(msg, ms=3500) {
+    if (typeof showToast === 'function') showToast(msg, ms);
+  }
+
+  function setBalanceUI() {
+    const b = Number(profileCache?.balance || 0);
+    const earned = Number(profileCache?.total_earned || 0);
+    const clicks = Number(profileCache?.total_clicks || 0);
+    const bal = document.getElementById('balance');
+    const wd = document.getElementById('wdBalance');
+    const te = document.getElementById('todayEarn');
+    const tc = document.getElementById('totalClicks');
+    if (bal) bal.textContent = '₨' + b.toFixed(2);
+    if (wd) wd.value = '₨' + b.toFixed(2);
+    if (te) te.textContent = '₨' + earned.toFixed(2);
+    if (tc) tc.textContent = String(clicks);
+  }
+
+  async function getUser() {
+    const { data, error } = await sb.auth.getUser();
+    if (error) return null;
+    return data.user || null;
+  }
+
+  async function loadProfile() {
+    const user = await getUser();
+    if (!user) { profileCache = null; setBalanceUI(); return null; }
+    const { data, error } = await sb.from('profiles').select('*').eq('id', user.id).maybeSingle();
+    if (error) { console.error(error); toast('❌ Could not load your account.', 5000); return null; }
+    profileCache = data || { balance:0, total_earned:0, total_clicks:0 };
+    if (typeof currentUser !== 'undefined') currentUser = user;
+    if (typeof balance !== 'undefined') balance = Number(profileCache.balance || 0);
+    if (typeof totalClick !== 'undefined') totalClick = Number(profileCache.total_clicks || 0);
+    setBalanceUI();
+    return profileCache;
+  }
+
+  async function loadCompletedTasks() {
+    const user = await getUser();
+    if (!user) return;
+    const { data, error } = await sb.from('task_completions').select('task_id, completed_at').eq('user_id', user.id);
+    if (error) { console.error(error); return; }
+    (data || []).forEach(row => markTaskDone(Number(row.task_id)));
+  }
+
+  function markTaskDone(id) {
+    const card = document.getElementById('ad-' + id);
+    const btn = card?.querySelector('.visit-btn');
+    if (!btn) return;
+    btn.textContent = '✅ Completed';
+    btn.disabled = true;
+    btn.style.opacity = '.65';
+    btn.style.cursor = 'not-allowed';
+    card?.classList.add('ad-done');
+  }
+
+  function updateTaskTimerUI() {
+    const card = activeTask ? document.getElementById('ad-' + activeTask) : null;
+    const btn = card?.querySelector('.visit-btn');
+    if (!btn) return;
+    if (document.visibilityState === 'visible') {
+      const remaining = Math.max(0, 10 - taskSeconds);
+      btn.textContent = remaining > 0 ? `⏳ Verify ${remaining}s` : '⏳ Crediting...';
+    } else {
+      btn.textContent = '↩️ Return to verify';
+    }
+  }
+
+  function stopTaskTimer() {
+    if (taskTimer) clearInterval(taskTimer);
+    taskTimer = null;
+  }
+
+  async function finishTask() {
+    stopTaskTimer();
+    if (!activeTask || !completionId) return;
+    const task = activeTask;
+    const completion = completionId;
+    activeTask = null;
+    completionId = null;
+    try {
+      toast('⏳ Verifying task...', 2500);
+      const { data, error } = await sb.functions.invoke('complete-task', {
+        body: { task_id: task, completion_id: completion, visible_seconds: taskSeconds }
+      });
+      if (error) throw error;
+      await loadProfile();
+      markTaskDone(task);
+      toast('✅ Reward credited to your balance!', 4000);
+    } catch (e) {
+      console.error('complete-task:', e);
+      toast('❌ Task could not be verified. Please try again.', 5000);
+      const card = document.getElementById('ad-' + task);
+      const btn = card?.querySelector('.visit-btn');
+      if (btn) { btn.disabled = false; btn.textContent = 'Open ➡️'; btn.style.opacity = ''; btn.style.cursor = ''; }
+    }
+    taskSeconds = 0;
+  }
+
+  function startVisibleTimer() {
+    if (!activeTask || completionId || taskTimer) return;
+    if (document.visibilityState !== 'visible') return;
+    taskTimer = setInterval(() => {
+      if (document.visibilityState !== 'visible') return;
+      taskSeconds++;
+      updateTaskTimerUI();
+      if (taskSeconds >= 10) finishTask();
+    }, 1000);
+    updateTaskTimerUI();
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (!activeTask) return;
+    updateTaskTimerUI();
+    if (document.visibilityState === 'visible') startVisibleTimer();
+  });
+
+  window.openEarningTask = async function (taskId) {
+    const user = await getUser();
+    if (!user) { toast('❌ Please login first.', 4000); showPage('login'); return; }
+    if (activeTask) { toast('⏳ Finish your current task first.'); return; }
+    if (document.getElementById('ad-' + taskId)?.querySelector('.visit-btn')?.disabled) return;
+
+    try {
+      toast('⏳ Starting task...');
+      const { data, error } = await sb.functions.invoke('start-task', { body: { task_id: taskId } });
+      if (error) throw error;
+      completionId = data?.completion_id || data?.id || null;
+      if (!completionId) throw new Error('No completion id returned');
+      activeTask = taskId;
+      taskSeconds = 0;
+      const card = document.getElementById('ad-' + taskId);
+      const btn = card?.querySelector('.visit-btn');
+      if (btn) { btn.disabled = true; btn.textContent = '↗️ Return here after visiting'; }
+      window.open(TASK_URLS[taskId], '_blank', 'noopener,noreferrer');
+      toast('↩️ Return to Click&EarnPK. Your 10-second verification starts when this tab is visible.', 6000);
+      if (document.visibilityState === 'visible') startVisibleTimer();
+    } catch (e) {
+      console.error('start-task:', e);
+      toast('❌ Could not start this task. The task service may not be deployed yet.', 6000);
+    }
+  };
+
+  window.submitWithdraw = async function () {
+    const method = document.getElementById('payMethod')?.value;
+    const account = document.getElementById('accountInput')?.value.trim();
+    const amount = Number(document.getElementById('withdrawAmt')?.value);
+    const user = await getUser();
+    if (!user) { toast('❌ Please login first.'); showPage('login'); return; }
+    if (!method) return toast('❌ Select payment method!');
+    if (!account) return toast('❌ Enter your payment account!');
+    if (!Number.isFinite(amount) || amount < 10) return toast('❌ Minimum withdrawal is ₨10!');
+    if (amount > Number(profileCache?.balance || 0)) return toast('❌ Insufficient balance!');
+    try {
+      toast('⏳ Submitting withdrawal...', 3000);
+      const { error } = await sb.functions.invoke('withdrawal', {
+        body: { method, account, amount }
+      });
+      if (error) throw error;
+      document.getElementById('payMethod').value = '';
+      document.getElementById('accountInput').value = '';
+      document.getElementById('withdrawAmt').value = '';
+      await loadProfile();
+      await loadWithdrawals();
+      toast('✅ Withdrawal request submitted.', 4500);
+    } catch (e) {
+      console.error('withdrawal:', e);
+      toast('❌ Withdrawal could not be submitted. Please try again.', 5000);
+    }
+  };
+
+  async function loadWithdrawals() {
+    const user = await getUser();
+    const tbody = document.getElementById('wdHistory');
+    if (!user || !tbody) return;
+    const { data, error } = await sb.from('withdrawals').select('amount, method, status, created_at').eq('user_id', user.id).order('created_at', { ascending:false });
+    if (error) { console.error(error); return; }
+    if (!data?.length) {
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:30px;">No withdrawals yet</td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map(w => {
+      const status = String(w.status || 'pending');
+      const badge = status === 'paid' ? 'badge-success' : status === 'rejected' ? 'badge-danger' : 'badge-warning';
+      const label = status.charAt(0).toUpperCase() + status.slice(1);
+      const date = new Date(w.created_at).toLocaleDateString('en-PK');
+      return `<tr><td><strong style="color:var(--success);">₨${Number(w.amount).toFixed(2)}</strong></td><td>${escapeHtml(w.method)}</td><td>${date}</td><td><span class="badge ${badge}">${label}</span></td></tr>`;
+    }).join('');
+  }
+
+  function escapeHtml(v) { return String(v).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
+
+  window.doLogin = async function () {
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass = document.getElementById('loginPass').value;
+    if (!email || !pass) return toast('❌ Please fill in email and password!');
+    try {
+      toast('⏳ Logging in...', 2500);
+      const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+      if (error) {
+        if (/not confirmed|email.*confirm/i.test(error.message)) return toast('📧 Please verify your email first.', 5000);
+        throw error;
+      }
+      currentUser = data.user;
+      await loadProfile();
+      await loadCompletedTasks();
+      await loadWithdrawals();
+      toast('✅ Login successful.', 3000);
+      setTimeout(() => showPage('earn'), 700);
+    } catch (e) { console.error(e); toast('❌ ' + (e.message || 'Login failed.'), 5000); }
+  };
+
+  window.doRegister = async function () {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const phone = document.getElementById('regPhone').value.trim();
+    const pass = document.getElementById('regPass').value;
+    const terms = document.getElementById('termsCheck').checked;
+    if (!name || !email || !phone || !pass) return toast('❌ Fill all fields!');
+    if (pass.length < 6) return toast('❌ Password must be at least 6 characters!');
+    if (!terms) return toast('❌ Accept Terms first!');
+    try {
+      toast('⏳ Creating account...', 3000);
+      const redirect = window.location.href.split('#')[0];
+      const { data, error } = await sb.auth.signUp({
+        email, password: pass,
+        options: { data: { name, phone }, emailRedirectTo: redirect }
+      });
+      if (error) throw error;
+      const ve = document.getElementById('verifyEmail'); if (ve) ve.textContent = email;
+      toast('📧 Verification email sent. Check your inbox.', 6000);
+      showPage('verify');
+    } catch (e) { console.error(e); toast('❌ ' + (e.message || 'Signup failed.'), 6000); }
+  };
+
+  window.verifySignup = async function () {
+    const email = document.getElementById('regEmail')?.value.trim();
+    if (!email) return toast('❌ Enter your signup email first.');
+    try {
+      const { error } = await sb.auth.resend({ type:'signup', email, options:{ emailRedirectTo:window.location.href.split('#')[0] } });
+      if (error) throw error;
+      toast('📧 A new verification email was sent.', 5000);
+    } catch (e) { console.error(e); toast('❌ ' + (e.message || 'Could not resend email.'), 5000); }
+  };
+
+  window.doLogout = async function () {
+    await sb.auth.signOut();
+    currentUser = null; profileCache = null; balance = 0; totalClick = 0;
+    setBalanceUI();
+    toast('✅ Logged out.', 2500);
+    showPage('home');
+  };
+
+  window.saveState = function () {};
+  window.checkDailyReset = function () {};
+  window.startRefreshTimer = function () {
+    const el = document.getElementById('refreshTimer');
+    if (el) el.textContent = 'No daily limit';
+  };
+  window.restoreAdButtons = function () { loadCompletedTasks(); };
+  window.updateEarnDisplay = function () { setBalanceUI(); };
+
+  const forgot = document.getElementById('forgotPasswordLink');
+  if (forgot) forgot.onclick = async function () {
+    const email = document.getElementById('loginEmail').value.trim();
+    if (!email) return toast('❌ Enter your email first.');
+    try {
+      const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo:window.location.href.split('#')[0] });
+      if (error) throw error;
+      toast('📧 Password reset email sent.', 5000);
+    } catch (e) { toast('❌ ' + (e.message || 'Could not send reset email.'), 5000); }
+  };
+
+  const oldWithdrawText = document.querySelector('#page-withdraw .form-box p');
+  if (oldWithdrawText) oldWithdrawText.textContent = 'Minimum: ₨10 | Processed after review';
+  document.querySelectorAll('#page-withdraw .pay-card div div div').forEach(el => {
+    if (/Min: ₨50/.test(el.textContent)) el.textContent = 'Min: ₨10';
+  });
+
+  sb.auth.onAuthStateChange(async (_event, session) => {
+    currentUser = session?.user || null;
+    if (session?.user) {
+      await loadProfile();
+      await loadCompletedTasks();
+      await loadWithdrawals();
+    } else {
+      profileCache = null; setBalanceUI();
+    }
+  });
+
+  window.addEventListener('load', async () => {
+    document.querySelectorAll('[id^="ad-"] .visit-btn').forEach(btn => { btn.disabled = false; btn.style.opacity = ''; });
+    const user = await getUser();
+    if (user) { currentUser = user; await loadProfile(); await loadCompletedTasks(); await loadWithdrawals(); }
+    setBalanceUI();
+  });
+})();
+</script>
 </body>
 </html>
