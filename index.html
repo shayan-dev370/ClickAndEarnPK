@@ -3,103 +3,132 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Click&Earn - Earn Money Online</title>
+  <title>Click&Earn PKR - Earn Money Online</title>
+  <!-- Supabase JS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Tailwind CSS Framework -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-900 text-white min-h-screen font-sans">
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans flex flex-col justify-between">
 
-  <!-- Header / Navbar -->
-  <nav class="bg-slate-800 border-b border-slate-700 p-4 sticky top-0 z-50">
-    <div class="max-w-4xl mx-auto flex justify-between items-center">
-      <h1 class="text-xl font-bold text-emerald-400">Click&Earn <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded">PKR</span></h1>
+  <!-- NAVIGATION BAR -->
+  <header class="bg-slate-800/90 backdrop-blur-md border-b border-slate-700/80 sticky top-0 z-50 shadow-md">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center text-slate-950 font-black text-lg">C</div>
+        <span class="text-xl font-black tracking-tight text-white">Click&Earn <span class="text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-bold">PKR</span></span>
+      </div>
+
+      <!-- Logged-in User Header Options -->
       <div id="nav-user" class="hidden flex items-center gap-4">
-        <span class="text-sm font-medium">Balance: <span id="user-balance" class="text-emerald-400 font-bold">PKR 0.00</span></span>
-        <button onclick="logout()" class="text-xs bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded text-white font-semibold">Logout</button>
+        <div class="bg-slate-900/80 border border-slate-700 px-3 py-1.5 rounded-lg flex items-center gap-2 text-sm">
+          <span class="text-slate-400 font-medium text-xs">Balance:</span>
+          <span id="user-balance" class="text-emerald-400 font-extrabold text-sm">PKR 0.00</span>
+        </div>
+        <button onclick="logout()" class="text-xs bg-red-600/20 hover:bg-red-600 border border-red-500/30 text-red-300 hover:text-white px-3 py-2 rounded-lg font-bold transition">
+          Logout
+        </button>
       </div>
     </div>
-  </nav>
+  </header>
 
-  <div class="max-w-3xl mx-auto p-4 mt-4">
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full">
 
-    <!-- Status Alert Box -->
-    <div id="alert-box" class="hidden p-4 mb-4 rounded-lg text-sm font-semibold border"></div>
+    <!-- GLOBAL ALERT BANNER -->
+    <div id="alert-box" class="hidden p-4 mb-6 rounded-xl text-sm font-semibold border shadow-lg transition-all duration-300"></div>
 
-    <!-- AUTH SECTION (Signup / Login) -->
-    <div id="auth-box" class="max-w-md mx-auto bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl">
+    <!-- 1. AUTHENTICATION SECTION (SIGNUP / LOGIN) -->
+    <section id="auth-box" class="max-w-md mx-auto bg-slate-800/90 p-6 sm:p-8 rounded-2xl border border-slate-700/80 shadow-2xl">
+      <div class="text-center mb-6">
+        <h2 class="text-2xl font-black text-white">Welcome to Click&Earn</h2>
+        <p class="text-xs text-slate-400 mt-1">Complete simple ad tasks and earn real PKR cash.</p>
+      </div>
+
+      <!-- Auth Tab Switches -->
       <div class="flex border-b border-slate-700 mb-6">
-        <button id="tab-login-btn" onclick="switchTab('login')" class="flex-1 py-2 font-semibold text-emerald-400 border-b-2 border-emerald-400">Login</button>
-        <button id="tab-signup-btn" onclick="switchTab('signup')" class="flex-1 py-2 font-semibold text-slate-400">Sign Up</button>
+        <button id="tab-login-btn" onclick="switchTab('login')" class="flex-1 py-2.5 font-bold text-emerald-400 border-b-2 border-emerald-400 transition">Login</button>
+        <button id="tab-signup-btn" onclick="switchTab('signup')" class="flex-1 py-2.5 font-bold text-slate-400 transition">Sign Up</button>
       </div>
 
       <!-- Login Form -->
       <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
         <div>
-          <label class="block text-xs font-semibold text-slate-400 mb-1">Email</label>
-          <input type="email" id="login-email" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm focus:outline-none focus:border-emerald-500 text-white">
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Email Address</label>
+          <input type="email" id="login-email" required placeholder="you@example.com" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-white placeholder-slate-500">
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-400 mb-1">Password</label>
-          <input type="password" id="login-password" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm focus:outline-none focus:border-emerald-500 text-white">
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Password</label>
+          <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-white placeholder-slate-500">
         </div>
-        <button type="submit" id="btn-login-submit" class="w-full bg-emerald-600 hover:bg-emerald-500 py-2.5 rounded font-bold text-sm transition">Login to Dashboard</button>
+        <button type="submit" id="btn-login-submit" class="w-full bg-emerald-600 hover:bg-emerald-500 py-3 rounded-xl font-bold text-sm text-slate-950 transition shadow-lg shadow-emerald-900/30">
+          Login to Dashboard
+        </button>
       </form>
 
       <!-- Signup Form -->
       <form id="signup-form" onsubmit="handleSignup(event)" class="space-y-4 hidden">
         <div>
-          <label class="block text-xs font-semibold text-slate-400 mb-1">Full Name</label>
-          <input type="text" id="signup-name" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm focus:outline-none focus:border-emerald-500 text-white">
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Full Name</label>
+          <input type="text" id="signup-name" required placeholder="John Doe" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-white placeholder-slate-500">
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-400 mb-1">Phone Number (Easypaisa/JazzCash)</label>
-          <input type="text" id="signup-phone" placeholder="03001234567" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm focus:outline-none focus:border-emerald-500 text-white">
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Mobile Account No. (Easypaisa/JazzCash)</label>
+          <input type="text" id="signup-phone" placeholder="03001234567" required class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-white placeholder-slate-500">
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-400 mb-1">Email</label>
-          <input type="email" id="signup-email" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm focus:outline-none focus:border-emerald-500 text-white">
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Email Address</label>
+          <input type="email" id="signup-email" required placeholder="you@example.com" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-white placeholder-slate-500">
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-400 mb-1">Password</label>
-          <input type="password" id="signup-password" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm focus:outline-none focus:border-emerald-500 text-white">
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Password</label>
+          <input type="password" id="signup-password" required placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-white placeholder-slate-500">
         </div>
-        <button type="submit" id="btn-signup-submit" class="w-full bg-emerald-600 hover:bg-emerald-500 py-2.5 rounded font-bold text-sm transition">Create Account</button>
+        <button type="submit" id="btn-signup-submit" class="w-full bg-emerald-600 hover:bg-emerald-500 py-3 rounded-xl font-bold text-sm text-slate-950 transition shadow-lg shadow-emerald-900/30">
+          Create Account
+        </button>
       </form>
-    </div>
+    </section>
 
-    <!-- MAIN DASHBOARD -->
-    <div id="dashboard" class="hidden space-y-6">
+    <!-- 2. MAIN DASHBOARD SECTION -->
+    <section id="dashboard" class="hidden space-y-6">
 
       <!-- Navigation Tabs -->
-      <div class="flex border-b border-slate-700 mb-4">
-        <button id="dash-tasks-btn" onclick="switchDashboardTab('tasks')" class="flex-1 py-2.5 font-bold text-emerald-400 border-b-2 border-emerald-400">Available Tasks (16)</button>
-        <button id="dash-withdraw-btn" onclick="switchDashboardTab('withdraw')" class="flex-1 py-2.5 font-bold text-slate-400">Withdraw Funds</button>
+      <div class="flex border-b border-slate-700 bg-slate-800/50 p-1 rounded-xl border">
+        <button id="dash-tasks-btn" onclick="switchDashboardTab('tasks')" class="flex-1 py-3 font-bold text-emerald-400 bg-slate-800 border border-slate-700 rounded-lg transition shadow">Available Tasks (16)</button>
+        <button id="dash-withdraw-btn" onclick="switchDashboardTab('withdraw')" class="flex-1 py-3 font-bold text-slate-400 transition">Withdraw Funds</button>
       </div>
 
       <!-- TASKS TAB -->
       <div id="tasks-section" class="space-y-4">
-        <p class="text-xs text-slate-400 bg-slate-800 p-3 rounded-lg border border-slate-700">
-          ⚠️ <strong class="text-slate-200">Rules:</strong> Click a task to open the ad link. Stay on the opened ad tab for at least <span class="text-emerald-400 font-bold">30 seconds</span>. Returning early will immediately cancel your reward! Each task has a 2-minute cooldown.
-        </p>
+        <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex items-start gap-3">
+          <span class="text-xl">⚠️</span>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            <strong class="text-white font-bold">Rule Instructions:</strong> Click on any task button below to open an advertisement. You must remain on the ad tab for at least <span class="text-emerald-400 font-bold">30 seconds</span>. If you return to this page earlier than 30 seconds, the reward will be cancelled! Completed tasks undergo a 2-minute cooldown.
+          </p>
+        </div>
 
-        <div id="tasks-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- Task cards generated dynamically by JS -->
+        <!-- Dynamic Tasks Grid -->
+        <div id="tasks-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Dynamically populated via JS -->
         </div>
       </div>
 
       <!-- WITHDRAWAL TAB -->
-      <div id="withdraw-section" class="hidden bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl space-y-4 max-w-md mx-auto">
-        <h3 class="text-base font-bold text-slate-200">Request Withdrawal (Pakistani Local)</h3>
-        <p class="text-xs text-slate-400">Minimum withdrawal amount is <span class="text-emerald-400 font-bold">PKR 10.00</span>.</p>
+      <div id="withdraw-section" class="hidden max-w-md mx-auto bg-slate-800/90 p-6 sm:p-8 rounded-2xl border border-slate-700 shadow-xl space-y-5">
+        <div>
+          <h3 class="text-lg font-bold text-white">Request Payout</h3>
+          <p class="text-xs text-slate-400 mt-0.5">Minimum payout limit is <span class="text-emerald-400 font-bold">PKR 10.00</span>.</p>
+        </div>
         
-        <form onsubmit="handleWithdrawal(event)" class="space-y-3">
+        <form onsubmit="handleWithdrawal(event)" class="space-y-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Amount (Min PKR 10)</label>
-            <input type="number" id="withdraw-amount" min="10" step="0.1" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm text-white">
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Amount (PKR)</label>
+            <input type="number" id="withdraw-amount" min="10" step="0.1" required placeholder="Minimum 10" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Payment Method</label>
-            <select id="withdraw-method" class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm text-slate-200">
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Select Payment Provider</label>
+            <select id="withdraw-method" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-emerald-500">
               <option value="Easypaisa">Easypaisa</option>
               <option value="JazzCash">JazzCash</option>
               <option value="Nayapay">Nayapay</option>
@@ -107,26 +136,35 @@
             </select>
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Account Number / IBAN</label>
-            <input type="text" id="withdraw-account" placeholder="03001234567" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm text-white">
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Account Number / IBAN</label>
+            <input type="text" id="withdraw-account" placeholder="03001234567" required class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Account Title / Name</label>
-            <input type="text" id="withdraw-name" required class="w-full bg-slate-900 border border-slate-700 p-2.5 rounded text-sm text-white">
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Account Holder Title</label>
+            <input type="text" id="withdraw-name" placeholder="Full Account Name" required class="w-full bg-slate-900 border border-slate-700 p-3 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500">
           </div>
-          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 py-2.5 rounded font-bold text-sm transition">Submit Withdrawal Request</button>
+          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 py-3 rounded-xl font-bold text-sm text-white transition shadow-lg shadow-blue-900/30">
+            Submit Withdrawal Request
+          </button>
         </form>
       </div>
 
-    </div>
+    </section>
 
-  </div>
+  </main>
 
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 border-t border-slate-800 py-4 text-center text-xs text-slate-500">
+    <p>&copy; Click&Earn PKR. All rights reserved.</p>
+  </footer>
+
+  <!-- APPLICATION LOGIC & SUPABASE INTEGRATION -->
   <script>
     const SUPABASE_URL = "https://flbruzcmuhhxhakdvour.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_zxLPB_25AgRGB-6GQ0isWg_g_7CXyib";
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+    // 16 MONETAG DIRECT LINKS
     const MONETAG_LINKS = [
       "https://omg10.com/4/7349692", "https://omg10.com/4/7349688",
       "https://omg10.com/4/7393659", "https://omg10.com/4/7343595",
@@ -168,15 +206,15 @@
         const isCooldown = taskCooldowns[taskId] && Date.now() < taskCooldowns[taskId];
 
         grid.innerHTML += `
-          <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow flex flex-col justify-between space-y-3">
+          <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 shadow flex flex-col justify-between space-y-3">
             <div class="flex justify-between items-center">
-              <span class="font-bold text-slate-200">Ad Task #${taskId}</span>
-              <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold">+PKR 0.10</span>
+              <span class="font-bold text-slate-200 text-sm">Ad Task #${taskId}</span>
+              <span class="text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-bold">+PKR 0.10</span>
             </div>
             <button id="task-btn-${taskId}" onclick="startTask(${taskId}, '${link}')" 
               ${isCooldown ? 'disabled' : ''}
-              class="w-full ${isCooldown ? 'bg-slate-700 text-slate-400 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-500 text-white'} py-2 rounded-lg font-bold text-xs transition">
-              ${isCooldown ? 'In Cooldown' : 'Open Ad & Earn (30s)'}
+              class="w-full ${isCooldown ? 'bg-slate-700 text-slate-400 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-black'} py-2.5 rounded-lg text-xs transition">
+              ${isCooldown ? 'In Cooldown (2m)' : 'Open Ad & Earn (30s)'}
             </button>
           </div>
         `;
@@ -187,13 +225,13 @@
       if (tab === 'login') {
         document.getElementById('login-form').classList.remove('hidden');
         document.getElementById('signup-form').classList.add('hidden');
-        document.getElementById('tab-login-btn').className = "flex-1 py-2 font-semibold text-emerald-400 border-b-2 border-emerald-400";
-        document.getElementById('tab-signup-btn').className = "flex-1 py-2 font-semibold text-slate-400";
+        document.getElementById('tab-login-btn').className = "flex-1 py-2.5 font-bold text-emerald-400 border-b-2 border-emerald-400 transition";
+        document.getElementById('tab-signup-btn').className = "flex-1 py-2.5 font-bold text-slate-400 transition";
       } else {
         document.getElementById('login-form').classList.add('hidden');
         document.getElementById('signup-form').classList.remove('hidden');
-        document.getElementById('tab-signup-btn').className = "flex-1 py-2 font-semibold text-emerald-400 border-b-2 border-emerald-400";
-        document.getElementById('tab-login-btn').className = "flex-1 py-2 font-semibold text-slate-400";
+        document.getElementById('tab-signup-btn').className = "flex-1 py-2.5 font-bold text-emerald-400 border-b-2 border-emerald-400 transition";
+        document.getElementById('tab-login-btn').className = "flex-1 py-2.5 font-bold text-slate-400 transition";
       }
     }
 
@@ -201,13 +239,13 @@
       if (tab === 'tasks') {
         document.getElementById('tasks-section').classList.remove('hidden');
         document.getElementById('withdraw-section').classList.add('hidden');
-        document.getElementById('dash-tasks-btn').className = "flex-1 py-2.5 font-bold text-emerald-400 border-b-2 border-emerald-400";
-        document.getElementById('dash-withdraw-btn').className = "flex-1 py-2.5 font-bold text-slate-400";
+        document.getElementById('dash-tasks-btn').className = "flex-1 py-3 font-bold text-emerald-400 bg-slate-800 border border-slate-700 rounded-lg transition shadow";
+        document.getElementById('dash-withdraw-btn').className = "flex-1 py-3 font-bold text-slate-400 transition";
       } else {
         document.getElementById('tasks-section').classList.add('hidden');
         document.getElementById('withdraw-section').classList.remove('hidden');
-        document.getElementById('dash-withdraw-btn').className = "flex-1 py-2.5 font-bold text-emerald-400 border-b-2 border-emerald-400";
-        document.getElementById('dash-tasks-btn').className = "flex-1 py-2.5 font-bold text-slate-400";
+        document.getElementById('dash-withdraw-btn').className = "flex-1 py-3 font-bold text-emerald-400 bg-slate-800 border border-slate-700 rounded-lg transition shadow";
+        document.getElementById('dash-tasks-btn').className = "flex-1 py-3 font-bold text-slate-400 transition";
       }
     }
 
